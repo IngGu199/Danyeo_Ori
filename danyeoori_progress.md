@@ -15,8 +15,8 @@
 | 완료 | 축제 달력 UI | 월간 달력과 선택 날짜 상세 패널 구성 |
 | 완료 | 커뮤니티 UI | 축제 태그 기반 게시판과 작성 폼 구성 |
 | 완료 | 반응형 스타일 초안 | 데스크톱·태블릿·모바일 대응 CSS 구성 |
-| 미착수 | Next.js 모노레포 | `apps/web`, `packages`, `turbo.json` 등 없음 |
-| 미착수 | 동적 기능 | 필터, 달력, 게시글, 게임, 룰렛은 정적 UI 상태 |
+| 완료 | Next.js 웹 모노레포 초안 | `danyeo_ori_web_app/`에 Turborepo, `apps/web`, 공유 `packages` 구성 |
+| 진행 | 동적 기능 | 축제 필터·찜, 달력 날짜 선택, 게시글 작성, 룰렛 상태를 클라이언트 상태로 전환. 실제 DB·보상 연동은 미착수 |
 | 미착수 | Supabase | 인증, DB, RLS, Edge Functions 없음 |
 | 미착수 | 관리자·모바일 | 관리자 페이지와 Expo 앱 없음 |
 
@@ -24,8 +24,7 @@
 
 ## 다음 작업
 
-1. 기존 문서와 정적 UI 프로토타입을 기준 자산으로 보존한다.
-2. 루트에 Turborepo 모노레포 구조를 생성한다.
-3. `apps/web`에 Next.js·TypeScript·Tailwind CSS 기반 웹 프로젝트를 구성한다.
-4. 정적 HTML의 정보 구조와 디자인을 React 컴포넌트로 전환한다.
-5. 랜딩페이지에 사전예약 CTA와 입력 폼을 추가한다.
+1. `danyeo_ori_web_app/`의 웹 MVP에 Supabase Auth와 사전예약 저장을 연결한다.
+2. `festivals`, `pre_registrations`, `game_attempts` 테이블과 RLS 정책을 설계한다.
+3. 포인트·룰렛 보상 확정은 Edge Function에서 검증·기록하도록 구현한다.
+4. Expo 앱을 추가하고 공유 타입·상수를 연결한다.

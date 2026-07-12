@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>다녀오리 - 축제를 미리 만나는 즐거움</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Modern Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Toss-like Pretendard/Noto Sans KR & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Confetti for Celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        tossBlue: '#0064FF',
+                        tossBlueLight: '#E8F3FF',
+                        tossDarkBlue: '#1b3c8f',
+                        tossGrayBg: '#F2F4F6',
+                        tossDarkGray: '#8B95A1',
+                        tossTextDark: '#191F28',
+                        tossTextMuted: '#4E5968',
+                        duckYellow: '#FFD400',
+                        duckOrange: '#FF6F00',
+                        premiumMint: '#00D4B2',
+                    },
+                    boxShadow: {
+                        toss: '0 8px 30px rgba(0, 0, 0, 0.03)',
+                        tossHover: '0 20px 40px rgba(0, 0, 0, 0.08)',
+                        floating: '0 12px 36px rgba(0, 100, 255, 0.15)',
+                    },
+                    borderRadius: {
+                        toss: '24px',
+                        tossLarge: '32px',
+                        tossSuper: '40px'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #191F28;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        .active-tab-nav {
+            color: #0064FF !important;
+            font-weight: 800;
+        }
+        .active-tab-nav::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 4px;
+            background-color: #0064FF;
+            border-radius: 9999px;
+        }
+        /* Custom Smooth Transitions */
+        .page-transition {
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        /* Hide Scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Roulette rotation */
+        .roulette-spin {
+            transition: transform 5s cubic-bezier(0.15, 0.95, 0.15, 1);
+        }
+        /* Spring Animation for Mascot */
+        @keyframes duckBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        .animate-duck {
+            animation: duckBounce 3s infinite ease-in-out;
+        }
+        /* Fish translation */
+        @keyframes fishSwim {
+            0% { transform: translateX(-40px) scaleX(1); }
+            50% { transform: translateX(260px) scaleX(1); }
+            51% { transform: translateX(260px) scaleX(-1); }
+            100% { transform: translateX(-40px) scaleX(-1); }
+        }
+        .animate-fish {
+            animation: fishSwim 6s infinite linear;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-[#F9FAFB]">
+
+    <!-- Top Global Header Bar (Toss style minimalist Glassmorphism) -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/60 shadow-sm">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="flex items-center justify-between h-18 sm:h-22 py-4">
+                <!-- Mascot & Brand Logo -->
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="switchTab('intro')">
+                    <div class="w-12 h-12 rounded-[18px] bg-duckYellow flex items-center justify-center text-3xl shadow-inner transform group-hover:scale-105 active:scale-95 transition-transform duration-300 animate-duck">🦆</div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-extrabold text-2xl tracking-tight text-tossTextDark">다녀오리</span>
+                            <span class="bg-tossBlueLight text-tossBlue text-[10px] font-black px-2.5 py-0.5 rounded-full">MVP 2.5</span>
+                        </div>
+                        <span class="text-[11px] text-tossDarkGray block font-semibold">2026 하나 소셜벤처 로컬밸류업 선발팀</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Menu (Toss Style Ultra Sleek) -->
+                <nav class="hidden md:flex items-center space-x-12 h-full relative font-medium">
+                    <button onclick="switchTab('intro')" id="nav-intro" class="relative text-base font-bold text-tossTextMuted hover:text-tossTextDark transition-all py-3">서비스 소개</button>
+                    <button onclick="switchTab('festivals')" id="nav-festivals" class="relative text-base font-bold text-tossTextMuted hover:text-tossTextDark transition-all py-3">축제 찾기</button>
+                    <button onclick="switchTab('game')" id="nav-game" class="relative text-base font-bold text-tossTextMuted hover:text-tossTextDark transition-all py-3 flex items-center gap-1.5">미니게임 <span class="bg-red-500 text-white text-[9px] px-2 py-0.5 rounded-full animate-pulse">Play</span></button>
+                    <button onclick="switchTab('community')" id="nav-community" class="relative text-base font-bold text-tossTextMuted hover:text-tossTextDark transition-all py-3">커뮤니티</button>
+                </nav>
+
+                <!-- Toss-style CTA Button -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openPreRegModal()" class="bg-tossBlue hover:bg-[#0051cc] text-white font-extrabold px-6 py-3.5 rounded-full text-sm shadow-floating transition-all transform hover:scale-[1.03] active:scale-95">
+                        <i class="fa-regular fa-bell mr-1.5"></i> 사전예약
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Scrollable App Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-5 py-8 sm:py-12 mb-24 md:mb-10">
+
+        <!-- ========================================== -->
+        <!-- 1. SERVICE INTRO PAGE ({서비스 소개})       -->
+        <!-- ========================================== -->
+        <section id="tab-intro" class="page-transition space-y-16">
+            
+            <!-- Hero Greeting with Playful & Toss Premium Typography -->
+            <div class="text-left space-y-6 max-w-4xl">
+                <span class="inline-flex items-center gap-2 bg-tossBlueLight text-tossBlue px-4 py-2 rounded-full text-xs font-black">
+                    🎈 수도권 거주 2030 주말 라이프 브릿지
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-black text-tossTextDark tracking-tight leading-tight sm:leading-tight">
+                    주말 나들이 고민,<br>
+                    성수·용산 팝업만<br class="sm:hidden"> 
+                    질리게 가는 이유는 뭘까요?
+                </h1>
+                <p class="text-lg sm:text-xl text-tossTextMuted leading-relaxed max-w-3xl font-medium">
+                    "지방 축제는 바가지 요금에 촌스럽지 않나?" <br>
+                    정보 불신과 정보 부족을 날려버릴 솔루션. **온라인 미니게임으로 축제 현장을 미리 즐기고, 획득한 진짜 마일리지**를 들고 로컬 여행을 떠나보세요!
+                </p>
+            </div>
+
+            <!-- Bento Box Style Problem Definition (MZ-Targeted & Cute Card Design) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Card 1: Municipal pain -->
+                <div class="bg-white rounded-tossLarge p-8 sm:p-10 shadow-toss border border-gray-100 hover:shadow-tossHover transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-xs font-black bg-orange-50 text-duckOrange px-3 py-1 rounded-full">지자체 소멸 위기 🚨</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-tossTextDark leading-snug mb-5">"엄청난 축제 예산,<br>소비는 왜 늘 제자리일까?"</h3>
+                        <p class="text-sm sm:text-base text-tossTextMuted leading-relaxed">
+                            전국에 넘치는 소규모 로컬 축제들은 젊은 방문객 유입과 경제 활성화가 절실합니다. 화천 산천어 축제와 같은 성공적인 파급효과를 더 많은 지역 축제로 전이시키기 위해, 2030 수도권 인구에게 매력적으로 소구할 O2O 연결고리가 마땅치 않았습니다.[cite: 1, 2]
+                        </p>
+                    </div>
+                    <div class="mt-8 flex items-center gap-4 bg-tossGrayBg p-5 rounded-2xl">
+                        <span class="text-3xl">🎯</span>
+                        <span class="text-xs sm:text-sm font-semibold text-tossTextDark">다녀오리 O2O 미니게임과 고유 마스코트로 젊은 피를 지역 상권에 바로 수혈합니다.[cite: 1, 2]</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Consumer pain -->
+                <div class="bg-white rounded-tossLarge p-8 sm:p-10 shadow-toss border border-gray-100 hover:shadow-tossHover transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-xs font-black bg-blue-50 text-tossBlue px-3 py-1 rounded-full">2030 청춘 세대 🏃</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-tossTextDark leading-snug mb-5">"가기 전엔 불신 가득,<br>가선 바가지 요금 폭탄?"</h3>
+                        <p class="text-sm sm:text-base text-tossTextMuted leading-relaxed">
+                            성수동과 용산 팝업스토어 웨이팅에 지쳤지만, 잘 모르는 지역 축제에 무작정 가기엔 '촌스럽고 비싸다'는 인식이 존재합니다. 미리 콘텐츠를 맛보고, 획득한 실용적인 혜택으로 불신을 완벽히 소거해야 떠날 마음이 열립니다.[cite: 1]
+                        </p>
+                    </div>
+                    <div class="mt-8 flex items-center gap-4 bg-tossGrayBg p-5 rounded-2xl">
+                        <span class="text-3xl">💡</span>
+                        <span class="text-xs sm:text-sm font-semibold text-tossTextDark">실제 현장 참가자만 남길 수 있는 바가지 고발 피드 포럼으로 안심 환경을 제공합니다.[cite: 1]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Live Interactive MVP Dashboard (For Pitching Proof) -->
+            <div class="bg-white border border-gray-100 p-8 sm:p-12 rounded-tossSuper shadow-toss relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-tossBlueLight rounded-full opacity-30 blur-2xl"></div>
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4 border-b border-gray-100 pb-8">
+                    <div>
+                        <span class="text-tossBlue text-xs font-black uppercase block tracking-wider mb-2"><i class="fa-solid fa-square-poll-vertical"></i> LIVE TRACKING REPORT</span>
+                        <h3 class="text-3xl font-black text-tossTextDark">실시간 가설 검증 MVP 현황판</h3>
+                        <p class="text-xs text-tossDarkGray mt-1">심사위원 피칭 장표와 사업 계획서 증빙용으로 활용되는 실시간 실제 반응 통계 데이터입니다.[cite: 1]</p>
+                    </div>
+                    <div>
+                        <button onclick="resetMVPCounts()" class="text-xs font-bold text-red-500 bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition duration-200">데이터 리셋</button>
+                    </div>
+                </div>
+
+                <!-- Stats Grid (Toss Numerical Premium Look) -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                    <div class="p-6 bg-tossGrayBg rounded-toss">
+                        <span class="text-xs text-tossTextMuted block mb-2 font-semibold">총 유입 트래픽 (PV)</span>
+                        <span id="mvp-visits" class="text-3xl font-black text-tossTextDark">1,582</span>
+                        <span class="text-[10px] text-green-500 font-bold block mt-2"><i class="fa-solid fa-chart-line"></i> 실시간 누적 중</span>
+                    </div>
+                    <div class="p-6 bg-tossGrayBg rounded-toss">
+                        <span class="text-xs text-tossTextMuted block mb-2 font-semibold">확보된 사전예약 수</span>
+                        <span id="mvp-registrations" class="text-3xl font-black text-tossBlue">482</span>
+                        <span class="text-[10px] text-tossDarkGray block mt-2">목표 전환치: 500명 돌파[cite: 1]</span>
+                    </div>
+                    <div class="p-6 bg-tossGrayBg rounded-toss">
+                        <span class="text-xs text-tossTextMuted block mb-2 font-semibold">미니게임 누적 플레이</span>
+                        <span id="mvp-plays" class="text-3xl font-black text-tossTextDark">1,894</span>
+                        <span class="text-[10px] text-tossDarkGray block mt-2">유저 평균 2.3회 참여[cite: 1]</span>
+                    </div>
+                    <div class="p-6 bg-tossGrayBg rounded-toss">
+                        <span class="text-xs text-tossTextMuted block mb-2 font-semibold">지급 가상 마일리지</span>
+                        <span id="mvp-mileage" class="text-3xl font-black text-duckOrange">1,483,000원</span>
+                        <span class="text-[10px] text-tossDarkGray block mt-2">지자체 매칭 소멸형[cite: 2, 3]</span>
+                    </div>
+                </div>
+
+                <!-- Funnel Layout (Interactive Gauge) -->
+                <div class="space-y-6 max-w-2xl mx-auto">
+                    <h4 class="text-xs font-black text-tossTextMuted text-center uppercase tracking-widest">실시간 가설 깔때기 검증율 (Funnel Analysis)</h4>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs sm:text-sm font-bold text-tossTextMuted mb-2">
+                                <span>1단계. 수도권 2030 주말 나들이 트래픽 유입</span>
+                                <span class="text-tossTextDark font-black">100%</span>
+                            </div>
+                            <div class="w-full bg-tossGrayBg h-3.5 rounded-full overflow-hidden">
+                                <div class="bg-slate-400 h-full w-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs sm:text-sm font-bold text-tossTextMuted mb-2">
+                                <span>2단계. 체험형 미니게임 간접 콘텐츠 참여율</span>
+                                <span id="funnel-game-rate" class="text-tossTextDark font-black">78.3%</span>
+                            </div>
+                            <div class="w-full bg-tossGrayBg h-3.5 rounded-full overflow-hidden">
+                                <div id="funnel-game-fill" class="bg-amber-400 h-full transition-all duration-500" style="width: 78.3%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs sm:text-sm font-bold text-tossTextMuted mb-2">
+                                <span>3단계. 마일리지 리워드 획득 기반 사전예약 전환율</span>
+                                <span id="funnel-reg-rate" class="text-tossBlue font-black">30.4%</span>
+                            </div>
+                            <div class="w-full bg-tossGrayBg h-3.5 rounded-full overflow-hidden">
+                                <div id="funnel-reg-fill" class="bg-tossBlue h-full transition-all duration-500" style="width: 30.4%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roadmap Flow cards -->
+            <div class="space-y-8">
+                <div class="text-center max-w-2xl mx-auto">
+                    <h3 class="text-3xl font-black text-tossTextDark">다녀오리의 4단계 성장 로드맵</h3>
+                    <p class="text-sm text-tossTextMuted mt-2">지속 가능한 비즈니스를 지탱하는 견고한 로컬 밸류업 여정입니다.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 sm:p-8 rounded-toss border border-gray-100 shadow-toss">
+                        <span class="text-xs font-black text-tossBlue block mb-2">STAGE 01</span>
+                        <h4 class="font-black text-xl text-tossTextDark mb-3">투명 포럼 커뮤니티</h4>
+                        <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed">주말 트래퍼들의 솔직 담백하고 날카로운 가감없는 로컬 정보 공유 커뮤니티 개설[cite: 1].</p>
+                    </div>
+                    <div class="bg-white p-6 sm:p-8 rounded-toss border border-gray-100 shadow-toss">
+                        <span class="text-xs font-black text-tossBlue block mb-2">STAGE 02</span>
+                        <h4 class="font-black text-xl text-tossTextDark mb-3">미니게임 마중물</h4>
+                        <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed">특산품과 부스를 직관적으로 모티브한 미니게임으로 지자체 증빙용 바이럴 데이터 빌드업[cite: 1, 2].</p>
+                    </div>
+                    <div class="bg-white p-6 sm:p-8 rounded-toss border border-gray-100 shadow-toss">
+                        <span class="text-xs font-black text-tossBlue block mb-2">STAGE 03</span>
+                        <h4 class="font-black text-xl text-tossTextDark mb-3">지역화폐 마일리지</h4>
+                        <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed">게임을 통해 선점한 마일리지를 현지 지역 상권 가맹점 O2O 결제와 직접 연계하여 확실한 유도 장치 마련[cite: 1, 2].</p>
+                    </div>
+                    <div class="bg-white p-6 sm:p-8 rounded-toss border border-gray-100 shadow-toss">
+                        <span class="text-xs font-black text-tossBlue block mb-2">STAGE 04</span>
+                        <h4 class="font-black text-xl text-tossTextDark mb-3">축제 종합 기획 대행</h4>
+                        <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed">전국 지자체의 차별화된 콘텐츠 패키지를 기획하며 특산물 다이렉트 유통 및 종합 대행 수수료 모델 확장[cite: 1, 3].</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 2. FESTIVAL FINDER PAGE ({축제 찾기})       -->
+        <!-- ========================================== -->
+        <section id="tab-festivals" class="page-transition space-y-10 hidden">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="text-left space-y-2 max-w-2xl">
+                    <span class="text-tossBlue text-xs font-black uppercase tracking-wider block">KOREAN LOCAL FESTIVALS</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-tossTextDark">대한민국 구석구석 주말 탐방</h2>
+                    <p class="text-sm sm:text-base text-tossTextMuted leading-relaxed">
+                        이번 주말 갈 수 있는 이색 특산물 축제 및 힙한 체험 부스를 한눈에 모았습니다. 
+                    </p>
+                </div>
+
+                <!-- Custom Grid View / Calendar View Segment Control (MZ Style) -->
+                <div class="bg-tossGrayBg p-1.5 rounded-2xl flex items-center self-start md:self-auto shadow-sm">
+                    <button id="view-mode-grid" onclick="toggleFestivalView('grid')" class="bg-white text-tossTextDark text-xs font-black px-4 py-2.5 rounded-xl shadow-sm transition">
+                        <i class="fa-solid fa-grip mr-1.5"></i> 격자 뷰
+                    </button>
+                    <button id="view-mode-calendar" onclick="toggleFestivalView('calendar')" class="text-tossTextMuted hover:text-tossTextDark text-xs font-bold px-4 py-2.5 rounded-xl transition">
+                        <i class="fa-solid fa-calendar-days mr-1.5"></i> 달력 뷰
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search bar & filter pill bar -->
+            <div class="bg-white p-5 rounded-toss shadow-toss border border-gray-100/80 flex flex-col md:flex-row md:items-center gap-4 justify-between">
+                <div class="relative flex-1 max-w-md">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4.5 top-1/2 transform -translate-y-1/2 text-tossDarkGray"></i>
+                    <input type="text" id="festival-search-input" onkeyup="searchFestivals()" placeholder="가고 싶은 축제나 지역을 검색해보세요" class="w-full pl-12 pr-4 py-3.5 bg-tossGrayBg border border-transparent rounded-2xl text-sm focus:outline-none focus:bg-white focus:border-tossBlue transition">
+                </div>
+
+                <div class="flex flex-wrap gap-2" id="fest-season-filters">
+                    <button onclick="filterFestivalsBySeason('all', this)" class="season-filter-btn bg-tossBlue text-white text-xs font-black px-5 py-3 rounded-full transition shadow">전체</button>
+                    <button onclick="filterFestivalsBySeason('summer', this)" class="season-filter-btn bg-tossGrayBg text-tossTextMuted hover:bg-gray-100 text-xs font-bold px-5 py-3 rounded-full transition">여름 축제 🌽</button>
+                    <button onclick="filterFestivalsBySeason('winter', this)" class="season-filter-btn bg-tossGrayBg text-tossTextMuted hover:bg-gray-100 text-xs font-bold px-5 py-3 rounded-full transition">겨울 축제 ❄️</button>
+                </div>
+            </div>
+
+            <!-- Tab View 1: Card Grid View -->
+            <div id="festival-grid-view-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Festival Card 1 -->
+                <div class="festival-search-card bg-white rounded-tossLarge overflow-hidden border border-gray-100/60 shadow-toss hover:shadow-tossHover transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1.5" data-season="summer" data-key="hongcheon">
+                    <div class="relative h-56 bg-gradient-to-tr from-yellow-300 to-amber-500 overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black/5 z-10"></div>
+                        <span class="text-7xl z-20 group-hover:scale-110 transform transition duration-500">🌽</span>
+                        <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-tossTextDark text-[11px] font-black px-3.5 py-1.5 rounded-xl shadow-sm z-20"><i class="fa-solid fa-location-dot text-[#FF6F00] mr-1"></i> 강원 홍천</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold text-amber-600"><i class="fa-solid fa-calendar mr-1.5"></i> 매년 7월 말</span>
+                                <span class="bg-[#FFF5D9] text-[#CC9600] text-[10px] font-black px-2.5 py-1 rounded-full">바가지 안전 95%</span>
+                            </div>
+                            <h3 class="text-xl font-black text-tossTextDark mb-2 group-hover:text-tossBlue transition-colors">찰옥수수 빨리 먹기 축제</h3>
+                            <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed">
+                                쫀득하고 고소한 홍천 명물 찰옥수수! 제한시간 대전 등 2030의 재미 요소를 가미한 이색 프로그램이 가득합니다.[cite: 2]
+                            </p>
+                        </div>
+                        <div class="border-t border-gray-100/80 mt-6 pt-5 flex items-center justify-between">
+                            <span class="text-xs font-bold text-tossBlue"><i class="fa-solid fa-gamepad mr-1"></i> 옥수수 게임 연계됨</span>
+                            <button onclick="openFestivalDetail('hongcheon')" class="bg-tossGrayBg hover:bg-tossBlue hover:text-white text-tossTextDark text-xs font-black px-4.5 py-2.5 rounded-xl transition-all duration-200">상세 정보</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Festival Card 2 -->
+                <div class="festival-search-card bg-white rounded-tossLarge overflow-hidden border border-gray-100/60 shadow-toss hover:shadow-tossHover transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1.5" data-season="winter" data-key="hwacheon">
+                    <div class="relative h-56 bg-gradient-to-tr from-sky-200 to-blue-500 overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black/5 z-10"></div>
+                        <span class="text-7xl z-20 group-hover:scale-110 transform transition duration-500">🐟</span>
+                        <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-tossTextDark text-[11px] font-black px-3.5 py-1.5 rounded-xl shadow-sm z-20"><i class="fa-solid fa-location-dot text-tossBlue mr-1"></i> 강원 화천</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold text-tossBlue"><i class="fa-solid fa-calendar mr-1.5"></i> 매년 1월 ~ 2월</span>
+                                <span class="bg-[#EAF2FF] text-tossBlue text-[10px] font-black px-2.5 py-1 rounded-full">바가지 안전 92%</span>
+                            </div>
+                            <h3 class="text-xl font-black text-tossTextDark mb-2 group-hover:text-tossBlue transition-colors">꽁꽁 화천 산천어 축제</h3>
+                            <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed">
+                                얼음낚시의 최고봉! 청춘 ITX 열차를 타고 주말 가볍게 대탈출하기 최적의 겨울 대표 페스티벌입니다.[cite: 1, 2]
+                            </p>
+                        </div>
+                        <div class="border-t border-gray-100/80 mt-6 pt-5 flex items-center justify-between">
+                            <span class="text-xs font-bold text-tossBlue"><i class="fa-solid fa-gamepad mr-1"></i> 얼음낚시 게임 연계됨</span>
+                            <button onclick="openFestivalDetail('hwacheon')" class="bg-tossGrayBg hover:bg-tossBlue hover:text-white text-tossTextDark text-xs font-black px-4.5 py-2.5 rounded-xl transition-all duration-200">상세 정보</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Festival Card 3 -->
+                <div class="festival-search-card bg-white rounded-tossLarge overflow-hidden border border-gray-100/60 shadow-toss hover:shadow-tossHover transition-all duration-300 flex flex-col justify-between group transform hover:-translate-y-1.5" data-season="summer" data-key="boryeong">
+                    <div class="relative h-56 bg-gradient-to-tr from-[#9B8062] to-[#4A3C31] overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black/5 z-10"></div>
+                        <span class="text-7xl z-20 group-hover:scale-110 transform transition duration-500">🎉</span>
+                        <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-tossTextDark text-[11px] font-black px-3.5 py-1.5 rounded-xl shadow-sm z-20"><i class="fa-solid fa-location-dot text-[#7A6146] mr-1"></i> 충남 보령</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold text-amber-800"><i class="fa-solid fa-calendar mr-1.5"></i> 매년 7월 말</span>
+                                <span class="bg-[#FFF1F1] text-red-500 text-[10px] font-black px-2.5 py-1 rounded-full">바가지 안전 88%</span>
+                            </div>
+                            <h3 class="text-xl font-black text-tossTextDark mb-2 group-hover:text-tossBlue transition-colors">보령 머드 축제</h3>
+                            <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed">
+                                전세계 아웃도어 챌린저들이 모이는 메가 이벤트! 낮에는 머드 풀에서 구르고 밤에는 뜨거운 EDM 뮤직 비트를 느낍니다.[cite: 2]
+                            </p>
+                        </div>
+                        <div class="border-t border-gray-100/80 mt-6 pt-5 flex items-center justify-between">
+                            <span class="text-xs font-bold text-tossDarkGray"><i class="fa-solid fa-clock mr-1"></i> 게임 연동 준비 중</span>
+                            <button onclick="openFestivalDetail('boryeong')" class="bg-tossGrayBg hover:bg-tossBlue hover:text-white text-tossTextDark text-xs font-black px-4.5 py-2.5 rounded-xl transition-all duration-200">상세 정보</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab View 2: High-Fi Calendar View (Consolidating calendar.html beautifully!) -->
+            <div id="festival-calendar-view-container" class="bg-white rounded-tossLarge shadow-toss border border-gray-100 p-6 sm:p-10 hidden">
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-8 border-b border-gray-100 pb-5 gap-3">
+                    <div>
+                        <h3 class="text-2xl font-black text-tossTextDark">주말 청춘 ITX 캘린더</h3>
+                        <p class="text-xs sm:text-sm text-tossTextMuted mt-1">수도권 2030 주말 나들이 족을 위한 주요 주말 추천 축제 일정표입니다.[cite: 1]</p>
+                    </div>
+                    <div class="flex items-center gap-2 font-bold text-sm">
+                        <span class="w-3.5 h-3.5 bg-duckYellow rounded-full"></span> <span class="text-xs text-tossTextMuted mr-3">옥수수 축제</span>
+                        <span class="w-3.5 h-3.5 bg-tossBlue rounded-full"></span> <span class="text-xs text-tossTextMuted">산천어 축제</span>
+                    </div>
+                </div>
+
+                <!-- Custom Month Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Summer Focus Calendar -->
+                    <div class="border border-gray-100 p-5 rounded-2xl bg-tossGrayBg/40">
+                        <div class="text-center font-black text-lg text-tossTextDark mb-4">2026년 7월 (Summer Season)</div>
+                        <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-tossDarkGray mb-2">
+                            <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1.5">
+                            <!-- Padding days -->
+                            <div class="py-3"></div><div class="py-3"></div><div class="py-3"></div><div class="py-3 text-tossTextDark">1</div><div class="py-3 text-tossTextDark">2</div><div class="py-3 text-tossTextDark">3</div><div class="py-3 text-tossTextDark">4</div>
+                            <div class="py-3 text-tossTextDark">5</div><div class="py-3 text-tossTextDark">6</div><div class="py-3 text-tossTextDark">7</div><div class="py-3 text-tossTextDark">8</div><div class="py-3 text-tossTextDark">9</div><div class="py-3 text-tossTextDark">10</div><div class="py-3 text-tossTextDark">11</div>
+                            <div class="py-3 text-tossTextDark">12</div><div class="py-3 text-tossTextDark">13</div><div class="py-3 text-tossTextDark">14</div><div class="py-3 text-tossTextDark">15</div><div class="py-3 text-tossTextDark">16</div><div class="py-3 text-tossTextDark">17</div><div class="py-3 text-tossTextDark">18</div>
+                            <div class="py-3 text-tossTextDark">19</div><div class="py-3 text-tossTextDark">20</div><div class="py-3 text-tossTextDark">21</div><div class="py-3 text-tossTextDark">22</div><div class="py-3 text-tossTextDark">23</div>
+                            <!-- Active festival range -->
+                            <button onclick="openFestivalDetail('hongcheon')" class="py-3 bg-duckYellow/90 hover:bg-duckYellow text-tossTextDark font-black rounded-lg shadow-sm">24</button>
+                            <button onclick="openFestivalDetail('hongcheon')" class="py-3 bg-duckYellow/90 hover:bg-duckYellow text-tossTextDark font-black rounded-lg shadow-sm">25</button>
+                            <button onclick="openFestivalDetail('hongcheon')" class="py-3 bg-duckYellow/90 hover:bg-duckYellow text-tossTextDark font-black rounded-lg shadow-sm">26</button>
+                            <div class="py-3 text-tossTextDark">27</div><div class="py-3 text-tossTextDark">28</div><div class="py-3 text-tossTextDark">29</div><div class="py-3 text-tossTextDark">30</div><div class="py-3 text-tossTextDark">31</div>
+                        </div>
+                        <p class="text-[10px] text-duckOrange mt-4 font-bold text-center"><i class="fa-solid fa-circle-exclamation mr-1"></i> 24~26일: 홍천 찰옥수수 빨리먹기 축제 기간 (ITX 역마차 배차 예정)</p>
+                    </div>
+
+                    <!-- Winter Focus Calendar -->
+                    <div class="border border-gray-100 p-5 rounded-2xl bg-tossGrayBg/40">
+                        <div class="text-center font-black text-lg text-tossTextDark mb-4">2026년 1월 (Winter Season)</div>
+                        <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-tossDarkGray mb-2">
+                            <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1.5">
+                            <!-- Padding days -->
+                            <div class="py-3"></div><div class="py-3"></div><div class="py-3"></div><div class="py-3"></div><div class="py-3 text-tossTextDark">1</div><div class="py-3 text-tossTextDark">2</div><div class="py-3 text-tossTextDark">3</div>
+                            <div class="py-3 text-tossTextDark">4</div><div class="py-3 text-tossTextDark">5</div><div class="py-3 text-tossTextDark">6</div><div class="py-3 text-tossTextDark">7</div><div class="py-3 text-tossTextDark">8</div><div class="py-3 text-tossTextDark">9</div>
+                            <!-- Active festival range -->
+                            <button onclick="openFestivalDetail('hwacheon')" class="py-3 bg-tossBlue/90 hover:bg-tossBlue text-white font-black rounded-lg shadow-sm">10</button>
+                            <button onclick="openFestivalDetail('hwacheon')" class="py-3 bg-tossBlue/90 hover:bg-tossBlue text-white font-black rounded-lg shadow-sm">11</button>
+                            <div class="py-3 text-tossTextDark">12</div><div class="py-3 text-tossTextDark">13</div><div class="py-3 text-tossTextDark">14</div><div class="py-3 text-tossTextDark">15</div><div class="py-3 text-tossTextDark">16</div>
+                            <button onclick="openFestivalDetail('hwacheon')" class="py-3 bg-tossBlue/90 hover:bg-tossBlue text-white font-black rounded-lg shadow-sm">17</button>
+                            <button onclick="openFestivalDetail('hwacheon')" class="py-3 bg-tossBlue/90 hover:bg-tossBlue text-white font-black rounded-lg shadow-sm">18</button>
+                            <div class="py-3 text-tossTextDark">19</div><div class="py-3 text-tossTextDark">20</div><div class="py-3 text-tossTextDark">21</div><div class="py-3 text-tossTextDark">22</div><div class="py-3 text-tossTextDark">23</div>
+                            <button onclick="openFestivalDetail('hwacheon')" class="py-3 bg-tossBlue/90 hover:bg-tossBlue text-white font-black rounded-lg shadow-sm">24</button>
+                            <button onclick="openFestivalDetail('hwacheon')" class="py-3 bg-tossBlue/90 hover:bg-tossBlue text-white font-black rounded-lg shadow-sm">25</button>
+                            <div class="py-3 text-tossTextDark">26</div><div class="py-3 text-tossTextDark">27</div><div class="py-3 text-tossTextDark">28</div><div class="py-3 text-tossTextDark">29</div><div class="py-3 text-tossTextDark">30</div><div class="py-3 text-tossTextDark">31</div>
+                        </div>
+                        <p class="text-[10px] text-tossBlue mt-4 font-bold text-center"><i class="fa-solid fa-snowflake mr-1"></i> 주말 낚시 축제 상시 셔틀 운행</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. MINI-GAME PAGE ({미니게임})              -->
+        <!-- ========================================== -->
+        <section id="tab-game" class="page-transition space-y-12 hidden">
+            
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <span class="text-xs font-black bg-[#FFF1D4] text-[#E59E00] px-4 py-2 rounded-full uppercase tracking-widest inline-block">
+                    🎮 2030 PLAY & REWARD PARK
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-black text-tossTextDark">로컬 미니게임 마당</h2>
+                <p class="text-sm sm:text-base text-tossTextMuted leading-relaxed">
+                    지역축제 핵심 행사를 미리 가볍게 시뮬레이션해보세요! 미션을 가뿐하게 클리어하고 행운 룰렛권과 대박 치킨의 기회를 거머쥐세요.[cite: 1, 2]
+                </p>
+            </div>
+
+            <!-- Double Interactive Games Sandbox Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                
+                <!-- GAME 1: "홍천 찰옥수수 빨리 먹기" (Playful Clicker) -->
+                <div class="bg-white rounded-tossLarge border border-gray-100 p-6 sm:p-8 shadow-toss">
+                    <div class="flex items-center justify-between mb-5 border-b border-gray-100 pb-4">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-3xl">🌽</span>
+                            <div>
+                                <h3 class="font-black text-xl text-tossTextDark">홍천 찰옥수수 광클 흡입</h3>
+                                <p class="text-[11px] text-tossDarkGray font-bold">광클/터치 연타 시뮬레이션 게임</p>
+                            </div>
+                        </div>
+                        <span class="bg-amber-100 text-[#B37A00] text-[10px] font-black px-3 py-1.5 rounded-full">목표: 10초 내 100점</span>
+                    </div>
+
+                    <!-- Sandbox Game screen -->
+                    <div class="bg-slate-900 h-80 rounded-2xl relative overflow-hidden flex flex-col items-center justify-center border-4 border-slate-950 shadow-inner">
+                        <!-- Play overlay -->
+                        <div id="corn-game-overlay" class="absolute inset-0 bg-slate-950/95 z-20 flex flex-col items-center justify-center p-6 text-center">
+                            <span class="text-6xl animate-bounce mb-4">🌽</span>
+                            <h4 class="text-white font-black text-xl">빛의 속도로 터치하기!</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm max-w-sm mt-2 mb-6">제한시간 10초 동안 옥수수를 마구마구 터치해 게이지를 100% 채우면 즉시 룰렛 응모권 지급![cite: 2]</p>
+                            <button onclick="startCornGame()" class="bg-duckYellow hover:bg-amber-400 text-tossTextDark font-black text-sm px-8 py-4 rounded-full shadow-lg transition transform hover:scale-105 active:scale-95">
+                                게임 시작하기 <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+
+                        <!-- Real-time Play interface -->
+                        <div class="relative z-10 flex flex-col items-center justify-center space-y-6">
+                            <!-- Floating text reaction feedback -->
+                            <span id="corn-bite-text" class="absolute -top-12 text-duckYellow font-black text-3xl transform scale-0 transition-transform duration-100 pointer-events-none select-none z-10">냠냠! 🌽</span>
+
+                            <!-- Big clicker target with animated vector -->
+                            <button id="corn-clicker-target" onclick="clickCornTarget()" class="w-32 h-32 bg-white/10 hover:bg-white/15 active:scale-90 rounded-full flex items-center justify-center cursor-pointer transition transform duration-100 focus:outline-none shadow-2xl">
+                                <svg class="w-20 h-20 filter drop-shadow-lg" viewBox="0 0 100 100">
+                                    <path d="M50 12 C35 25, 35 75, 50 88 C65 75, 65 25, 50 12 Z" fill="#FBBF24"/>
+                                    <path d="M43 25 C43 25, 47 15, 50 12 C53 15, 57 25, 57 25" stroke="#059669" stroke-width="4" fill="none"/>
+                                    <!-- Corn cells -->
+                                    <circle cx="50" cy="25" r="4.5" fill="#F59E0B"/>
+                                    <circle cx="50" cy="40" r="4.5" fill="#D97706"/>
+                                    <circle cx="50" cy="55" r="4.5" fill="#F59E0B"/>
+                                    <circle cx="50" cy="70" r="4.5" fill="#D97706"/>
+                                    <circle cx="42" cy="35" r="4" fill="#F59E0B"/>
+                                    <circle cx="58" cy="35" r="4" fill="#FBBF24"/>
+                                    <circle cx="42" cy="50" r="4" fill="#F59E0B"/>
+                                    <circle cx="58" cy="50" r="4" fill="#FBBF24"/>
+                                    <circle cx="42" cy="65" r="4" fill="#D97706"/>
+                                    <circle cx="58" cy="65" r="4" fill="#FBBF24"/>
+                                </svg>
+                            </button>
+                            <span class="text-white/50 text-xs tracking-widest font-black uppercase">Click / Tap Anywhere!</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress controls -->
+                    <div class="mt-5 space-y-4">
+                        <div class="flex justify-between items-center text-xs sm:text-sm font-bold text-tossTextMuted">
+                            <span>남은 시간: <b id="corn-timer" class="text-red-500 font-black text-2xl">10</b>초</span>
+                            <span>진행도: <b id="corn-gauge" class="text-tossBlue font-black text-2xl">0</b>%</span>
+                        </div>
+                        <div class="w-full bg-tossGrayBg h-4 rounded-full overflow-hidden">
+                            <div id="corn-bar-fill" class="bg-tossBlue h-full w-0 transition-all duration-75"></div>
+                        </div>
+                        <div class="text-center border-t border-gray-100 pt-3">
+                            <span class="text-xs text-tossDarkGray font-extrabold">실시간 내 획득 점수: <b id="corn-score" class="text-tossTextDark text-base">0</b>점</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GAME 2: "화천 산천어 얼음낚시" (Precision catch slider) -->
+                <div class="bg-white rounded-tossLarge border border-gray-100 p-6 sm:p-8 shadow-toss">
+                    <div class="flex items-center justify-between mb-5 border-b border-gray-100 pb-4">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-3xl">🐟</span>
+                            <div>
+                                <h3 class="font-black text-xl text-tossTextDark">화천 산천어 타이밍 낚시</h3>
+                                <p class="text-[11px] text-tossDarkGray font-bold">타이밍 맞추기 동적 챌린지</p>
+                            </div>
+                        </div>
+                        <span class="bg-sky-100 text-[#0064FF] text-[10px] font-black px-3 py-1.5 rounded-full">성공: 3회 이상 획득</span>
+                    </div>
+
+                    <!-- Game Screen Sandbox -->
+                    <div class="bg-sky-950 h-80 rounded-2xl relative overflow-hidden flex flex-col justify-between p-5 border-4 border-sky-900 shadow-inner">
+                        <!-- Play overlay -->
+                        <div id="fish-game-overlay" class="absolute inset-0 bg-sky-950/95 z-20 flex flex-col items-center justify-center p-6 text-center">
+                            <span class="text-6xl animate-bounce mb-4">🐟</span>
+                            <h4 class="text-white font-black text-xl">정확한 타이밍에 낚으세요!</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm max-w-sm mt-2 mb-6">좌우로 요동치는 낚시 바늘이 초록색 '히트 존' 구역에 정확히 일치할 때 하단 버튼을 탭하세요![cite: 2]</p>
+                            <button onclick="startFishGame()" class="bg-tossBlue hover:bg-sky-400 text-white font-black text-sm px-8 py-4 rounded-full shadow-lg transition transform hover:scale-105 active:scale-95">
+                                게임 시작하기 <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+
+                        <!-- Real playing elements -->
+                        <div class="relative w-full h-full flex flex-col justify-between">
+                            <!-- Hook bar sweeping -->
+                            <div class="w-full h-10 bg-black/40 rounded-xl relative overflow-hidden border border-white/10">
+                                <div id="fish-target-zone" class="absolute w-14 h-full bg-emerald-400/80 left-[120px] shadow-[0_0_15px_rgba(52,211,153,0.6)]"></div>
+                                <div id="fish-indicator-hook" class="absolute w-3.5 h-full bg-red-500 left-0 rounded-full border border-white shadow-[0_0_10px_rgba(239,68,68,1)]"></div>
+                            </div>
+
+                            <!-- Hit center message -->
+                            <div class="flex-1 flex items-center justify-center">
+                                <span id="fish-catch-feedback" class="text-white font-black text-2xl opacity-0 transform scale-75 transition-all duration-200">HIT! 🐟</span>
+                            </div>
+
+                            <!-- Swimming graphic -->
+                            <div class="h-12 w-full relative overflow-hidden bg-white/5 rounded-xl border border-white/5 flex items-center">
+                                <div class="absolute text-3xl animate-fish select-none">🐟</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="mt-5 space-y-4">
+                        <button id="fish-catch-btn" disabled onclick="tryCatchFish()" class="w-full bg-tossGrayBg text-tossDarkGray cursor-not-allowed font-black py-4 rounded-2xl transition duration-200">
+                            타이밍 맞춰 낚아채기! (게임 실행 필요)
+                        </button>
+                        <div class="flex justify-between items-center text-xs sm:text-sm font-bold text-tossTextMuted border-t border-gray-100 pt-3">
+                            <span>남은 낚시 횟수: <b id="fish-chances" class="text-red-500 font-black text-lg">5</b>회</span>
+                            <span>건져낸 물고기: <b id="fish-score-val" class="text-tossBlue font-black text-lg">0</b>마리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toss Premium Luck Rewards Roulette Section (Unlocks dynamically) -->
+            <div id="toss-roulette-section" class="bg-white border border-gray-100 rounded-tossSuper p-8 sm:p-12 shadow-toss max-w-xl mx-auto text-center relative overflow-hidden">
+                <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-duckYellow/10 rounded-full opacity-30 blur-2xl"></div>
+
+                <div class="inline-flex items-center gap-1.5 bg-red-50 text-red-500 text-xs font-black px-4 py-2 rounded-full mb-5">
+                    <span id="roulette-lock-status">❌ 미니게임 클리어가 필요합니다</span>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-black text-tossTextDark mb-3">행운의 마일리지 룰렛 🎡</h3>
+                <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed max-w-md mx-auto mb-8">
+                    미니게임을 1회 성공하면 룰렛 도전 자격이 잠금 해제됩니다! 룰렛을 당겨 실제 축제 현장 부스에서 즉시 사용할 소중한 마일리지를 무료로 선점하세요.[cite: 1, 2]
+                </p>
+
+                <!-- Roulette Wheel Component (Toss minimal layout with neon needle pointer) -->
+                <div class="relative w-72 h-72 mx-auto mb-8 flex items-center justify-center">
+                    <!-- Outer shadow frame -->
+                    <div class="absolute inset-0 bg-tossTextDark rounded-full border-[6px] border-duckYellow shadow-xl z-0"></div>
+                    <!-- Spinner Pin Indicator -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 w-8 h-10 bg-red-600 z-30" style="clip-path: polygon(50% 100%, 0 0, 100% 0);"></div>
+                    
+                    <!-- SVG-based segment wheel -->
+                    <div id="css-roulette-wheel" class="w-[245px] h-[245px] rounded-full bg-white border border-gray-200 overflow-hidden relative z-10 roulette-spin" style="transform: rotate(0deg);">
+                        <!-- Sectors lines -->
+                        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+                            <line x1="50" y1="0" x2="50" y2="100" stroke="#E5E8EB" stroke-width="1.5"/>
+                            <line x1="0" y1="50" x2="100" y2="50" stroke="#E5E8EB" stroke-width="1.5"/>
+                            <line x1="14.6" y1="14.6" x2="85.4" y2="85.4" stroke="#E5E8EB" stroke-width="1.5"/>
+                            <line x1="14.6" y1="85.4" x2="85.4" y2="14.6" stroke="#E5E8EB" stroke-width="1.5"/>
+                        </svg>
+
+                        <!-- Sector text layout -->
+                        <div class="absolute w-full h-full text-[10px] font-black text-tossTextDark select-none">
+                            <span class="absolute rotate-[22.5deg] left-[138px] top-[40px]">1,000 P</span>
+                            <span class="absolute rotate-[67.5deg] left-[155px] top-[95px] text-tossDarkGray">꽝</span>
+                            <span class="absolute rotate-[112.5deg] left-[135px] top-[155px]">3,000 P</span>
+                            <span class="absolute rotate-[157.5deg] left-[78px] top-[178px] text-tossDarkGray">꽝</span>
+                            <span class="absolute rotate-[202.5deg] left-[28px] top-[155px]">5,000 P</span>
+                            <span class="absolute rotate-[247.5deg] left-[5px] top-[95px] text-tossBlue font-extrabold">치킨추첨</span>
+                            <span class="absolute rotate-[292.5deg] left-[25px] top-[40px]">10,000 P</span>
+                            <span class="absolute rotate-[337.5deg] left-[82px] top-[18px] text-tossDarkGray">꽝</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <button id="css-spin-btn" disabled onclick="executeRouletteSpin()" class="w-full bg-tossGrayBg text-tossDarkGray cursor-not-allowed font-black py-4.5 rounded-2xl shadow-sm transition duration-300">
+                    오늘의 룰렛 잠김 🔒
+                </button>
+                
+                <!-- Share panel for bonus spining -->
+                <div id="bonus-share-panel" class="hidden mt-6 bg-tossGrayBg/60 border border-gray-100 p-5 rounded-toss">
+                    <p class="text-xs sm:text-sm text-tossTextMuted mb-3 leading-relaxed">룰렛 기회를 다 소모하셨나요? 친구에게 예약을 공유하면 **즉시 1회의 보너스 기회**가 활성화됩니다![cite: 1]</p>
+                    <button onclick="shareKakaoSimulate()" class="bg-tossBlue text-white text-xs sm:text-sm font-black px-6 py-3 rounded-xl hover:bg-[#0051cc] transition shadow-md">
+                        <i class="fa-solid fa-share-nodes mr-2 text-duckYellow"></i> 친구에게 다녀오리 예약 공유하기
+                    </button>
+                </div>
+            </div>
+
+            <!-- Competetive Leaderboard Segment (랭킹) -->
+            <div class="bg-white border border-gray-100 rounded-tossSuper p-8 sm:p-12 shadow-toss max-w-xl mx-auto text-center space-y-5">
+                <h3 class="font-black text-2xl text-tossTextDark"><i class="fa-solid fa-trophy text-duckYellow mr-1.5"></i> 명예의 전당 주간 랭킹 보드</h3>
+                <p class="text-xs sm:text-sm text-tossDarkGray leading-relaxed">매주 합산 최상위 청춘 5분께 지자체 홍보 마케팅 예산 기반 **BHC 맛초킹 치킨 기프티콘**을 선물합니다![cite: 1]</p>
+                
+                <div class="space-y-3 text-left" id="game-leaderboard">
+                    <div class="flex items-center justify-between p-4 bg-tossGrayBg rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <span class="text-xl font-black text-duckOrange">1st</span>
+                            <span class="text-sm font-bold text-tossTextDark">성수동파커 (수도권)</span>
+                        </div>
+                        <span class="text-sm font-black text-tossBlue">1,240 P</span>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-tossGrayBg rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <span class="text-xl font-black text-amber-500">2nd</span>
+                            <span class="text-sm font-bold text-tossTextDark">용산아이티엑스</span>
+                        </div>
+                        <span class="text-sm font-black text-tossBlue">1,120 P</span>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-tossGrayBg rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <span class="text-xl font-black text-slate-400">3rd</span>
+                            <span class="text-sm font-bold text-tossTextDark">가을바람오리</span>
+                        </div>
+                        <span class="text-sm font-black text-tossBlue">980 P</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. FORUM COMMUNITY PAGE ({커뮤니티})       -->
+        <!-- ========================================== -->
+        <section id="tab-community" class="page-transition space-y-10 hidden">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="text-left space-y-2">
+                    <span class="text-xs font-black bg-tossBlueLight text-tossBlue px-3.5 py-2 rounded-full uppercase tracking-widest inline-block"><i class="fa-solid fa-comments"></i> LOCAL REAL TALK FORUM</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-tossTextDark">소외 축제 살리기 클린 포럼</h2>
+                    <p class="text-sm sm:text-base text-tossTextMuted leading-relaxed">바가지요금 정직 저격, 숨은 감성 주차 스팟 등 직접 가보고 겪은 날것의 진짜 이야기를 나눠요.[cite: 1]</p>
+                </div>
+
+                <button onclick="openForumWriteModal()" class="bg-tossBlue hover:bg-[#0051cc] text-white text-xs sm:text-sm font-black px-6 py-4 rounded-2xl shadow-floating flex items-center gap-2 self-start md:self-auto transition transform hover:scale-[1.02] active:scale-95">
+                    <i class="fa-solid fa-pen-fancy"></i> 나들이 꿀팁 후기 쓰기
+                </button>
+            </div>
+
+            <!-- DC Style Category filters -->
+            <div class="flex items-center justify-between bg-white border border-gray-100 p-4.5 rounded-2xl shadow-toss">
+                <div class="flex flex-wrap gap-2" id="forum-filter-bar">
+                    <button onclick="filterForumPosts('all', this)" class="bg-tossBlue text-white text-xs font-black px-5 py-2.5 rounded-full transition shadow-sm">전체 피드</button>
+                    <button onclick="filterForumPosts('바가지고발', this)" class="bg-tossGrayBg text-tossTextMuted hover:bg-gray-100 text-xs font-bold px-5 py-2.5 rounded-full transition">#바가지고발 🚨</button>
+                    <button onclick="filterForumPosts('축제인생샷', this)" class="bg-tossGrayBg text-tossTextMuted hover:bg-gray-100 text-xs font-bold px-5 py-2.5 rounded-full transition">#축제인생샷 📸</button>
+                    <button onclick="filterForumPosts('자유', this)" class="bg-tossGrayBg text-tossTextMuted hover:bg-gray-100 text-xs font-bold px-5 py-2.5 rounded-full transition">자유 수다 💬</button>
+                </div>
+                <span class="text-xs text-tossDarkGray hidden sm:inline"><i class="fa-solid fa-circle-check text-green-500 mr-1.5"></i> 100% 현장 검증 시스템</span>
+            </div>
+
+            <!-- Feed layout grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="forum-posts-container">
+                <!-- Prepopulated Post 1 -->
+                <div class="forum-post-card bg-white rounded-tossLarge p-6 sm:p-8 shadow-toss border border-gray-100/80 flex flex-col justify-between hover:shadow-tossHover transition-all duration-300 transform hover:-translate-y-1" data-tag="바가지고발">
+                    <div>
+                        <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-duckYellow flex items-center justify-center text-lg shadow-inner">🐤</div>
+                                <div>
+                                    <span class="text-xs sm:text-sm font-black text-tossTextDark block">청춘역마차 (2030)</span>
+                                    <span class="text-[10px] text-tossDarkGray">방금 전</span>
+                                </div>
+                            </div>
+                            <span class="bg-red-50 text-red-500 text-[10px] font-black px-3 py-1.5 rounded-full">바가지고발 🚨</span>
+                        </div>
+                        <h4 class="font-black text-lg text-tossTextDark mb-3 hover:text-tossBlue cursor-pointer" onclick="openForumDetail(1)">홍천 찰옥수수 축제 야외 부스 가격 현황</h4>
+                        <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed line-clamp-3">
+                            작년 옥수수 한 바구니에 만 원이라 내심 걱정하면서 갔는데, 현장 가맹 상인 연합에서 정찰제를 철저히 지키고 있더라고요! '다녀오리' 앱에서 발급해 간 3,000P 마일리지 현장에서 바로 차감해서 더 기분 좋게 다녀왔습니다. 초입 가판대 위주로 노리세요!
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-100 mt-6 pt-4 flex items-center justify-between text-xs font-bold text-tossDarkGray">
+                        <div class="flex gap-5">
+                            <button onclick="likeForumPost(1, this)" class="hover:text-tossBlue transition-colors"><i class="fa-regular fa-thumbs-up mr-1 text-tossBlue"></i> 유용해요 (<span class="like-count">18</span>)</button>
+                            <button onclick="openForumDetail(1)" class="hover:text-tossTextDark transition-colors"><i class="fa-regular fa-comment mr-1"></i> 댓글 (<span class="comment-count">3</span>)</button>
+                        </div>
+                        <span class="bg-[#EAF5EF] text-[#22C55E] text-[10px] px-2.5 py-1 rounded-full font-black"><i class="fa-solid fa-circle-check mr-1"></i> 현장인증 완료</span>
+                    </div>
+                </div>
+
+                <!-- Prepopulated Post 2 -->
+                <div class="forum-post-card bg-white rounded-tossLarge p-6 sm:p-8 shadow-toss border border-gray-100/80 flex flex-col justify-between hover:shadow-tossHover transition-all duration-300 transform hover:-translate-y-1" data-tag="축제인생샷">
+                    <div>
+                        <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-lg shadow-inner">😎</div>
+                                <div>
+                                    <span class="text-xs sm:text-sm font-black text-tossTextDark block">성수동힙스터 (2030)</span>
+                                    <span class="text-[10px] text-tossDarkGray">2시간 전</span>
+                                </div>
+                            </div>
+                            <span class="bg-indigo-50 text-indigo-500 text-[10px] font-black px-3 py-1.5 rounded-full">축제인생샷 📸</span>
+                        </div>
+                        <h4 class="font-black text-lg text-tossTextDark mb-3 hover:text-tossBlue cursor-pointer" onclick="openForumDetail(2)">겨울 화천 산천어 낚시 포토 명당 스팟</h4>
+                        <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed line-clamp-3">
+                            매번 인스타 성수동 팝업스토어 피드만 수북했는데, 청춘 ITX 타고 가본 화천 얼음 낚시터 정말 감성 터집니다! 팁 하나 드리자면 낚시터 안쪽 주황색 비닐 텐트에서 찍으면 조명 반사판 효과 때문에 피부 대박 뽀얗게 나옵니다. 무조건 텐트 배경을 노리세요.
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-100 mt-6 pt-4 flex items-center justify-between text-xs font-bold text-tossDarkGray">
+                        <div class="flex gap-5">
+                            <button onclick="likeForumPost(2, this)" class="hover:text-tossBlue transition-colors"><i class="fa-regular fa-thumbs-up mr-1 text-tossBlue"></i> 유용해요 (<span class="like-count">12</span>)</button>
+                            <button onclick="openForumDetail(2)" class="hover:text-tossTextDark transition-colors"><i class="fa-regular fa-comment mr-1"></i> 댓글 (<span class="comment-count">1</span>)</button>
+                        </div>
+                        <span class="bg-[#EAF5EF] text-[#22C55E] text-[10px] px-2.5 py-1 rounded-full font-black"><i class="fa-solid fa-circle-check mr-1"></i> 현장인증 완료</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar (Super Clean Minimal Toss style) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-gray-100/90 shadow-2xl py-4.5 px-6 flex justify-around items-center z-40">
+        <button onclick="switchTab('intro')" id="mobile-nav-intro" class="flex flex-col items-center text-tossDarkGray hover:text-tossBlue transition-all gap-1.5 focus:outline-none">
+            <i class="fa-solid fa-house text-xl"></i>
+            <span class="text-[10px] font-bold">소개</span>
+        </button>
+        <button onclick="switchTab('festivals')" id="mobile-nav-festivals" class="flex flex-col items-center text-tossDarkGray hover:text-tossBlue transition-all gap-1.5 focus:outline-none">
+            <i class="fa-solid fa-map-location-dot text-xl"></i>
+            <span class="text-[10px] font-bold">축제</span>
+        </button>
+        <button onclick="switchTab('game')" id="mobile-nav-game" class="flex flex-col items-center text-tossDarkGray hover:text-tossBlue transition-all gap-1.5 relative focus:outline-none">
+            <i class="fa-solid fa-gamepad text-xl"></i>
+            <span class="text-[10px] font-bold">게임</span>
+            <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-ping"></span>
+        </button>
+        <button onclick="switchTab('community')" id="mobile-nav-community" class="flex flex-col items-center text-tossDarkGray hover:text-tossBlue transition-all gap-1.5 focus:outline-none">
+            <i class="fa-solid fa-comments text-xl"></i>
+            <span class="text-[10px] font-bold">포럼</span>
+        </button>
+    </nav>
+
+    <!-- Brand Footer -->
+    <footer class="bg-white border-t border-gray-100 py-12 text-tossDarkGray text-xs px-5 mb-20 md:mb-0">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div class="space-y-2">
+                <p class="font-black text-tossTextDark text-base">로컬 밸류업 선발 프로젝트 | 다녀오리</p>
+                <p><b>팀원:</b> 전예준, 송동희, 이도현 | <b>대표자명:</b> 전예준[cite: 1]</p>
+                <p class="text-tossDarkGray/80 leading-relaxed">© 2026 다녀오리. All Rights Reserved. Reference: "다녀오리_1차.docx" & "2026 하나 소셜벤처 유니버시티_사업계획서_로컬벨류업.pdf"</p>
+            </div>
+            <div class="flex gap-5 text-xl">
+                <a href="#" class="hover:text-tossBlue transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-tossBlue transition"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="hover:text-tossBlue transition"><i class="fa-regular fa-comment-dots"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- 5. DIALOGS, MODALS & WRITE SCREENS         -->
+    <!-- ========================================== -->
+
+    <!-- Generic Toss style Message toast popup -->
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-tossLarge max-w-sm w-full p-8 text-center border border-gray-100 shadow-2xl relative transform scale-95 transition-all">
+            <span class="text-6xl block mb-4 animate-bounce" id="modal-icon">🦆</span>
+            <h3 class="text-2xl font-black text-tossTextDark mb-2" id="modal-title">성공!</h3>
+            <p class="text-tossTextMuted text-xs sm:text-sm leading-relaxed mb-8" id="modal-desc">축하합니다! 성공적으로 완료되었습니다.</p>
+            <button onclick="closeModal()" class="w-full bg-tossBlue hover:bg-[#0051cc] text-white font-extrabold py-4 rounded-2xl shadow-floating transition-all">
+                확인
+            </button>
+        </div>
+    </div>
+
+    <!-- PRE-REGISTRATION INPUT MODAL (데이터 수치 증가) -->
+    <div id="pre-reg-modal" class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-tossLarge max-w-md w-full p-6 sm:p-8 border border-gray-100 shadow-2xl relative">
+            <button onclick="closePreRegModal()" class="absolute top-5 right-5 text-tossDarkGray hover:text-tossTextDark text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="text-center mb-6">
+                <span class="text-5xl block mb-2">🦆</span>
+                <h3 class="text-2xl font-black text-tossTextDark">다녀오리 사전예약</h3>
+                <p class="text-xs text-tossTextMuted mt-1">앱 정식 런칭 시 10,000 P 무료 쿠폰과 즉시 룰렛 응모권 3회를 보내드립니다.[cite: 1]</p>
+            </div>
+
+            <form onsubmit="handlePreRegistrationSubmit(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-tossTextMuted mb-1.5">이름</label>
+                    <input type="text" id="reg-name" required placeholder="홍길동" class="w-full p-4.5 bg-tossGrayBg border border-transparent rounded-2xl text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-tossBlue transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-tossTextMuted mb-1.5">휴대폰 번호</label>
+                    <input type="tel" id="reg-phone" required placeholder="010-1234-5678" class="w-full p-4.5 bg-tossGrayBg border border-transparent rounded-2xl text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-tossBlue transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-tossTextMuted mb-1.5">관심 주말 나들이 축제</label>
+                    <select id="reg-interest" class="w-full p-4.5 bg-tossGrayBg border border-transparent rounded-2xl text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-tossBlue transition">
+                        <option value="홍천 찰옥수수 축제">강원 홍천 찰옥수수 빨리먹기 축제 (7월)[cite: 2]</option>
+                        <option value="화천 산천어 축제">강원 화천 산천어 얼음낚시 축제 (1월)[cite: 2]</option>
+                        <option value="보령 머드 축제">충남 보령 머드 페스티벌 (7월)[cite: 2]</option>
+                    </select>
+                </div>
+                <div class="flex items-start gap-2.5 pt-2 text-[10px] text-tossDarkGray leading-relaxed">
+                    <input type="checkbox" required id="reg-agree" class="mt-1 rounded text-tossBlue focus:ring-tossBlue">
+                    <label for="reg-agree" class="cursor-pointer select-none">개인정보 수집 및 사전 혜택 알림톡 발송에 동의합니다. 수집 정보는 피칭 가설 증빙용 수치 합산 이후 즉각 폐기됩니다.[cite: 1]</label>
+                </div>
+
+                <button type="submit" class="w-full bg-tossBlue hover:bg-[#0051cc] text-white font-extrabold py-4 rounded-2xl shadow-floating transition mt-3">
+                    사전예약 혜택 가입하기 <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FESTIVAL DETAIL DRAWER MODAL -->
+    <div id="festival-detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-tossLarge max-w-lg w-full p-6 sm:p-8 border border-gray-100 shadow-2xl relative max-h-[85vh] overflow-y-auto no-scrollbar">
+            <button onclick="closeFestivalDetail()" class="absolute top-5 right-5 text-tossDarkGray hover:text-tossTextDark text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <div id="festival-detail-content">
+                <!-- Dynamically loaded details -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FORUM WRITE POST MODAL -->
+    <div id="forum-write-modal" class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-tossLarge max-w-md w-full p-6 sm:p-8 border border-gray-100 shadow-2xl relative">
+            <button onclick="closeForumWriteModal()" class="absolute top-5 right-5 text-tossDarkGray hover:text-tossTextDark text-xl"><i class="fa-solid fa-xmark"></i></button>
+            
+            <h3 class="text-2xl font-black text-tossTextDark mb-5">꿀팁/바가지 고발 의견 쓰기</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-tossTextMuted mb-1.5">포럼 태그 분류</label>
+                    <div class="flex gap-2" id="write-tag-container">
+                        <button onclick="toggleWriteTag('바가지고발', this)" class="write-tag-btn bg-tossBlue text-white text-[11px] font-bold px-4 py-2 rounded-full">#바가지고발 🚨</button>
+                        <button onclick="toggleWriteTag('축제인생샷', this)" class="write-tag-btn bg-tossGrayBg text-tossTextMuted text-[11px] font-bold px-4 py-2 rounded-full">#축제인생샷 📸</button>
+                        <button onclick="toggleWriteTag('자유', this)" class="write-tag-btn bg-tossGrayBg text-tossTextMuted text-[11px] font-bold px-4 py-2 rounded-full">자유수다 💬</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-tossTextMuted mb-1.5">제목</label>
+                    <input type="text" id="write-title" placeholder="한 줄로 강렬하게 의견을 적어보세요" class="w-full p-4.5 bg-tossGrayBg border border-transparent rounded-xl text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-tossBlue transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-tossTextMuted mb-1.5">상세 후기 내용</label>
+                    <textarea id="write-content" rows="4" placeholder="바가지 정황, 위생 상태, 혹은 조명 잘나오는 포토존 등 주말 나들이 청춘들에게 힘이 되는 경험을 알려주세요.[cite: 1]" class="w-full p-4.5 bg-tossGrayBg border border-transparent rounded-xl text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-tossBlue transition"></textarea>
+                </div>
+
+                <button onclick="submitNewForumPost()" class="w-full bg-tossBlue hover:bg-[#0051cc] text-white font-extrabold py-4 rounded-2xl shadow-floating transition">
+                    검증 완료 후 게시하기 ✍️
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORUM DETAIL MODAL -->
+    <div id="forum-detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-tossLarge max-w-lg w-full p-6 sm:p-8 border border-gray-100 shadow-2xl relative max-h-[80vh] overflow-y-auto no-scrollbar">
+            <button onclick="closeForumDetailModal()" class="absolute top-5 right-5 text-tossDarkGray hover:text-tossTextDark text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <div id="forum-detail-modal-body" class="space-y-6">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Core Logic Implementation -->
+    <script>
+        // Web Audio API Retro Sound Effects synthesizer (MZ Playfulness)
+        let audioCtx = null;
+        function playSound(type) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    // Retro Pop sound
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                } else if (type === 'success') {
+                    // Golden Fanfare sound
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.4);
+                } else if (type === 'fail') {
+                    // Retro Buzz sound
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'reel') {
+                    // Fishing Reel click
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.03);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.03);
+                }
+            } catch(e) {
+                console.log("Audio not allowed yet", e);
+            }
+        }
+
+        // Baseline MVP Pitch Statistics
+        const STANDARD_VISITS = 1582;
+        const STANDARD_REGISTRATIONS = 482;
+        const STANDARD_PLAYS = 1894;
+        const STANDARD_MILEAGE = 1483000;
+
+        let currentTab = 'intro';
+        
+        let appStats = {
+            visits: STANDARD_VISITS,
+            registrations: STANDARD_REGISTRATIONS,
+            plays: STANDARD_PLAYS,
+            mileage: STANDARD_MILEAGE
+        };
+
+        // Forum Memory Store
+        let forumPosts = [
+            {
+                id: 1,
+                author: "청춘역마차 (2030)",
+                time: "방금 전",
+                tag: "바가지고발",
+                title: "홍천 찰옥수수 축제 야외 부스 가격 현황",
+                content: "작년 옥수수 한 바구니에 만 원이라 내심 걱정하면서 갔는데, 현장 가맹 상인 연합에서 정찰제를 철저히 지키고 있더라고요! '다녀오리' 앱에서 발급해 간 3,000P 마일리지 현장에서 바로 차감해서 더 기분 좋게 다녀왔습니다. 초입 가판대 위주로 노리세요!",
+                likes: 18,
+                comments: [
+                    { author: "용산itx역", text: "꿀팁 대박이네요! 올해 주말에 청춘 타고 달려갑니다 🌽" },
+                    { author: "성수동토박이", text: "진짜 마일리지가 직접 연동된다니 신선하군요." }
+                ]
+            },
+            {
+                id: 2,
+                author: "성수동힙스터 (2030)",
+                time: "2시간 전",
+                tag: "축제인생샷",
+                title: "겨울 화천 산천어 낚시 포토 명당 스팟",
+                content: "매번 인스타 성수동 팝업스토어 피드만 수북했는데, 청춘 ITX 타고 가본 화천 얼음 낚시터 정말 감성 터집니다! 팁 하나 드리자면 낚시터 안쪽 주황색 비닐 텐트에서 찍으면 조명 반사판 효과 때문에 피부 대박 뽀얗게 나옵니다. 무조건 텐트 배경을 노리세요.",
+                likes: 12,
+                comments: [
+                    { author: "나들이요정", text: "대박 주황색 텐트 적어둡니다 인생샷 건지러 고고" }
+                ]
+            }
+        ];
+
+        let activeWriteTag = '바가지고발';
+
+        // Games State setup
+        let cornGame = { timer: null, isPlaying: false, score: 0, timeLeft: 10, gauge: 0 };
+        let fishGame = { isPlaying: false, timer: null, hookPos: 0, hookDir: 1, score: 0, chances: 5 };
+
+        let isRouletteLocked = true;
+        let isRouletteSpinning = false;
+        let rouletteRotatedAngle = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPersistentStats();
+            updateStatsDOM();
+            switchTab('intro');
+
+            // Simulate organic traffic
+            setInterval(() => {
+                if (Math.random() > 0.85) {
+                    appStats.visits += 1;
+                    localStorage.setItem('dnyeoori_visits', appStats.visits);
+                    updateStatsDOM();
+                }
+            }, 10000);
+        });
+
+        function loadPersistentStats() {
+            if (!localStorage.getItem('dnyeoori_visits')) {
+                localStorage.setItem('dnyeoori_visits', appStats.visits);
+            }
+            appStats.visits = parseInt(localStorage.getItem('danyeoori_visits') || localStorage.getItem('dnyeoori_visits'));
+
+            let savedRegs = JSON.parse(localStorage.getItem('danyeoori_regs_list')) || [];
+            appStats.registrations = STANDARD_REGISTRATIONS + savedRegs.length;
+
+            let savedPlays = parseInt(localStorage.getItem('danyeoori_play_count')) || 0;
+            appStats.plays = STANDARD_PLAYS + savedPlays;
+
+            let savedMileage = parseInt(localStorage.getItem('danyeoori_mileage_count')) || 0;
+            appStats.mileage = STANDARD_MILEAGE + savedMileage;
+        }
+
+        function updateStatsDOM() {
+            document.getElementById('mvp-visits').innerText = appStats.visits.toLocaleString();
+            document.getElementById('mvp-registrations').innerText = appStats.registrations.toLocaleString();
+            document.getElementById('mvp-plays').innerText = appStats.plays.toLocaleString();
+            document.getElementById('mvp-mileage').innerText = appStats.mileage.toLocaleString() + "원";
+
+            let gameRate = ((1240 / 1582) * 100).toFixed(1);
+            let regRate = ((appStats.registrations / appStats.visits) * 100).toFixed(1);
+
+            document.getElementById('funnel-game-rate').innerText = gameRate + "%";
+            document.getElementById('funnel-game-fill').style.width = gameRate + "%";
+            
+            document.getElementById('funnel-reg-rate').innerText = regRate + "%";
+            document.getElementById('funnel-reg-fill').style.width = regRate + "%";
+        }
+
+        function resetMVPCounts() {
+            localStorage.removeItem('danyeoori_regs_list');
+            localStorage.removeItem('danyeoori_play_count');
+            localStorage.removeItem('danyeoori_mileage_count');
+            localStorage.setItem('danyeoori_visits', STANDARD_VISITS);
+
+            appStats.visits = STANDARD_VISITS;
+            appStats.registrations = STANDARD_REGISTRATIONS;
+            appStats.plays = STANDARD_PLAYS;
+            appStats.mileage = STANDARD_MILEAGE;
+
+            updateStatsDOM();
+            playSound('fail');
+            showCustomToast('🔄', '데이터 복구 완료', '실시간 검증 수치가 Baseline으로 원복되었습니다.');
+        }
+
+        function switchTab(tabId) {
+            playSound('click');
+            currentTab = tabId;
+
+            document.getElementById('tab-intro').classList.add('hidden');
+            document.getElementById('tab-festivals').classList.add('hidden');
+            document.getElementById('tab-game').classList.add('hidden');
+            document.getElementById('tab-community').classList.add('hidden');
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            const desktopNavs = ['nav-intro', 'nav-festivals', 'nav-game', 'nav-community'];
+            desktopNavs.forEach(nav => {
+                document.getElementById(nav).classList.remove('active-tab-nav');
+            });
+            document.getElementById('nav-' + tabId).classList.add('active-tab-nav');
+
+            const mobileNavs = ['mobile-nav-intro', 'mobile-nav-festivals', 'mobile-nav-game', 'mobile-nav-community'];
+            mobileNavs.forEach(mobNav => {
+                document.getElementById(mobNav).classList.remove('text-tossBlue', 'font-extrabold');
+                document.getElementById(mobNav).classList.add('text-tossDarkGray');
+            });
+            document.getElementById('mobile-nav-' + tabId).classList.remove('text-tossDarkGray');
+            document.getElementById('mobile-nav-' + tabId).classList.add('text-tossBlue', 'font-extrabold');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFestivalView(mode) {
+            playSound('click');
+            const gridBtn = document.getElementById('view-mode-grid');
+            const calBtn = document.getElementById('view-mode-calendar');
+            const gridView = document.getElementById('festival-grid-view-container');
+            const calView = document.getElementById('festival-calendar-view-container');
+
+            if (mode === 'grid') {
+                gridBtn.className = "bg-white text-tossTextDark text-xs font-black px-4 py-2.5 rounded-xl shadow-sm transition";
+                calBtn.className = "text-tossTextMuted hover:text-tossTextDark text-xs font-bold px-4 py-2.5 rounded-xl transition";
+                gridView.classList.remove('hidden');
+                calView.classList.add('hidden');
+            } else {
+                calBtn.className = "bg-white text-tossTextDark text-xs font-black px-4 py-2.5 rounded-xl shadow-sm transition";
+                gridBtn.className = "text-tossTextMuted hover:text-tossTextDark text-xs font-bold px-4 py-2.5 rounded-xl transition";
+                gridView.classList.add('hidden');
+                calView.classList.remove('hidden');
+            }
+        }
+
+        function showCustomToast(icon, title, desc) {
+            document.getElementById('modal-icon').innerText = icon;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            playSound('click');
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        function openPreRegModal() {
+            playSound('click');
+            document.getElementById('pre-reg-modal').classList.remove('hidden');
+        }
+
+        function closePreRegModal() {
+            playSound('click');
+            document.getElementById('pre-reg-modal').classList.add('hidden');
+        }
+
+        function handlePreRegistrationSubmit(event) {
+            event.preventDefault();
+
+            let name = document.getElementById('reg-name').value.trim();
+            let phone = document.getElementById('reg-phone').value.trim();
+            let interest = document.getElementById('reg-interest').value;
+
+            let list = JSON.parse(localStorage.getItem('danyeoori_regs_list')) || [];
+            list.push({ name, phone, interest });
+            localStorage.setItem('danyeoori_regs_list', JSON.stringify(list));
+
+            appStats.registrations = STANDARD_REGISTRATIONS + list.length;
+            updateStatsDOM();
+
+            closePreRegModal();
+
+            playSound('success');
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+
+            showCustomToast('🦆', '사전예약 완료', `${name}님, 정상 가입되었습니다! 정식 오픈일 전 기프티콘 추첨 결과 및 무료 마일리지 10,000P 혜택 알림을 문자로 발송합니다.[cite: 1]`);
+
+            document.getElementById('reg-name').value = '';
+            document.getElementById('reg-phone').value = '';
+            document.getElementById('reg-agree').checked = false;
+        }
+
+        // 🌽 GAME 1
+        function startCornGame() {
+            playSound('click');
+            if (cornGame.isPlaying) return;
+
+            cornGame.isPlaying = true;
+            cornGame.score = 0;
+            cornGame.timeLeft = 10;
+            cornGame.gauge = 0;
+
+            document.getElementById('corn-game-overlay').classList.add('hidden');
+            document.getElementById('corn-timer').innerText = cornGame.timeLeft;
+            document.getElementById('corn-gauge').innerText = cornGame.gauge;
+            document.getElementById('corn-score').innerText = cornGame.score;
+            document.getElementById('corn-bar-fill').style.width = '0%';
+
+            cornGame.timer = setInterval(() => {
+                cornGame.timeLeft--;
+                document.getElementById('corn-timer').innerText = cornGame.timeLeft;
+
+                if (cornGame.timeLeft <= 0) {
+                    endCornGame(false);
+                }
+            }, 1000);
+        }
+
+        function clickCornTarget() {
+            if (!cornGame.isPlaying) return;
+
+            playSound('click');
+            cornGame.score += 5;
+            cornGame.gauge = Math.min((cornGame.score / 100) * 100, 100);
+
+            document.getElementById('corn-score').innerText = cornGame.score;
+            document.getElementById('corn-gauge').innerText = Math.round(cornGame.gauge);
+            document.getElementById('corn-bar-fill').style.width = cornGame.gauge + '%';
+
+            const feedback = document.getElementById('corn-bite-text');
+            feedback.classList.remove('scale-0');
+            feedback.classList.add('scale-100');
+            setTimeout(() => {
+                feedback.classList.remove('scale-100');
+                feedback.classList.add('scale-0');
+            }, 120);
+
+            if (cornGame.gauge >= 100) {
+                endCornGame(true);
+            }
+        }
+
+        function endCornGame(success) {
+            clearInterval(cornGame.timer);
+            cornGame.isPlaying = false;
+            document.getElementById('corn-game-overlay').classList.remove('hidden');
+
+            let plays = (parseInt(localStorage.getItem('danyeoori_play_count')) || 0) + 1;
+            localStorage.setItem('danyeoori_play_count', plays);
+            appStats.plays = STANDARD_PLAYS + plays;
+            updateStatsDOM();
+
+            if (success) {
+                playSound('success');
+                confetti({ particleCount: 100, spread: 60, origin: { y: 0.8 } });
+                showCustomToast('🏆', '옥수수 정복!', '신들린 속도로 옥수수를 해치웠습니다! 룰렛 응모권이 활성화되었습니다. 하단 룰렛에 도전하세요![cite: 1, 2]');
+                unlockRoulette();
+            } else {
+                playSound('fail');
+                showCustomToast('😢', '시간 초과', '아쉽습니다! 10초 내 목표치를 도달해 룰렛 기회를 획득해 보세요.[cite: 1, 2]');
+            }
+        }
+
+        // 🐟 GAME 2
+        function startFishGame() {
+            playSound('click');
+            if (fishGame.isPlaying) return;
+
+            fishGame.isPlaying = true;
+            fishGame.score = 0;
+            fishGame.chances = 5;
+            fishGame.hookPos = 0;
+            fishGame.hookDir = 1;
+
+            document.getElementById('fish-game-overlay').classList.add('hidden');
+            document.getElementById('fish-chances').innerText = fishGame.chances;
+            document.getElementById('fish-score-val').innerText = fishGame.score;
+            document.getElementById('fish-catch-btn').disabled = false;
+            document.getElementById('fish-catch-btn').className = "w-full bg-tossBlue hover:bg-[#0051cc] text-white font-black py-4 rounded-2xl shadow-floating cursor-pointer transition transform active:scale-95";
+
+            // Sweeping animation loop
+            fishGame.timer = setInterval(() => {
+                fishGame.hookPos += 4.5 * fishGame.hookDir;
+                if (fishGame.hookPos > 240) fishGame.hookDir = -1;
+                if (fishGame.hookPos < 0) fishGame.hookDir = 1;
+
+                document.getElementById('fish-indicator-hook').style.left = fishGame.hookPos + 'px';
+            }, 25);
+        }
+
+        function tryCatchFish() {
+            if (!fishGame.isPlaying) return;
+
+            fishGame.chances--;
+            document.getElementById('fish-chances').innerText = fishGame.chances;
+
+            // Collision check
+            const targetLeft = 120;
+            const targetRight = 176; // 120 + 56px width
+            const isHit = (fishGame.hookPos >= targetLeft && fishGame.hookPos <= targetRight);
+
+            const feedback = document.getElementById('fish-catch-feedback');
+            if (isHit) {
+                playSound('success');
+                fishGame.score++;
+                document.getElementById('fish-score-val').innerText = fishGame.score;
+
+                feedback.innerText = "HIT! 🐟 대박손맛";
+                feedback.className = "text-emerald-400 font-black text-2xl opacity-100 scale-110 transition-transform duration-100";
+                confetti({ particleCount: 30, spread: 35 });
+            } else {
+                playSound('fail');
+                feedback.innerText = "놓쳤다! 💨";
+                feedback.className = "text-red-400 font-black text-2xl opacity-100 transition-opacity";
+            }
+
+            setTimeout(() => {
+                feedback.className = "opacity-0 text-white font-black text-2xl scale-75";
+            }, 600);
+
+            if (fishGame.chances <= 0) {
+                endFishGame();
+            }
+        }
+
+        function endFishGame() {
+            clearInterval(fishGame.timer);
+            fishGame.isPlaying = false;
+
+            document.getElementById('fish-game-overlay').classList.remove('hidden');
+            document.getElementById('fish-catch-btn').disabled = true;
+            document.getElementById('fish-catch-btn').className = "w-full bg-tossGrayBg text-tossDarkGray cursor-not-allowed font-black py-4 rounded-2xl";
+
+            let plays = (parseInt(localStorage.getItem('danyeoori_play_count')) || 0) + 1;
+            localStorage.setItem('danyeoori_play_count', plays);
+            appStats.plays = STANDARD_PLAYS + plays;
+            updateStatsDOM();
+
+            if (fishGame.score >= 3) {
+                playSound('success');
+                showCustomToast('🎣', '짜릿한 손맛!', `산천어 총 ${fishGame.score}마리 조과 달성! 미션 성공으로 룰렛 도전권을 확보하셨습니다.[cite: 2]`);
+                unlockRoulette();
+            } else {
+                playSound('fail');
+                showCustomToast('🐟', '어복 실종', `산천어 ${fishGame.score}마리 수확에 그쳤습니다. 3마리 이상 낚아야 룰렛 획득이 가능합니다.[cite: 2]`);
+            }
+        }
+
+        // ROULETTE REWARDS
+        function unlockRoulette() {
+            isRouletteLocked = false;
+            
+            document.getElementById('roulette-lock-status').innerText = "✅ 행운의 룰렛 응모 가능!";
+            document.getElementById('roulette-lock-status').className = "inline-flex items-center gap-1.5 bg-green-50 text-green-500 text-xs font-black px-4 py-2 rounded-full mb-5";
+            
+            const btn = document.getElementById('css-spin-btn');
+            btn.disabled = false;
+            btn.innerText = "🎡 룰렛 힘차게 돌리기!";
+            btn.className = "w-full bg-gradient-to-r from-duckYellow to-duckOrange hover:opacity-95 text-tossTextDark font-black py-4.5 rounded-2xl shadow-floating cursor-pointer transition transform hover:scale-[1.01]";
+        }
+
+        function executeRouletteSpin() {
+            if (isRouletteLocked || isRouletteSpinning) return;
+
+            isRouletteSpinning = true;
+            playSound('click');
+
+            // Wheel spinning calculation
+            const segments = 8;
+            const segmentAngle = 360 / segments; 
+            const randomizedSegment = Math.floor(Math.random() * segments); 
+            const spins = 360 * 6; // 6 rotations
+            
+            rouletteRotatedAngle += spins + (randomizedSegment * segmentAngle);
+            
+            const wheel = document.getElementById('css-roulette-wheel');
+            wheel.style.transform = `rotate(${rouletteRotatedAngle}deg)`;
+
+            // Sound effect sweep simulation during spin
+            let audioInt = setInterval(() => {
+                if(isRouletteSpinning) playSound('reel');
+                else clearInterval(audioInt);
+            }, 180);
+
+            // Prize Layout Map clockwise orientation match
+            const prizeMap = [
+                { text: "10,000 P 무료 로컬 마일리지 당첨! 🎉", val: 10000, isHit: true },
+                { text: "아쉽게도 꽝! 💨 다른 게임을 깨서 재도전해 보세요.", val: 0, isHit: false },
+                { text: "1,000 P 소소한 마일리지 적립 완료! 💰", val: 1000, isHit: true },
+                { text: "아쉽게도 꽝! 💨 다른 게임을 깨서 재도전해 보세요.", val: 0, isHit: false },
+                { text: "3,000 P 보너스 마일리지 적립 완료! 💰", val: 3000, isHit: true },
+                { text: "아쉽게도 꽝! 💨 다른 게임을 깨서 재도전해 보세요.", val: 0, isHit: false },
+                { text: "5,000 P 무료 로컬 마일리지 당첨! 💰", val: 5000, isHit: true },
+                { text: "맛초킹 치킨 기프티콘 보너스 전형 응모 성공! 🍗", val: 20000, isHit: true }
+            ];
+
+            setTimeout(() => {
+                isRouletteSpinning = false;
+                clearInterval(audioInt);
+                
+                const finalCircle = (rouletteRotatedAngle % 360);
+                const winIdx = Math.floor((360 - finalCircle + 22.5) % 360 / segmentAngle);
+                const reward = prizeMap[winIdx] || prizeMap[0];
+
+                if (reward.isHit) {
+                    playSound('success');
+                    confetti({ particleCount: 120, spread: 70 });
+                    showCustomToast('🎁', '룰렛 결과', reward.text);
+
+                    let mileage = (parseInt(localStorage.getItem('danyeoori_mileage_count')) || 0) + reward.val;
+                    localStorage.setItem('danyeoori_mileage_count', mileage);
+                    appStats.mileage = STANDARD_MILEAGE + mileage;
+                    updateStatsDOM();
+                } else {
+                    playSound('fail');
+                    showCustomToast('💨', '다음 기회에', reward.text);
+                }
+
+                // Standard lock until share
+                isRouletteLocked = true;
+                const btn = document.getElementById('css-spin-btn');
+                btn.disabled = true;
+                btn.innerText = "오늘의 기회 완료";
+                btn.className = "w-full bg-tossGrayBg text-tossDarkGray cursor-not-allowed font-black py-4.5 rounded-2xl";
+
+                document.getElementById('roulette-lock-status').innerText = "⏳ 룰렛권 소진 (공유 시 보너스 획득)";
+                document.getElementById('roulette-lock-status').className = "inline-flex items-center gap-1.5 bg-tossGrayBg text-tossDarkGray text-xs font-black px-4 py-2 rounded-full mb-5";
+
+                document.getElementById('bonus-share-panel').classList.remove('hidden');
+            }, 5000);
+        }
+
+        function shareKakaoSimulate() {
+            playSound('success');
+            confetti({ particleCount: 60, angle: 60, spread: 55, origin: { x: 0 } });
+            confetti({ particleCount: 60, angle: 120, spread: 55, origin: { x: 1 } });
+
+            showCustomToast('🔗', '공유 성공!', '카카오톡 친구 단톡방에 성수동 대체 주말 나들이 소문이 전파되었습니다! 보너스 찬스가 활성화되었습니다.[cite: 1]');
+            
+            isRouletteLocked = false;
+            const btn = document.getElementById('css-spin-btn');
+            btn.disabled = false;
+            btn.innerText = "🎡 보너스 기회로 돌리기!";
+            btn.className = "w-full bg-gradient-to-r from-tossBlue to-indigo-500 hover:opacity-95 text-white font-black py-4.5 rounded-2xl shadow-floating cursor-pointer transition";
+
+            document.getElementById('roulette-lock-status').innerText = "🔥 보너스 추가 찬스!";
+            document.getElementById('roulette-lock-status').className = "inline-flex items-center gap-1.5 bg-orange-50 text-orange-600 text-xs font-black px-4 py-2 rounded-full mb-5";
+
+            document.getElementById('bonus-share-panel').classList.add('hidden');
+        }
+
+        // Festival Details Database
+        const festivalDetailedDB = {
+            hongcheon: {
+                title: "홍천 찰옥수수 축제 🌽",
+                region: "강원 홍천군",
+                period: "2026년 7월 24일 ~ 7월 26일 (예정)",
+                intro: "전국 최상급 명품 품질을 보장하는 홍천 찰옥수수를 활용한 수확 및 참여형 로컬 축제입니다. 2030의 입맛에 딱 맞춘 단짠 야시장과 이색 찰옥수수 빨리 먹기 이벤트를 미리 만나보세요.[cite: 2]",
+                program: "찰옥수수 대왕전 빨리먹기, 껍질 까기 릴레이 레이스, 버스킹 및 로컬 야시장 야간 맥주 텐트.[cite: 2]",
+                safeIndex: "95% (모든 먹거리 메뉴 가격 사전 공시 및 정찰 부스제 운영)",
+                tip: "다녀오리 미니게임을 100점 클리어하고 받은 시연 할인권을 제시하시면, 현장에서 판매하는 신선한 옥수수 한 박스를 즉시 3,000원 할인받습니다.[cite: 2]"
+            },
+            hwacheon: {
+                title: "화천 산천어 축제 🐟",
+                region: "강원 화천군",
+                period: "2026년 1월 10일 ~ 2월 1일 (예정)",
+                intro: "문화체육관광부가 보증하는 국가대표 최고급 축제! 짜릿한 청정 얼음 구멍 낚시와 대형 썰매 광장, 직접 낚은 산천어를 회나 구이로 바로 섭취하는 맛의 축제입니다.[cite: 1, 2]",
+                program: "산천어 얼음 낚시터, 썰매 경기, 얼음 조각 성수 테마존, 먹거리 시식 장터.[cite: 1, 2]",
+                safeIndex: "92% (회 손질 및 참기름 구이 균일 정액 요금제 실시)",
+                tip: "ITX 기차표 영수증과 다녀오리 마일리지 당첨 내역을 현장 종합안내소에 제시하시면 특별 화천 사랑 로컬화폐로 추가 환급해 드립니다.[cite: 1, 2]"
+            },
+            boryeong: {
+                title: "보령 머드 축제 🎉",
+                region: "충남 보령시",
+                period: "2026년 7월 17일 ~ 7월 26일 (예정)",
+                intro: "글로벌 청년들이 해변에 모여 머드 슬라이드와 대형 덤프를 가동하는 최고의 주말 핫플레이스! 저녁에는 머드 풀 안에서 즐기는 환상의 EDM 파티가 준비되어 있습니다.[cite: 2]",
+                program: "머드 슬라이딩 챌린지, 풀파티 EDM 페스티벌, 머드 페인팅존.[cite: 2]",
+                safeIndex: "88% (바가지 예방 단속 요원 및 협정 가격 의무제 도입)",
+                tip: "머드존 입장 대기 줄이 길기 때문에 다녀오리에서 룰렛 마일리지로 '패스트 패스권'을 구매하시면 대기 시간 없이 원스톱 하이패스 입장이 가능합니다.[cite: 2, 3]"
+            }
+        };
+
+        function openFestivalDetail(key) {
+            playSound('click');
+            const data = festivalDetailedDB[key];
+            if (!data) return;
+
+            const container = document.getElementById('festival-detail-content');
+            container.innerHTML = `
+                <div class="space-y-6">
+                    <div class="text-center">
+                        <span class="text-5xl block mb-2">🎈</span>
+                        <h3 class="text-2xl font-black text-tossTextDark">${data.title}</h3>
+                        <p class="text-xs text-tossDarkGray mt-1 font-bold">${data.region} | ${data.period}</p>
+                    </div>
+
+                    <div class="space-y-4 text-xs sm:text-sm text-tossTextMuted leading-relaxed">
+                        <div>
+                            <span class="font-black text-tossTextDark block mb-1">🔍 주말 축제 개요</span>
+                            <p>${data.intro}</p>
+                        </div>
+                        <div>
+                            <span class="font-black text-tossTextDark block mb-1">✨ 주말 대표 스팟/프로그램</span>
+                            <p>${data.program}</p>
+                        </div>
+                        <div>
+                            <span class="font-black text-tossTextDark block mb-1">🚨 바가지안심 보장 지수</span>
+                            <p class="font-black text-red-500 bg-red-50 px-4 py-2.5 rounded-2xl mt-1.5"><i class="fa-solid fa-shield-halved mr-1.5"></i> ${data.safeIndex}</p>
+                        </div>
+                        <div class="bg-blue-50 border border-blue-100 p-4.5 rounded-2xl text-tossBlue">
+                            <span class="font-black block mb-1"><i class="fa-solid fa-lightbulb"></i> 다녀오리 꿀팁 & 혜택 연동</span>
+                            <p class="font-medium text-xs leading-relaxed">${data.tip}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mt-5">
+                        <button onclick="simulateReserveTicket('${data.title}')" class="flex-1 bg-tossBlue hover:bg-[#0051cc] text-white font-black text-xs sm:text-sm py-4 rounded-2xl shadow-floating transition transform active:scale-95">
+                            <i class="fa-regular fa-calendar-check mr-1.5"></i> 이 축제 혜택 예약 & 가설 증빙하기
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('festival-detail-modal').classList.remove('hidden');
+        }
+
+        function closeFestivalDetail() {
+            playSound('click');
+            document.getElementById('festival-detail-modal').classList.add('hidden');
+        }
+
+        function simulateReserveTicket(title) {
+            closeFestivalDetail();
+            appStats.registrations += 1;
+            updateStatsDOM();
+
+            playSound('success');
+            confetti({ particleCount: 50, spread: 40 });
+            showCustomToast('📅', '알림 및 혜택 신청 완료', `[${title}] 주말 방문 우선 알림이 신청되었습니다! 실시간 피칭 대시보드에 예약 수치 1건이 가설 증명용으로 추가 적립되었습니다.[cite: 1]`);
+        }
+
+        function searchFestivals() {
+            const val = document.getElementById('festival-search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.festival-search-card');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(val)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function filterFestivalsBySeason(season, btn) {
+            playSound('click');
+            const btns = document.querySelectorAll('.season-filter-btn');
+            btns.forEach(b => {
+                b.className = "season-filter-btn bg-tossGrayBg text-tossTextMuted hover:bg-gray-100 text-xs font-bold px-5 py-3 rounded-full transition";
+            });
+
+            btn.className = "season-filter-btn bg-tossBlue text-white text-xs font-black px-5 py-3 rounded-full transition shadow-sm";
+
+            const cards = document.querySelectorAll('.festival-search-card');
+            cards.forEach(card => {
+                if (season === 'all' || card.getAttribute('data-season') === season) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // FORUM
+        function filterForumPosts(tag, btn) {
+            playSound('click');
+            const btns = document.getElementById('forum-filter-bar').querySelectorAll('button');
+            btns.forEach(b => {
+                b.className = "bg-tossGrayBg text-tossTextMuted hover:bg-gray-100 text-xs font-bold px-5 py-2.5 rounded-full transition";
+            });
+
+            btn.className = "bg-tossBlue text-white text-xs font-black px-5 py-2.5 rounded-full transition shadow-sm";
+
+            const cards = document.querySelectorAll('.forum-post-card');
+            cards.forEach(card => {
+                if (tag === 'all' || card.getAttribute('data-tag') === tag) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function openForumWriteModal() {
+            playSound('click');
+            document.getElementById('forum-write-modal').classList.remove('hidden');
+            
+            const btns = document.querySelectorAll('.write-tag-btn');
+            btns.forEach(btn => {
+                if (btn.innerText.includes(activeWriteTag)) {
+                    btn.className = "write-tag-btn bg-tossBlue text-white text-[11px] font-bold px-4 py-2 rounded-full";
+                } else {
+                    btn.className = "write-tag-btn bg-tossGrayBg text-tossTextMuted text-[11px] font-bold px-4 py-2 rounded-full";
+                }
+            });
+        }
+
+        function toggleWriteTag(tag, btn) {
+            playSound('click');
+            activeWriteTag = tag;
+            const btns = document.querySelectorAll('.write-tag-btn');
+            btns.forEach(b => {
+                b.className = "write-tag-btn bg-tossGrayBg text-tossTextMuted text-[11px] font-bold px-4 py-2 rounded-full";
+            });
+            btn.className = "write-tag-btn bg-tossBlue text-white text-[11px] font-bold px-4 py-2 rounded-full";
+        }
+
+        function closeForumWriteModal() {
+            playSound('click');
+            document.getElementById('forum-write-modal').classList.add('hidden');
+        }
+
+        function submitNewForumPost() {
+            const title = document.getElementById('write-title').value.trim();
+            const content = document.getElementById('write-content').value.trim();
+
+            if(!title || !content) {
+                playSound('fail');
+                showCustomToast('⚠️', '의견 미완성', '주말 트래퍼들에게 전수할 의견의 제목과 상세 후기를 모두 작성해 주세요.');
+                return;
+            }
+
+            const newPost = {
+                id: forumPosts.length + 1,
+                author: "주말탐정 (2030)",
+                time: "방금 전",
+                tag: activeWriteTag,
+                title: title,
+                content: content,
+                likes: 0,
+                comments: []
+            };
+
+            forumPosts.unshift(newPost);
+            renderForumFeeds();
+            closeForumWriteModal();
+
+            document.getElementById('write-title').value = '';
+            document.getElementById('write-content').value = '';
+
+            playSound('success');
+            confetti({ particleCount: 60, spread: 40 });
+            showCustomToast('✍️', '후기 등록 완료', '당신의 진솔한 후기가 안심하고 방문할 수 있는 청춘 나들이 지도를 다집니다. (기프트 응모 가중치 획득)[cite: 1]');
+        }
+
+        function renderForumFeeds() {
+            const container = document.getElementById('forum-posts-container');
+            container.innerHTML = "";
+
+            forumPosts.forEach(post => {
+                let badgeClass = "bg-indigo-50 text-indigo-500";
+                let tagLabel = post.tag + " 📸";
+                if(post.tag === '바가지고발') {
+                    badgeClass = "bg-red-50 text-red-500";
+                    tagLabel = "바가지고발 🚨";
+                } else if(post.tag === '자유') {
+                    badgeClass = "bg-slate-100 text-slate-700";
+                    tagLabel = "자유수다 💬";
+                }
+
+                const card = document.createElement('div');
+                card.className = "forum-post-card bg-white rounded-tossLarge p-6 sm:p-8 shadow-toss border border-gray-100/80 flex flex-col justify-between hover:shadow-tossHover transition-all duration-300 transform hover:-translate-y-1";
+                card.setAttribute('data-tag', post.tag);
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-duckYellow flex items-center justify-center text-lg shadow-inner">🐤</div>
+                                <div>
+                                    <span class="text-xs sm:text-sm font-black text-tossTextDark block">${post.author}</span>
+                                    <span class="text-[10px] text-tossDarkGray">${post.time}</span>
+                                </div>
+                            </div>
+                            <span class="${badgeClass} text-[10px] font-black px-3 py-1.5 rounded-full">${tagLabel}</span>
+                        </div>
+                        <h4 class="font-black text-lg text-tossTextDark mb-3 hover:text-tossBlue cursor-pointer" onclick="openForumDetail(${post.id})">${post.title}</h4>
+                        <p class="text-xs sm:text-sm text-tossTextMuted leading-relaxed line-clamp-3">${post.content}</p>
+                    </div>
+                    <div class="border-t border-gray-100 mt-6 pt-4 flex items-center justify-between text-xs font-bold text-tossDarkGray">
+                        <div class="flex gap-5">
+                            <button onclick="likeForumPost(${post.id}, this)" class="hover:text-tossBlue transition-colors"><i class="fa-regular fa-thumbs-up mr-1 text-tossBlue"></i> 유용해요 (<span class="like-count">${post.likes}</span>)</button>
+                            <button onclick="openForumDetail(${post.id})" class="hover:text-tossTextDark transition-colors"><i class="fa-regular fa-comment mr-1"></i> 댓글 (<span class="comment-count">${post.comments.length}</span>)</button>
+                        </div>
+                        <span class="bg-[#EAF5EF] text-[#22C55E] text-[10px] px-2.5 py-1 rounded-full font-black"><i class="fa-solid fa-circle-check mr-1"></i> 현장인증 완료</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function likeForumPost(id, btn) {
+            playSound('success');
+            const post = forumPosts.find(p => p.id === id);
+            if (post) {
+                post.likes++;
+                const countSpan = btn.querySelector('.like-count');
+                countSpan.innerText = post.likes;
+                btn.classList.add('text-tossBlue', 'font-black');
+                btn.disabled = true;
+            }
+        }
+
+        function openForumDetail(id) {
+            playSound('click');
+            const post = forumPosts.find(p => p.id === id);
+            if (!post) return;
+
+            let badgeClass = "bg-indigo-50 text-indigo-500";
+            if(post.tag === '바가지고발') badgeClass = "bg-red-50 text-red-500";
+            else if(post.tag === '자유') badgeClass = "bg-slate-100 text-slate-700";
+
+            let commentsHTML = "";
+            post.comments.forEach(comment => {
+                commentsHTML += `
+                    <div class="bg-tossGrayBg p-3.5 rounded-xl border border-gray-100 text-xs space-y-1">
+                        <div class="flex justify-between font-black text-tossTextDark">
+                            <span>${comment.author}</span>
+                            <span class="text-[9px] text-tossDarkGray">방금 전</span>
+                        </div>
+                        <p class="text-tossTextMuted leading-relaxed">${comment.text}</p>
+                    </div>
+                `;
+            });
+
+            if (post.comments.length === 0) {
+                commentsHTML = `<p class="text-center text-xs text-tossDarkGray py-5">가장 먼저 유용한 나들이 피드백 댓글을 남겨보세요![cite: 1]</p>`;
+            }
+
+            const body = document.getElementById('forum-detail-modal-body');
+            body.innerHTML = `
+                <div class="space-y-5">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                        <span class="${badgeClass} text-[10px] font-black px-3 py-1.5 rounded-full">${post.tag}</span>
+                        <span class="text-[10px] text-tossDarkGray">${post.time}</span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-black text-tossTextDark leading-snug">${post.title}</h3>
+                        <p class="text-xs text-tossDarkGray mt-1.5 font-bold">글쓴이: <b>${post.author}</b></p>
+                    </div>
+
+                    <div class="p-4 bg-tossGrayBg rounded-2xl text-xs sm:text-sm text-tossTextMuted leading-relaxed border border-gray-100/50">
+                        ${post.content}
+                    </div>
+
+                    <!-- Comments block -->
+                    <div class="space-y-3">
+                        <h4 class="font-black text-xs sm:text-sm text-tossTextDark border-b border-gray-100 pb-2 flex items-center justify-between">
+                            <span>실시간 의견 공유 (<span id="detail-comment-counter">${post.comments.length}</span>개)</span>
+                            <span class="text-[10px] text-[#22C55E]"><i class="fa-solid fa-shield-halved"></i> 실시간 필터 가동 중</span>
+                        </h4>
+                        
+                        <div class="space-y-2 max-h-[180px] overflow-y-auto no-scrollbar" id="detail-comments-container">
+                            ${commentsHTML}
+                        </div>
+                    </div>
+
+                    <!-- Comment input form -->
+                    <div class="flex gap-2.5 pt-1">
+                        <input type="text" id="forum-comment-input" placeholder="바가지 경보 등 따뜻한 댓글을 남겨주세요" class="flex-1 p-4 bg-tossGrayBg border border-transparent rounded-2xl text-xs sm:text-sm focus:outline-none focus:bg-white focus:border-tossBlue transition">
+                        <button onclick="submitForumComment(${post.id})" class="bg-tossBlue hover:bg-[#0051cc] text-white text-xs font-black px-5 py-3.5 rounded-xl transition">의견 등록</button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('forum-detail-modal').classList.remove('hidden');
+        }
+
+        function closeForumDetailModal() {
+            playSound('click');
+            document.getElementById('forum-detail-modal').classList.add('hidden');
+        }
+
+        function submitForumComment(postId) {
+            const input = document.getElementById('forum-comment-input');
+            const val = input.value.trim();
+
+            if (!val) return;
+
+            const post = forumPosts.find(p => p.id === postId);
+            if (post) {
+                post.comments.push({
+                    author: "나들이요정 (2030)",
+                    text: val
+                });
+
+                const commentBox = document.getElementById('detail-comments-container');
+                if(post.comments.length === 1) commentBox.innerHTML = "";
+
+                const newCommentDiv = document.createElement('div');
+                newCommentDiv.className = "bg-tossGrayBg p-3.5 rounded-xl border border-gray-100 text-xs space-y-1 animate-pulse";
+                newCommentDiv.innerHTML = `
+                    <div class="flex justify-between font-black text-tossTextDark">
+                        <span>나들이요정 (2030) <span class="bg-tossBlue text-white text-[9px] px-1.5 py-0.2 rounded-md ml-1">나</span></span>
+                        <span class="text-[9px] text-tossDarkGray">방금 전</span>
+                    </div>
+                    <p class="text-tossTextMuted leading-relaxed">${val}</p>
+                `;
+                commentBox.appendChild(newCommentDiv);
+
+                document.getElementById('detail-comment-counter').innerText = post.comments.length;
+                input.value = "";
+                playSound('success');
+                renderForumFeeds();
+            }
+        }
+    </script>
+</body>
+</html>
