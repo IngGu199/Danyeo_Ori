@@ -70,3 +70,27 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
 
 @media (max-width: 980px) { .about-hero-copy { padding: 66px 43px; }.about-featured-program { grid-template-columns: 1fr; }.about-game-grid, .about-destination-grid { grid-template-columns: repeat(2, 1fr); }.about-game-card:last-child, .about-destination-card:last-child { grid-column: span 2; }.about-flow { grid-template-columns: repeat(3, 1fr); }.about-flow li:nth-child(3)::after { display: none; } }
 @media (max-width: 720px) { .about-hero { padding-top: 20px; }.about-hero-photo { min-height: 430px; }.about-hero-copy { width: 100%; padding: 60px 25px; }.about-hero-copy h1 { font-size: 37px; }.about-hero-copy p { font-size: 14px; }.about-featured-program { gap: 5px; margin: -1px 0 0; padding: 12px; border-radius: 0 0 var(--radius-md) var(--radius-md); transform: translateY(-20px); }.about-festival-summary { padding: 14px 10px 20px; }.about-game-panel { padding: 18px; }.about-preview-section { padding-top: 30px; }.about-game-grid, .about-destination-grid { grid-template-columns: 1fr; }.about-game-card:last-child, .about-destination-card:last-child { grid-column: auto; }.about-game-image { height: 180px; }.about-flow { grid-template-columns: 1fr; gap: 10px; }.about-flow li { display: grid; grid-template-columns: 34px 47px minmax(0, 1fr); column-gap: 12px; text-align: left; }.about-flow-step { align-self: center; margin: 0; }.about-flow-icon { margin: 0; }.about-flow h3 { align-self: end; margin: 1px 0 2px; }.about-flow p { grid-column: 3; }.about-flow li:not(:last-child)::after { top: auto; right: auto; bottom: -8px; left: 49px; transform: rotate(135deg); }.about-cta { min-height: 300px; padding: 37px 25px; }.about-cta > div { width: 100%; }.about-cta h2 { font-size: 31px; } }
+
+/* Landing-page readability pass */
+.about-hero-veil { background: rgba(25, 37, 25, .28); }
+.about-hero-copy { width: min(620px, calc(100% - 88px)); padding: 35px 39px 37px; border: 1px solid rgba(255, 253, 248, .32); border-radius: 28px; background: rgba(31, 43, 28, .78); box-shadow: 0 16px 36px rgba(21, 30, 18, .2); backdrop-filter: blur(8px); }
+.about-kicker { padding: 7px 11px; background: rgba(255, 253, 248, .16); color: #fffdf9; font-weight: 850; letter-spacing: .09em; }
+.about-hero-copy h1 { max-width: 535px; margin-top: 15px; margin-bottom: 18px; color: #fffdf9; font-weight: 800; line-height: 1.18; letter-spacing: -.048em; word-break: keep-all; }
+.about-hero-copy p { max-width: 500px; margin-bottom: 27px; color: rgba(255, 253, 248, .95); font-size: 16px; font-weight: 500; line-height: 1.72; letter-spacing: -.015em; word-break: keep-all; }
+.about-festival-summary h2, .about-game-panel h2, .about-game-body h3, .about-destination-card h3, .about-flow h3 { font-weight: 800; line-height: 1.32; letter-spacing: -.035em; word-break: keep-all; }
+.about-festival-summary > p, .about-game-panel > p, .about-game-body p, .about-destination-card p, .about-flow p { font-weight: 500; line-height: 1.65; letter-spacing: -.012em; word-break: keep-all; }
+.about-game-panel-head, .about-game-panel > small, .about-festival-summary dl div, .about-flow-step { font-weight: 750; letter-spacing: -.01em; }
+.about-game-body span, .text-action { font-weight: 850; }
+.about-cta h2 { color: #fffdf9; font-weight: 800; line-height: 1.2; letter-spacing: -.045em; word-break: keep-all; }
+.about-cta p { color: rgba(255, 253, 248, .93); font-weight: 500; line-height: 1.68; word-break: keep-all; }
+
+@media (max-width: 720px) { .about-hero-copy { width: calc(100% - 32px); margin: 16px; padding: 27px 23px 29px; border-radius: 22px; }.about-hero-copy h1 { margin-bottom: 15px; font-size: clamp(32px, 9vw, 38px); line-height: 1.2; }.about-hero-copy p { margin-bottom: 22px; font-size: 14px; line-height: 1.68; }.about-kicker { font-size: 9px; }.about-game-body p, .about-destination-card p { font-size: 14px; }.about-flow p { font-size: 12px; } }
+
+/* Hero copy should read as part of the photograph, not as an opaque card. */
+.about-hero-veil { background: linear-gradient(90deg, rgba(20, 31, 21, .72) 0%, rgba(20, 31, 21, .52) 44%, rgba(20, 31, 21, .14) 72%, transparent 100%); }
+.about-hero-copy { width: min(700px, calc(100% - 96px)); padding: 80px 54px 68px; border: 0; border-radius: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+.about-hero-copy h1 { max-width: 690px; font-size: clamp(39px, 3.65vw, 48px); font-weight: 800; line-height: 1.16; letter-spacing: -.065em; text-shadow: 0 3px 18px rgba(12, 20, 12, .76), 0 1px 2px rgba(12, 20, 12, .9); }
+.about-hero-copy p { max-width: 565px; color: rgba(255, 253, 248, .97); font-weight: 600; text-shadow: 0 2px 10px rgba(12, 20, 12, .82); }
+.about-kicker { background: rgba(25, 37, 25, .46); box-shadow: 0 2px 8px rgba(10, 18, 10, .28); text-shadow: 0 1px 3px rgba(10, 18, 10, .5); }
+
+@media (max-width: 720px) { .about-hero-veil { background: linear-gradient(90deg, rgba(20, 31, 21, .72), rgba(20, 31, 21, .34)); }.about-hero-copy { width: calc(100% - 36px); margin: 0 18px; padding: 58px 7px 48px; }.about-hero-copy h1 { max-width: 100%; font-size: clamp(33px, 8.8vw, 39px); line-height: 1.19; letter-spacing: -.06em; }.about-hero-copy p { max-width: 94%; font-size: 14px; line-height: 1.68; } }
