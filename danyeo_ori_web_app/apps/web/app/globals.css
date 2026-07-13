@@ -75,6 +75,18 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
 
 /* Landing-page readability pass */
 .about-hero-veil { background: rgba(25, 37, 25, .28); }
+
+/* Reuse the festival-games card anatomy for the introduction page's featured game. */
+.about-featured-game { min-height: 100%; border-radius: var(--radius-sm); }
+.about-featured-game .game-cover { height: 150px; }
+.about-featured-game .game-body { padding: 18px; }
+.about-featured-game .game-body h3 { margin-top: 10px; }
+.about-featured-game .game-body p { margin-bottom: 14px; }
+.about-featured-game .primary-btn { width: 100%; }
+
+@media (max-width: 720px) {
+  .about-featured-game .game-cover { height: 176px; }
+}
 .about-hero-copy { width: min(620px, calc(100% - 88px)); padding: 35px 39px 37px; border: 1px solid rgba(255, 253, 248, .32); border-radius: 28px; background: rgba(31, 43, 28, .78); box-shadow: 0 16px 36px rgba(21, 30, 18, .2); backdrop-filter: blur(8px); }
 .about-kicker { padding: 7px 11px; background: rgba(255, 253, 248, .16); color: #fffdf9; font-weight: 850; letter-spacing: .09em; }
 .about-hero-copy h1 { max-width: 535px; margin-top: 15px; margin-bottom: 18px; color: #fffdf9; font-weight: 800; line-height: 1.18; letter-spacing: -.048em; word-break: keep-all; }
