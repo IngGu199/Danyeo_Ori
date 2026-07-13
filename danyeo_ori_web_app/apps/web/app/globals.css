@@ -118,18 +118,27 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
 }
 
 /* Introduction concept 3: evergreen pixel-art festival landscape with editable typography. */
-.about-hero-photo { background: #fff7e5; }
-.about-hero-photo > img { object-position: center 68%; image-rendering: pixelated; }
-.about-hero-veil { background: rgba(255, 248, 226, .06); }
-.about-hero-copy { color: var(--olive-dark); }
-.about-kicker { padding: 0; background: transparent; box-shadow: none; color: var(--olive); font-weight: 900; letter-spacing: .08em; text-shadow: none; }
-.about-hero-copy h1 { max-width: 720px; color: var(--olive-dark); font-size: clamp(40px, 3.8vw, 56px); font-weight: 850; line-height: 1.14; letter-spacing: -.065em; text-shadow: none; }
-.about-hero-copy p { max-width: 510px; color: var(--ink); font-weight: 600; line-height: 1.7; text-shadow: none; }
+.about-hero-photo { isolation: isolate; background: #fff7e5; }
+.about-hero-art { --hero-parallax-y: 0px; --hero-parallax-scale: 1.11; position: absolute; z-index: 0; inset: -9% -3%; pointer-events: none; transform: translate3d(0, var(--hero-parallax-y), 0) scale(var(--hero-parallax-scale)); transform-origin: center 68%; will-change: transform; }
+.about-hero-art img { object-fit: cover; object-position: center 68%; image-rendering: crisp-edges; image-rendering: pixelated; }
+.about-hero-veil { background: linear-gradient(90deg, rgba(255, 248, 226, .62) 0%, rgba(255, 248, 226, .38) 43%, rgba(255, 248, 226, .08) 72%, transparent 100%); }
+.about-hero-copy { position: relative; color: var(--olive-dark); isolation: isolate; }
+.about-hero-copy::before { position: absolute; z-index: -1; inset: -42px -74px -46px -54px; border-radius: 44% 56% 52% 48%; background: rgba(255, 253, 248, .48); content: ""; filter: blur(24px); pointer-events: none; }
+.about-kicker { padding: 0; background: transparent; box-shadow: none; color: var(--olive); font-weight: 900; letter-spacing: .08em; text-shadow: 0 1px 5px rgba(255, 253, 248, .98); }
+.about-hero-copy h1 { max-width: 720px; color: var(--olive-dark); font-size: clamp(40px, 3.8vw, 56px); font-weight: 850; line-height: 1.14; letter-spacing: -.065em; text-shadow: 0 2px 0 rgba(255, 253, 248, .86), 0 7px 18px rgba(255, 253, 248, .72); }
+.about-hero-copy p { max-width: 510px; color: var(--ink); font-weight: 600; line-height: 1.7; text-shadow: 0 2px 10px rgba(255, 253, 248, .9); }
+.about-hero-copy .primary-btn { box-shadow: 0 10px 22px rgba(46, 66, 39, .24); }
 .about-cta > img { object-position: center 70%; image-rendering: pixelated; }
 
 @media (max-width: 720px) {
-  .about-hero-photo > img { object-position: 64% 66%; }
-  .about-hero-veil { background: rgba(255, 248, 226, .78); }
+  .about-hero-art { inset: -5% -10%; }
+  .about-hero-art img { object-position: 64% 66%; }
+  .about-hero-veil { background: linear-gradient(90deg, rgba(255, 248, 226, .86), rgba(255, 248, 226, .66)); }
+  .about-hero-copy::before { inset: -28px -26px -34px; filter: blur(18px); }
   .about-hero-copy { padding-top: 46px; padding-bottom: 62px; }
   .about-hero-copy h1 { font-size: clamp(32px, 9vw, 39px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-hero-art { --hero-parallax-y: 0px !important; --hero-parallax-scale: 1.06 !important; will-change: auto; }
 }
