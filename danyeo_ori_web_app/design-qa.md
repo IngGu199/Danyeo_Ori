@@ -22,6 +22,15 @@
 - Image quality and asset fidelity: CSS/emoji illustrations were replaced in the hero, festival cards, game cards, roulette, header, and community title with generated local photography and an icon library. Actual crops remain unverified in a browser.
 - Copy and content: the core flow keeps festival discovery → mini-game → reward → visit language, including the server-verification constraint for rewards.
 
+## Introduction landing page update — 2026-07-13
+
+- Source visual truth: `../Documents/landing-page-concepts/revised-festival-preview/concept-3-corn-program.png`.
+- Implementation route: `/about`, at desktop default state.
+- Implemented changes: the top navigation now includes `소개` before the existing feature links; the new route presents a festival-first hero, a selected festival's program game, festival-program cards, and the requested `룰렛으로 보상 혜택 확인` step.
+- Static evidence: `npm run typecheck` and `npm run build` both passed; `/about` was generated as a static route.
+- Browser evidence: unavailable. This environment has no in-app Browser capture surface, and no user-approved browser alternative is available.
+- Required comparison status: blocked until a desktop and a mobile capture of `/about` can be compared side-by-side with the source visual.
+
 ## Findings
 
 - [P1] Rendered responsive layout has not been visually compared.

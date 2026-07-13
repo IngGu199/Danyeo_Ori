@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Bird, Heart, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 
 const navigation = [
+  { href: "/about", label: "소개" },
   { href: "/games", label: "페스티벌 게임" },
   { href: "/festivals", label: "전국 축제" },
   { href: "/community", label: "커뮤니티" },
