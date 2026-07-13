@@ -142,3 +142,16 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
 @media (prefers-reduced-motion: reduce) {
   .about-hero-art { --hero-parallax-y: 0px !important; --hero-parallax-scale: 1.06 !important; will-change: auto; }
 }
+
+/* Give each usage-flow step a small, calm lift on hover. */
+.about-flow li { transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+.about-flow li:hover { z-index: 2; border-color: var(--sage); box-shadow: var(--shadow); transform: translateY(-4px) scale(1.035); }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-flow li:hover { transform: none; }
+}
+
+/* The entire visit-planning card is the navigation target. */
+.about-destination-card { display: block; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.about-destination-card:hover { border-color: var(--sage); box-shadow: var(--shadow); transform: translateY(-3px); }
+.about-destination-card:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
