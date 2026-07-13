@@ -10,15 +10,31 @@ node_modules/
 .next/
 out/
 
-# Expo
+# Expo and React Native
 .expo/
-dist/
 web-build/
+expo-env.d.ts
 
-# Build and cache
+# Build, test, and cache output
 .turbo/
 coverage/
+dist/
+build/
+.cache/
+*.tsbuildinfo
+.eslintcache
+
+# Vercel local project settings
+.vercel/
+
+# Logs and process files
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
+*.pid.lock
 
 # OS and editor
 .DS_Store
@@ -26,5 +42,5 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Documents
+# Local documents
 Documents/
