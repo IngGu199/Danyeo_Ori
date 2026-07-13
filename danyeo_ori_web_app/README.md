@@ -18,3 +18,5 @@ npm run dev
 - `packages/constants`: 웹·앱이 공유할 예시 도메인 데이터
 - `packages/types`: 공유 TypeScript 타입
 - `supabase`: DB 마이그레이션·Edge Function을 추가할 자리
+
+디자인 작업은 루트의 [`DESIGN.md`](./DESIGN.md)를 단일 기준으로 사용합니다. Starbucks를 기본 토큰으로 삼고, 여행 탐색·정보 읽기·커뮤니티·게임 패턴은 문서에 정리된 외부 참고 원칙으로만 확장합니다.

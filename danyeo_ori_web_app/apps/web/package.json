@@ -11,6 +11,7 @@
   "dependencies": {
     "@danyeo-ori/constants": "file:../../packages/constants",
     "@danyeo-ori/types": "file:../../packages/types",
+    "@phosphor-icons/react": "^2.1.10",
     "next": "^14.2.30",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
