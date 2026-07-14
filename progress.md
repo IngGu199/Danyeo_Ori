@@ -2,9 +2,9 @@
 
 이 문서는 다녀오리 프로젝트의 현재 기준선, 완료·진행·미착수 항목과 다음 작업을 기록한다. 실제 구현 상태가 바뀔 때마다 갱신하며, 기술 규약과 개발 원칙은 `plan.md`를 따른다.
 
-## 2026-07-13 현재 프로젝트 기준선
+## 2026-07-14 현재 프로젝트 기준선
 
-현재 저장소에는 Next.js·Expo·Supabase·Turborepo 프로젝트가 아직 생성되지 않았고, 본 개발 전 단계의 정적 UI 프로토타입이 준비되어 있다.
+현재 저장소에는 `danyeo_ori_web_app/` 기반의 Turborepo·Next.js 웹 MVP와 초기 정적 UI 프로토타입이 준비되어 있다. Supabase 백엔드와 Expo 모바일 앱은 아직 구현하지 않았다.
 
 | 상태 | 항목 | 현재 결과 |
 |---|---|---|
@@ -38,6 +38,7 @@
 ## 다음 작업
 
 1. `danyeo_ori_web_app/`의 웹 MVP에 Supabase Auth와 사전예약 저장을 연결한다.
-2. `festivals`, `pre_registrations`, `game_attempts` 테이블과 RLS 정책을 설계한다.
-3. 포인트·룰렛 보상 확정은 Edge Function에서 검증·기록하도록 구현한다.
-4. Expo 앱을 추가하고 공유 타입·상수를 연결한다.
+2. Supabase 데이터베이스를 구축하고 `festivals`, `pre_registrations`, `game_attempts`, 축제별 마일리지·룰렛 관련 테이블과 RLS 정책을 설계한다.
+3. 축제별 마일리지·룰렛 보상 확정은 Edge Function에서 검증·기록하도록 구현한다.
+4. `/admin` 관리자 페이지를 추가해 축제, 사전예약자, 게임 로그, 축제별 마일리지·룰렛 설정을 관리한다.
+5. Expo 앱을 추가하고 공유 타입·상수를 연결한다.
