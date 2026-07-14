@@ -1,6 +1,6 @@
-# 다녀오리 DESIGN.md
+# 다녀오리 디자인 시스템
 
-다녀오리는 수도권에 거주하는 2030 사용자가 지역축제를 **발견하고, 짧게 미리 체험하고, 신뢰할 수 있는 현장 정보를 확인한 뒤, 마일리지와 함께 실제 방문하도록 돕는 지역축제 O2O 서비스**다.
+다녀오리는 수도권에 거주하는 2030 사용자가 지역축제를 **발견하고, 짧게 미리 체험하고, 신뢰할 수 있는 현장 정보를 확인한 뒤, 마일리지와 함께 실제 방문하도록 돕는 지역축제 온·오프라인 연계(O2O) 서비스**다.
 
 이 문서는 다녀오리 웹·모바일 화면의 단일 디자인 기준이다. 새로운 화면, 컴포넌트, 문구, 게임을 만들 때 이 문서의 토큰과 규칙을 우선한다.
 
@@ -27,62 +27,71 @@
 2. 발견: 사진과 짧은 문장으로 주말 여행의 감정을 먼저 전달한다.
 3. 체험: 축제 대표 프로그램을 10~30초 안에 이해하고 플레이하게 한다.
 4. 보상: 마일리지의 획득 조건, 사용처, 소멸일을 항상 명시한다.
-5. 전환: 한 화면의 주 CTA는 하나만 두고 다음 행동을 분명히 한다.
+5. 전환: 한 화면의 주요 행동은 하나만 두고 다음 행동을 분명히 한다.
 6. 접근성: 색상만으로 상태를 전달하지 않고 키보드·터치·스크린리더를 지원한다.
 
 ## 2. 참고 디자인 계층
 
-외부 디자인을 여러 개 동시에 적용하지 않는다. **Starbucks를 기반 토큰으로 사용하고, 아래 디자인은 화면 목적별 참고 원칙으로만 사용한다.** 새로운 외부 `DESIGN.md`를 추가 설치하지 말고 이 파일의 규칙으로 번역한다.
+외부 디자인을 여러 개 동시에 적용하지 않는다. **스타벅스를 기반 토큰으로 사용하고, 아래 디자인은 화면 목적별 참고 원칙으로만 사용한다.** 새로운 외부 `DESIGN.md`를 추가 설치하지 말고 이 파일의 규칙으로 번역한다.
 
-### Base — Starbucks
+### 기반 — 스타벅스
 
-- Source: https://getdesign.md/starbucks/design-md
+- 참고: https://getdesign.md/starbucks/design-md
 - 따뜻한 크림 캔버스
 - 녹색 계층형 브랜드 컬러
-- 둥근 pill 버튼
-- 리워드와 멤버십을 이해하기 쉬운 상태 UI
+- 둥근 알약형 버튼
+- 리워드와 멤버십을 이해하기 쉬운 상태 인터페이스
 - 반복 방문을 자연스럽게 만드는 보상 강조
 
-### Reference — Airbnb
+### 참고 — 에어비앤비
 
-- Source: https://getdesign.md/airbnb/design-md
+- 참고: https://getdesign.md/airbnb/design-md
 - 여행지·축제의 사진 중심 카드
 - 지역, 날짜, 테마를 빠르게 탐색하는 필터
 - 카드에서 상세 정보로 이어지는 예약·방문 흐름
 
-### Reference — Pinterest
+### 참고 — 핀터레스트
 
-- Source: https://getdesign.md/pinterest/design-md
+- 참고: https://getdesign.md/pinterest/design-md
 - 이미지 우선의 발견 경험
 - 찜·저장·공유를 통한 재방문
 - 단조롭지 않은 카드 리듬
 
-### Reference — Notion / Mintlify
+### 참고 — 노션 / 민트리파이
 
-- Sources: https://getdesign.md/notion/design-md, https://getdesign.md/mintlify/design-md
+- 참고: https://getdesign.md/notion/design-md, https://getdesign.md/mintlify/design-md
 - 긴 축제 설명을 읽기 편하게 정리
 - 정보 출처, 업데이트 날짜, 상태를 명확히 표시
 - 복잡한 공공정보를 단계별 섹션으로 분리
 
-### Reference — Claude
+### 참고 — 클로드
 
-- Source: https://getdesign.md/claude/design-md
+- 참고: https://getdesign.md/claude/design-md
 - 따뜻한 테라코타 포인트
 - 과장하지 않는 친절한 설명 문구
 - 감성적인 이야기와 실용 정보를 함께 배치
 
-### Reference — Mastercard
+### 참고 — 마스터카드
 
-- Source: https://getdesign.md/mastercard/design-md
-- 크림 배경 위의 큰 pill과 원형 요소
+- 참고: https://getdesign.md/mastercard/design-md
+- 크림 배경 위의 큰 알약형 버튼과 원형 요소
 - 마일리지, 쿠폰, 사용처의 연결 관계를 시각화
 
-### Reference — Clay / Miro
+### 참고 — 클레이 / 미로
 
-- Sources: https://getdesign.md/clay/design-md, https://getdesign.md/miro/design-md
-- 게임·캠페인에 한정한 유기적 형태와 playful interaction
+- 참고: https://getdesign.md/clay/design-md, https://getdesign.md/miro/design-md
+- 게임·캠페인에 한정한 유기적 형태와 즐거운 상호작용
 - 서비스 전체에는 적용하지 않는다.
-- 네온, 과도한 3D, 다크 게임 UI로 확장하지 않는다.
+- 네온, 과도한 3차원 표현, 어두운 게임 인터페이스로 확장하지 않는다.
+
+### 게임 표현층 — 다녀오리 픽셀 게임
+
+다녀오리의 픽셀 게임 언어는 별도 브랜드가 아니라 **미니게임을 시작하고 플레이한 뒤 보상을 확인하는 순간에만 쓰는 게임 표현층**이다. 현재 `/about` 랜딩의 픽셀 풍경과 오리 로고의 친근한 캐릭터성을 출발점으로 삼는다.
+
+- 일반 축제 탐색·일정·커뮤니티 화면은 따뜻한 여행 정보 인터페이스를 유지한다.
+- 픽셀 표현은 게임 진입 카드, 실제 플레이 화면, 게임 결과·보상 상태, `/about`의 분위기 배경에 집중한다.
+- 픽셀은 "레트로 게임" 그 자체보다 축제의 대표 체험을 가볍게 미리 해보는 언어여야 한다.
+- 무작위 인공지능 이미지나 맥락 없는 스톡 사진을 미니게임의 핵심 시각물로 사용하지 않는다. 축제·게임 규칙·조작 대상이 읽히는 픽셀 키아트 또는 승인된 일러스트 자산을 사용한다.
 
 ## 3. 브랜드 분위기
 
@@ -98,20 +107,32 @@
 차가운 공공기관 포털 · 과한 앱테크 · 카지노 같은 보상 · 네온 게임장 · 복잡한 대시보드 · 과장 광고
 ```
 
+### 게임 표현층 키워드
+
+```text
+16비트 로컬 여행 · 또렷한 픽셀 · 작고 즉각적인 반응 · 축제 체험의 미리보기 · 따뜻한 아케이드
+```
+
+피해야 할 게임 표현층 분위기:
+
+```text
+현실 사진 위의 무관한 픽셀 스티커 · 저해상도 확대 노이즈 · 카지노 슬롯머신 · 네온 사이버펑크 · 과한 폭발 이펙트
+```
+
 ## 4. 디자인 토큰
 
 ### 색상
 
 ```css
 :root {
-  /* brand */
+  /* 브랜드 */
   --color-olive-900: #3f4a2d;
   --color-olive-700: #59663d;
   --color-olive-500: #71804d;
   --color-olive-300: #aebf7e;
   --color-olive-100: #edf1df;
 
-  /* warm surfaces */
+  /* 따뜻한 표면 */
   --color-cream-50: #fffdf9;
   --color-cream-100: #f8f3e8;
   --color-beige-200: #e8dcc8;
@@ -119,7 +140,7 @@
   --color-brown-500: #8a735d;
   --color-brown-700: #514637;
 
-  /* supporting accents */
+  /* 보조 강조색 */
   --color-peach-100: #fae9da;
   --color-peach-400: #c98978;
   --color-sage-100: #e3eee1;
@@ -127,7 +148,7 @@
   --color-gold-200: #f0d7a9;
   --color-danger-500: #bd6d62;
 
-  /* semantic aliases */
+  /* 의미 기반 별칭 */
   --color-bg: var(--color-cream-100);
   --color-surface: var(--color-cream-50);
   --color-text: #2f2a24;
@@ -140,18 +161,39 @@
 }
 ```
 
-Use `--color-primary` for the single primary action. Use peach for warm emphasis and reward highlights, not as a second primary brand color. Body text must remain `--color-text`; do not use olive for long paragraphs.
+`--color-primary`는 화면당 하나의 주요 행동에 사용한다. 피치색은 두 번째 브랜드 색이 아니라 따뜻한 강조와 리워드 표시에만 사용한다. 본문은 `--color-text`를 유지하며 긴 문단에 올리브색을 사용하지 않는다.
 
-### Typography
+### 픽셀 게임 토큰
 
-- Korean UI: `Pretendard`, fallback `Noto Sans KR`, system sans-serif
-- Display heading: 700–800 weight, tight but readable line-height 1.15–1.25
-- Body: 400–500 weight, line-height 1.55–1.7
-- Caption and metadata: minimum 12px, line-height 1.5
-- Do not use all-caps English labels as the main information. Use them only as small section kickers.
-- Keep heading hierarchy stable: page title → section title → card title → metadata.
+기존 색상 토큰을 버리지 않고, 게임 화면에서만 아래 별칭을 사용한다. 게임 인터페이스도 다녀오리의 크림·올리브 기반을 벗어나지 않는다.
 
-### Spacing, radius and elevation
+```css
+:root {
+  --pixel-ink: #293526;       /* 상태 표시줄·픽셀 외곽선 */
+  --pixel-olive: #59663d;     /* 기본 지형·버튼 */
+  --pixel-sage: #aebf7e;      /* 성공·풀·진행 상태 */
+  --pixel-cream: #fff4d6;     /* 밝은 하이라이트 */
+  --pixel-sky: #9bc8d5;       /* 물·하늘 테마 */
+  --pixel-corn: #edc750;      /* 수집물·점수 강조 */
+  --pixel-peach: #c98978;     /* 주의·실패 피드백 */
+  --pixel-mud: #8a735d;       /* 흙·로컬 소재 */
+}
+```
+
+- 포인트, 체력, 남은 시간처럼 빠른 판단이 필요한 상태 표시줄에는 `--pixel-cream`과 `--pixel-ink`의 대비를 우선한다.
+- 성공은 `--pixel-sage`, 실패·위험은 `--pixel-peach`와 문구·아이콘을 함께 사용한다.
+- 네온 글로우, 다색 무지개 그라디언트, 과도한 금색 보상 연출은 금지한다.
+
+### 타이포그래피
+
+- 한국어 인터페이스: `Pretendard`, 대체 글꼴 `Noto Sans KR`, 시스템 산세리프
+- 표시용 제목: 굵기 700–800, 타이트하지만 읽기 쉬운 줄높이 1.15–1.25
+- 본문: 굵기 400–500, 줄높이 1.55–1.7
+- 캡션과 메타데이터: 최소 12px, 줄높이 1.5
+- 대문자 영문 라벨을 주요 정보로 사용하지 않는다. 작은 섹션 안내 라벨에만 제한한다.
+- 제목 위계를 안정적으로 유지한다: 페이지 제목 → 섹션 제목 → 카드 제목 → 메타데이터.
+
+### 여백, 모서리, 높이감
 
 ```css
 :root {
@@ -177,30 +219,30 @@ Use `--color-primary` for the single primary action. Use peach for warm emphasis
 }
 ```
 
-Use generous whitespace. A card should feel like a small travel note or polaroid, not a dense admin table. Use shadows sparingly and never use a large black drop shadow.
+여백을 충분히 사용한다. 카드는 빽빽한 관리자 테이블이 아니라 작은 여행 노트나 폴라로이드처럼 느껴져야 한다. 그림자는 절제해서 사용하며 큰 검정 그림자는 사용하지 않는다.
 
-## 5. Layout rules
+## 5. 레이아웃 규칙
 
-- Desktop content width: 1120–1200px, centered.
-- Mobile side padding: 16px; desktop side padding: 24–40px.
-- Desktop cards: 3 columns for festival discovery, 2 columns for editorial/community cards.
-- Tablet cards: 2 columns.
-- Mobile cards: 1 column with full-width tap targets.
-- Sticky desktop header may use translucent cream and subtle blur.
-- Mobile primary navigation should remain reachable with one hand; use a bottom navigation only when the current flow has at least four top-level destinations.
-- Never place more than one visually dominant hero CTA in the first viewport.
+- 데스크톱 콘텐츠 폭: 1120–1200px, 중앙 정렬.
+- 모바일 좌우 여백: 16px, 데스크톱 좌우 여백: 24–40px.
+- 데스크톱 카드: 축제 탐색 3열, 에디토리얼·커뮤니티 카드 2열.
+- 태블릿 카드: 2열.
+- 모바일 카드: 전체 너비의 터치 영역을 갖는 1열.
+- 데스크톱 고정 헤더는 반투명 크림 표면과 미세한 흐림 효과를 사용할 수 있다.
+- 모바일 주요 내비게이션은 한 손으로 닿아야 하며, 최상위 목적지가 4개 이상일 때만 하단 내비게이션을 사용한다.
+- 첫 화면에 시각적으로 지배적인 주요 행동을 둘 이상 두지 않는다.
 
-## 6. Component rules
+## 6. 컴포넌트 규칙
 
-### Header and navigation
+### 헤더와 내비게이션
 
-- Background: `--color-cream-50` at 84–94% opacity with a subtle bottom border.
-- Logo uses the duck mark and a calm olive/yellow accent.
-- Active navigation: olive text plus a soft olive underline or background pill.
-- Hover: `translateY(-1px)` and color shift only; no aggressive scale.
-- Keyboard focus: visible `--shadow-focus` ring.
+- 배경: `--color-cream-50`를 84–94% 투명도로 사용하고 미세한 하단 테두리를 둔다.
+- 로고는 오리 마크와 차분한 올리브·노랑 포인트를 사용한다.
+- 선택된 내비게이션: 올리브 텍스트와 부드러운 올리브 밑줄 또는 배경 알약을 함께 사용한다.
+- 마우스오버: `translateY(-1px)`와 색상 변화만 사용하며 과한 확대는 피한다.
+- 키보드 초점: 보이는 `--shadow-focus` 테두리를 제공한다.
 
-### Primary and secondary buttons
+### 주요·보조 버튼
 
 ```css
 .button-primary {
@@ -223,86 +265,113 @@ Use generous whitespace. A card should feel like a small travel note or polaroid
 .button-primary:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
 ```
 
-- Primary: one per section, used for `게임 시작`, `축제 상세 보기`, `사전예약`, `혜택 확인`.
-- Secondary: cream/white surface with beige border.
-- Destructive actions: muted danger red with confirmation, never bright red by default.
-- Disabled actions must explain why: `미니게임을 완료하면 룰렛이 열려요`.
+- 주요 버튼: 섹션당 하나만 사용하며 `게임 시작`, `축제 상세 보기`, `사전예약`, `혜택 확인`에 적용한다.
+- 보조 버튼: 크림·흰색 표면과 베이지 테두리를 사용한다.
+- 위험 동작: 확인 절차를 둔 차분한 위험 빨강을 사용하며 기본 상태에 선명한 빨강을 쓰지 않는다.
+- 비활성 버튼에는 사유를 설명한다: `미니게임을 완료하면 룰렛이 열려요`.
 
-### Festival discovery card
+### 축제 탐색 카드
 
-Use an image-first, lightly polaroid-like card:
-
-```text
-[real festival image with 12–16px radius]
-badge: 개최중 / 추천 / 가격정보 확인
-festival name
-date · location
-one-line reason to visit
-game tag + save action
-```
-
-- Use real photography or approved image assets. Do not use CSS gradients, emoji, ASCII, or placeholder shapes as the final visual asset.
-- Card hover lifts 4px and deepens shadow; image may scale only 1.02.
-- The card must expose the reason to visit, not only the festival name.
-- Include a trusted-data indicator when date, price, or program has been verified.
-
-### Festival detail / trust panel
-
-The first detail section must show:
-
-- title, date, location, status
-- source organization and last updated date
-- representative programs
-- entrance fee and paid program prices
-- food or local product price examples when available
-- parking, shuttle, map link, and contact
-- mileage use conditions and expiration date
-
-Use short sections with clear headings. Do not hide price or update information behind a secondary tab.
-
-### Filter bar
-
-- Use rounded pills for region, month, category, and game availability.
-- Active state: `--color-olive-100` background, `--color-olive-700` text, thin olive border.
-- Keep the selected filter visible on mobile and allow one-tap reset.
-- Search input must have an accessible label and an empty-state message.
-
-### Mini-game card and Play Mode
-
-Keep the global system warm, but make the play surface more focused:
-
-- cream page background
-- olive or muted local-color play panel
-- large single interaction target
-- visible time, score, progress, and attempt count
-- one action per state
-- no neon, casino-like flashing, or dark arcade chrome
-
-#### MVP game order
-
-1. **Hongcheon corn clicker**: 10-second tap game, progress gauge, clear success state.
-2. **Hwacheon fishing timing**: moving target, limited attempts, timing feedback.
-3. **Festival information quiz**: price, program, local product, parking and shuttle questions.
-4. **Mileage roulette**: reward step unlocked only after a verified game completion.
-
-#### Game state model
+이미지 우선의 가벼운 폴라로이드형 카드를 사용한다:
 
 ```text
-locked → ready → playing → success / retry / failed → reward-pending → reward-confirmed
+[12–16px 모서리의 실제 축제 이미지]
+배지: 개최중 / 추천 / 가격 정보 확인
+축제명
+날짜 · 장소
+방문해야 하는 한 줄 이유
+게임 태그 + 저장 동작
 ```
 
-- `locked`: explain the unlock condition.
-- `ready`: show duration, reward range, and what the user will learn.
-- `playing`: prevent accidental navigation and keep controls large.
-- `success`: show score and a clear next step.
-- `reward-pending`: never claim points were granted until the server confirms them.
-- `reward-confirmed`: show amount, eligible festival, usage location, and expiry.
+- 실제 사진이나 승인된 이미지 자산을 사용한다. 최종 시각물에 CSS 그라디언트, 이모지, ASCII 문자, 플레이스홀더 도형을 사용하지 않는다.
+- 카드 마우스오버 시 4px만 들어 올리고 그림자를 깊게 하며, 이미지는 1.02배까지만 확대한다.
+- 카드에는 축제명뿐 아니라 방문해야 하는 이유를 노출한다.
+- 날짜·가격·프로그램을 검증했다면 신뢰 데이터 표시를 포함한다.
 
-Client code must not directly update point balances or decide roulette results. Use a server/API/Edge Function request and display a pending state while it is verified.
+### 축제 상세·신뢰 정보 패널
 
-### Mileage and reward UI
+첫 상세 섹션은 다음을 보여야 한다:
 
-Use Starbucks-like loyalty clarity without copying its visual identity:
+- 제목, 날짜, 장소, 상태
+- 출처 기관과 최종 업데이트 날짜
+- 대표 프로그램
+- 입장료와 유료 프로그램 가격
+- 제공 가능한 경우 먹거리 또는 지역 특산품 가격 예시
+- 주차, 셔틀, 지도 링크, 연락처
+- 마일리지 사용 조건과 만료일
+
+명확한 제목을 둔 짧은 섹션으로 구성한다. 가격이나 업데이트 정보를 보조 탭 뒤에 숨기지 않는다.
+
+### 필터 바
+
+- 지역, 월, 카테고리, 게임 가능 여부에 둥근 알약형 필터를 사용한다.
+- 선택 상태: `--color-olive-100` 배경, `--color-olive-700` 텍스트, 얇은 올리브 테두리.
+- 모바일에서 선택한 필터가 계속 보여야 하며 한 번의 탭으로 초기화할 수 있어야 한다.
+- 검색 입력창에는 접근 가능한 라벨과 빈 결과 상태 문구를 제공한다.
+
+### 미니게임 카드와 게임 표현층
+
+전체 시스템의 따뜻함은 유지하되, 플레이 표면은 더 집중되게 만든다. **미니게임은 픽셀 게임 표현층을 적용하는 대표 영역**이다.
+
+- 크림 페이지 배경
+- 올리브 또는 차분한 지역색의 플레이 패널
+- 큰 단일 상호작용 대상
+- 보이는 시간, 점수, 진행도, 시도 횟수
+- 상태당 하나의 행동
+- 네온, 카지노식 점멸, 어두운 아케이드 장식 금지
+
+#### 픽셀 게임 표현층 적용 범위
+
+| 영역 | 적용 | 적용하지 않는 것 |
+| --- | --- | --- |
+| `/about` 히어로·하단 주요 행동 | 축제 풍경을 담은 픽셀 배경, HTML 텍스트 오버레이 | 픽셀 폰트 본문, 화면 전체 상태 표시줄 |
+| 게임 탐색 카드 | 축제 대표 체험을 보여주는 픽셀 키아트·게임 타입 배지 | 일반 축제 사진을 픽셀 필터로 억지 변환 |
+| 게임 플레이 화면 | 픽셀 배경, 조작 대상, 상태 표시줄 프레임, 진행 게이지, 결과 스탬프 | 둥근 모바일 앱 카드만 나열한 인터페이스 |
+| 결과·보상 | 픽셀 트로피·티켓·스탬프, 짧은 성공 모션 | 슬롯머신·과도한 회전·무한 파티클 |
+| 축제 탐색·달력·커뮤니티 | 작은 픽셀 아이콘 또는 배지까지 허용 | 픽셀 프레임·게임 상태 표시줄의 전면 적용 |
+
+#### 픽셀 자산 규칙
+
+- 게임 키아트는 각 게임의 조작 대상과 축제 소재가 한 화면에서 읽혀야 한다. 예: 옥수수 클릭 게임에는 옥수수·바구니·10초 게이지, 낚시 게임에는 찌·물결·타이밍 바를 포함한다.
+- 원본은 1배 픽셀 단위로 제작하고 2배·3배·4배처럼 정수 배율로만 표시한다. 브라우저에서 임의의 소수점 확대를 하지 않는다.
+- 래스터 픽셀 자산에는 `image-rendering: pixelated` 또는 동등한 렌더링 규칙을 적용한다. 화면별 자산은 충분한 해상도와 정수 비율을 제공한다.
+- 프레임, 타일, 스프라이트는 게임마다 재사용 가능한 묶음으로 내보낸다. 다른 게임의 스프라이트를 잘라 임시로 쓰거나 CSS 도형으로 핵심 게임 이미지를 흉내 내지 않는다.
+- 이미지 파일은 `apps/web/public/images/games/` 아래에 게임별 디렉터리로 둔다. 예: `corn-clicker/key-art@2x.png`, `fishing-timing/hud-frame@2x.png`.
+- 실제 축제 정보 카드에는 신뢰 가능한 사진 또는 운영기관 제공 이미지를 우선하고, 픽셀 스타일은 게임·브랜딩 자산에 한정한다.
+
+#### 픽셀 상태 표시줄과 조작 규칙
+
+- 상태 표시줄은 상단 한 줄로 `남은 시간 · 현재 점수 · 시도 횟수`만 표시한다. 숫자와 짧은 라벨에는 픽셀 글꼴을 쓸 수 있지만, 본문 설명과 접근성 보조 텍스트는 Pretendard를 유지한다.
+- 플레이 버튼과 터치 타깃은 52×52px 이상, 모바일 기본 조작은 엄지 영역에 둔다.
+- 게임 프레임은 4px 또는 8px 기반의 단차·테두리로 표현할 수 있으나, 정보 카드와 폼의 기본 라운드(12~20px)를 대체하지 않는다.
+- 점수 증가·정답·피격은 1회의 짧은 픽셀 팝업과 촉각/사운드 옵션으로만 피드백한다. 필수 의미는 색상이나 사운드만으로 전달하지 않는다.
+- `prefers-reduced-motion`에서는 화면 흔들림, 연속 파티클, 빠른 카메라 이동을 제거하고 결과 문구와 게이지 변화만 남긴다.
+
+#### 최소 기능 제품 게임 우선순위
+
+1. **홍천 옥수수 클릭 게임**: 10초 탭 게임, 진행 게이지, 명확한 성공 상태.
+2. **화천 낚시 타이밍 게임**: 움직이는 대상, 제한된 시도 횟수, 타이밍 피드백.
+3. **축제 정보 퀴즈**: 가격, 프로그램, 지역 특산품, 주차, 셔틀 질문.
+4. **마일리지 룰렛**: 검증된 게임 완료 후에만 보상 단계 해제.
+
+#### 게임 상태 모델
+
+```text
+잠김 → 준비 → 플레이 중 → 성공 / 재시도 / 실패 → 보상 확인 중 → 보상 확정
+```
+
+- `잠김`: 해제 조건을 설명한다.
+- `준비`: 플레이 시간, 보상 범위, 사용자가 알게 될 정보를 보여 준다.
+- `플레이 중`: 실수로 다른 화면으로 이동하지 않게 하고 조작부를 크게 유지한다.
+- `성공`: 점수와 명확한 다음 행동을 보여 준다.
+- `보상 확인 중`: 서버가 확인하기 전에는 포인트가 지급되었다고 말하지 않는다.
+- `보상 확정`: 금액, 사용 가능한 축제, 사용 장소, 만료일을 보여 준다.
+
+클라이언트 코드는 포인트 잔액을 직접 갱신하거나 룰렛 결과를 결정해서는 안 된다. 서버·API·Edge Function 요청을 사용하고 검증 중에는 대기 상태를 표시한다.
+
+### 마일리지와 보상 인터페이스
+
+스타벅스식 로열티의 명확함은 참고하되 시각 정체성을 복제하지 않는다:
 
 ```text
 3,000 P
@@ -311,105 +380,112 @@ Use Starbucks-like loyalty clarity without copying its visual identity:
 사용처: 현장 체험 부스 / 제휴 상점
 ```
 
-- Reward amount uses `--color-reward` or olive emphasis, never a casino-gold gradient.
-- Always show earning condition and expiry.
-- Separate available, pending, expired, and used states.
+- 보상 금액은 `--color-reward` 또는 올리브 강조를 사용하며 카지노식 금색 그라디언트는 사용하지 않는다.
+- 획득 조건과 만료일을 항상 보여 준다.
+- 사용 가능, 확인 중, 만료, 사용 완료 상태를 구분한다.
+- 픽셀 게임 표현층의 보상은 픽셀 티켓·스탬프·트로피 같은 작은 자산으로 보조할 수 있지만, 실제 지급 여부·포인트·사용 기한은 일반 인터페이스 텍스트로 명확하게 표기한다.
 
-### Community and field reviews
+### 커뮤니티와 현장 후기
 
-Prefer review cards over a dense forum table on the consumer-facing surface.
+소비자 화면에서는 빽빽한 게시판 표보다 후기 카드를 우선한다.
 
-Each post should support:
+각 게시글은 다음을 지원해야 한다:
 
-- required festival tag
-- field verification status
-- price, parking, crowd, food, or game-review topic
-- photo or evidence when available
-- helpful count and comment count
-- timestamp and source context
+- 필수 축제 태그
+- 현장 검증 상태
+- 가격, 주차, 혼잡도, 먹거리, 게임 후기 주제
+- 제공 가능한 경우 사진 또는 근거
+- 도움됨 수와 댓글 수
+- 시간과 출처 맥락
 
-Use the forum table only for moderation/admin or a desktop archive view. Keep community copy direct, specific, and non-promotional.
+게시판 표는 운영 관리 또는 데스크톱 아카이브 화면에만 사용한다. 커뮤니티 문구는 직접적이고 구체적이며 홍보성으로 쓰지 않는다.
 
-### Calendar and itinerary
+### 달력과 여행 일정
 
-- Calendar cells use quiet borders, an olive selected state, and short event chips.
-- A selected date must show a useful detail panel, not only the event name.
-- Add “함께 가기 좋은 코스” after a festival detail: nearby food, café, attraction, and travel time.
-- Do not overwhelm the first screen with map controls; progressive disclosure is preferred.
+- 달력 칸에는 차분한 테두리, 올리브 선택 상태, 짧은 행사 칩을 사용한다.
+- 선택한 날짜에는 행사명만이 아니라 유용한 상세 패널을 보여야 한다.
+- 축제 상세 뒤에는 `함께 가기 좋은 코스`를 추가한다: 주변 음식점, 카페, 관광지, 이동 시간.
+- 첫 화면을 지도 조작부로 가득 채우지 않으며, 점진적 공개를 우선한다.
 
-### Forms and modal states
+### 폼과 모달 상태
 
-- Use labels, not placeholder-only fields.
-- Make required festival tags explicit.
-- Success message must explain the next benefit or next action.
-- Error messages should identify the missing field and preserve entered content.
-- Modals need a visible close button, Escape support, focus trapping, and a mobile bottom-sheet fallback.
+- 플레이스홀더만 있는 필드가 아니라 라벨을 사용한다.
+- 필수 축제 태그를 명시한다.
+- 성공 메시지는 다음 혜택 또는 다음 행동을 설명해야 한다.
+- 오류 메시지는 누락된 필드를 알려 주고 입력한 내용을 유지해야 한다.
+- 모달에는 보이는 닫기 버튼, Escape 지원, 초점 가두기, 모바일 하단 시트 대체안을 제공한다.
 
-## 7. Interaction and motion
+## 7. 상호작용과 모션
 
-Default transition:
+기본 전환:
 
 ```css
 transition: color .2s ease, background-color .2s ease,
   border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 ```
 
-- Hover lift: 1–4px only.
-- Press feedback: scale to .97–.99.
-- Success: one short confirmation motion, not continuous confetti.
-- Game feedback: progress and target feedback must be immediate.
-- No auto-advancing carousel for critical information.
-- Respect `prefers-reduced-motion: reduce` and remove non-essential motion.
+- 마우스오버 상승: 1–4px만 사용한다.
+- 누름 피드백: .97–.99배로 축소한다.
+- 성공: 연속 색종이 효과가 아닌 짧은 한 번의 확인 모션을 사용한다.
+- 게임 피드백: 진행도와 대상 피드백은 즉시 전달해야 한다.
+- 픽셀 피드백은 120–220ms의 한 번의 크기·위치 변화 또는 2–3프레임 스프라이트 전환을 사용한다. 연속 점멸은 금지한다.
+- 중요한 정보에 자동 전환 캐러셀을 사용하지 않는다.
+- `prefers-reduced-motion: reduce`를 존중하고 필수적이지 않은 모션을 제거한다.
 
-## 8. Accessibility and trust requirements
+## 8. 접근성과 신뢰성 요구사항
 
-- Body text contrast target: WCAG AA minimum.
-- Every interactive element needs a keyboard-visible focus state.
-- Do not communicate status by color alone; include text or an icon with accessible label.
-- Touch targets: minimum 44×44px, game targets preferably 52px or larger.
-- Use semantic headings, landmarks, labels, and button elements.
-- Real images require meaningful Korean alt text; decorative images use empty alt.
-- Date, price, availability, and statistics must show source or “예시 데이터” status.
-- Never present unverified example prices or mileage as live facts.
+- 본문 텍스트 대비 목표: 최소 WCAG AA.
+- 모든 상호작용 요소에는 키보드에서 보이는 초점 상태가 필요하다.
+- 상태를 색상만으로 전달하지 않고 접근 가능한 라벨을 가진 텍스트 또는 아이콘을 포함한다.
+- 터치 대상: 최소 44×44px, 게임 대상은 52px 이상을 권장한다.
+- 의미 있는 제목, 랜드마크, 라벨, 버튼 요소를 사용한다.
+- 실제 이미지에는 의미 있는 한국어 대체 텍스트(`alt`)를 쓰고 장식 이미지는 빈 대체 텍스트를 사용한다.
+- 픽셀 키아트도 조작 대상과 목표를 전달하면 의미 있는 한국어 대체 텍스트 또는 동등한 텍스트 설명을 제공한다.
+- 픽셀 폰트는 숫자 상태 표시줄·짧은 라벨에 한정하고, 한국어 가독성·라이선스·대체 폰트를 확인한다.
+- 날짜, 가격, 이용 가능 여부, 통계에는 출처 또는 `예시 데이터` 상태를 표시해야 한다.
+- 검증되지 않은 예시 가격이나 마일리지를 실제 사실처럼 제시하지 않는다.
 
-## 9. Voice and copy
+## 9. 문체와 카피
 
-Voice: 친근하고 구체적이며, 과장하지 않는 주말 동행자.
+문체: 친근하고 구체적이며, 과장하지 않는 주말 동행자.
 
-Use:
+사용:
 
 - “이번 주말, 아직 몰랐던 축제로 떠나볼까요?”
 - “게임으로 먼저 맛보고, 현장에서 써보세요.”
 - “가격 정보는 축제 운영기관 제출 자료를 기준으로 확인했어요.”
 - “마일리지는 7월 31일까지 홍천 축제에서 사용할 수 있어요.”
 
-Avoid:
+피함:
 
 - “대박”, “무조건”, “인생 축제” 같은 근거 없는 과장
 - 보상만 강조하는 앱테크 문구
 - 출처 없는 가격·통계
-- 사용자가 무엇을 해야 하는지 알 수 없는 추상적인 CTA
+- 사용자가 무엇을 해야 하는지 알 수 없는 추상적인 주요 행동 문구
 
-## 10. Implementation rules for this repository
+## 10. 이 저장소의 구현 규칙
 
-- `danyeo_ori_web_app/DESIGN.md` is the single source of truth for new UI work.
-- Next.js components live under `apps/web/app` and `apps/web/components`.
-- Shared domain types and example data stay in `packages/types` and `packages/constants`.
-- Keep prototype HTML in `danyeoori-ui-prototype/` as reference material; do not copy its global scripts into the app.
-- Prefer existing shared class names and tokens when extending the prototype, but migrate new code to semantic component classes or Tailwind tokens.
-- Keep design tokens in one location. Do not reintroduce the old purple-first palette into new pages.
-- External reference designs are inspiration only; do not copy logos, proprietary imagery, or exact branded layouts.
-- Keep example festival dates, prices, statistics, and reward amounts clearly marked until verified.
-- The visual design must never weaken Supabase RLS, server-side reward validation, or the point transaction ledger.
+- `danyeo_ori_web_app/DESIGN.md`는 새 인터페이스 작업의 단일 기준 문서다.
+- Next.js 컴포넌트는 `apps/web/app`과 `apps/web/components` 아래에 둔다.
+- 공유 도메인 타입과 예시 데이터는 `packages/types`와 `packages/constants`에 둔다.
+- `danyeoori-ui-prototype/`의 프로토타입 HTML은 참고 자료로 보존하고 전역 스크립트를 앱으로 복사하지 않는다.
+- 프로토타입 확장 시 기존 공통 클래스명과 토큰을 우선하되, 새 코드는 의미 기반 컴포넌트 클래스 또는 Tailwind 토큰으로 옮긴다.
+- 디자인 토큰은 한 곳에서 관리한다. 새 페이지에 이전 보라색 우선 팔레트를 다시 도입하지 않는다.
+- 픽셀 게임 표현층은 이 문서의 색상·접근성 규칙을 따르는 영역별 확장이다. 두 번째 기반 디자인 시스템이나 별도 `DESIGN.md`를 만들지 않는다.
+- 게임 핵심 시각물은 `apps/web/public/images/games/`의 승인된 픽셀 자산을 사용한다. 일반 사진 자산은 축제 탐색·정보 맥락에 남긴다.
+- 외부 참고 디자인은 영감의 원천일 뿐이며 로고, 독점 이미지, 정확한 브랜드 레이아웃을 복제하지 않는다.
+- 예시 축제 날짜, 가격, 통계, 보상 금액은 검증 전까지 명확히 표시한다.
+- 시각 디자인은 Supabase RLS, 서버 측 보상 검증, 포인트 거래 원장을 약화해서는 안 된다.
 
-## 11. Definition of done
+## 11. 완료 기준
 
-A new screen is ready when:
+새 화면은 다음을 만족하면 준비된 것으로 본다:
 
-- it clearly supports one step of the discover → play → visit journey;
-- its primary action and empty/loading/success/error states are defined;
-- it uses the tokens in this document;
-- it works at mobile, tablet, and desktop widths;
-- price, date, source, and reward conditions are trustworthy or clearly marked as examples;
-- keyboard focus, contrast, labels, and reduced-motion behavior are covered;
-- it does not introduce a second visual language or another base `DESIGN.md`.
+- 발견 → 플레이 → 방문 여정 중 하나의 단계를 명확히 지원한다.
+- 주요 행동과 빈 상태·로딩·성공·오류 상태가 정의되어 있다.
+- 이 문서의 토큰을 사용한다.
+- 미니게임 화면이라면 픽셀 키아트, 상태 표시줄, 조작 대상, 저감 모션 상태가 이 문서의 픽셀 게임 표현층 규칙을 따른다.
+- 모바일, 태블릿, 데스크톱 너비에서 동작한다.
+- 가격, 날짜, 출처, 보상 조건이 신뢰할 수 있거나 예시로 명확히 표시되어 있다.
+- 키보드 초점, 대비, 라벨, 저감 모션 동작을 다룬다.
+- 두 번째 시각 언어나 또 다른 기반 `DESIGN.md`를 도입하지 않는다.
