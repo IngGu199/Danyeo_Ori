@@ -22,3 +22,13 @@ export interface CommunityPost {
   time: string;
   views: number;
 }
+
+export type { Database, Json } from "./database.generated";
+export type {
+  FestivalRow,
+  FestivalGameRow,
+  GameAttemptRow,
+  PointWalletRow,
+  PointTransactionRow,
+  RewardRow,
+} from "./domain";

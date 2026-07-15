@@ -2,14 +2,28 @@
   "name": "danyeo-ori",
   "private": true,
   "packageManager": "npm@10.8.2",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:reset": "supabase db reset",
+    "supabase:test": "supabase test db",
+    "supabase:types": "supabase gen types typescript --local > packages/types/src/database.generated.ts",
+    "admin:bootstrap": "tsx scripts/admin/bootstrap-owners.ts",
+    "admin:grant": "tsx scripts/admin/grant-admin.ts",
+    "admin:revoke": "tsx scripts/admin/revoke-admin.ts",
+    "admin:suspend": "tsx scripts/admin/suspend-user.ts"
   },
   "devDependencies": {
+    "supabase": "^2.109.1",
+    "tsx": "^4.20.6",
     "turbo": "^2.3.3"
   }
 }

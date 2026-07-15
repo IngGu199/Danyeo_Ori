@@ -27,6 +27,21 @@ build/
 # Vercel local project settings
 .vercel/
 
+# Supabase local runtime and secrets
+**/supabase/.branches/
+**/supabase/.temp/
+**/supabase/.env
+**/supabase/.env.*
+!**/supabase/.env.example
+!**/supabase/functions/.env.example
+**/supabase/functions/.env
+**/supabase/functions/.env.local
+**/supabase/functions/.env.*.local
+**/supabase/storage/
+**/supabase/backups/
+**/supabase/*.dump
+**/supabase/*.backup
+
 # Logs and process files
 *.log
 npm-debug.log*

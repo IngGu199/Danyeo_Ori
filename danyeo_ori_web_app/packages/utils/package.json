@@ -1,5 +1,5 @@
 {
-  "name": "@danyeo-ori/types",
+  "name": "@danyeo-ori/utils",
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
