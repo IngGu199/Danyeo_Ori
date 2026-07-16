@@ -16,7 +16,7 @@
 | 완료 | 커뮤니티 UI | 축제 태그 기반 게시판과 작성 폼 구성 |
 | 완료 | 반응형 스타일 초안 | 데스크톱·태블릿·모바일 대응 CSS 구성 |
 | 완료 | Next.js 웹 모노레포 초안 | `danyeo_ori_web_app/`에 Turborepo, `apps/web`, 공유 `packages` 구성 |
-| 완료 | Next.js 16·React 19 업그레이드 | 웹 워크스페이스를 Next.js 16.2.10·React 19.2.7로 전환. ESLint Flat Config, 사전 route type 생성, Node.js 22 실행 기준, Next.js 16 스크롤 동작을 반영하고 typecheck·Turbopack build·lint 검증 완료 |
+| 완료 | Next.js 16·React 19 업그레이드 | 웹 워크스페이스를 Next.js 16.2.10·React 19.2.7로 전환. ESLint Flat Config, 사전 route type 생성, Node.js 22 실행 기준, `proxy.ts` 규칙, 비동기 `searchParams`, LCP 이미지 즉시 로딩을 반영하고 typecheck·Turbopack build·lint 검증 완료 |
 | 진행 | 동적 기능 | 축제 필터·찜, 달력 날짜 선택, 게시글 작성, 룰렛 상태를 클라이언트 상태로 전환. 이메일 인증과 비회원 사전예약은 DB에 연결했으며 게임·보상 연동은 남아 있음 |
 | 완료 | 소개 랜딩 페이지 | `/about`에 축제별 대표 프로그램 미리 체험 중심의 소개 화면을 추가. 게임 후 룰렛 혜택 확인, 축제 일정·현장 방문·후기 공유 흐름과 기능별 CTA를 제공 |
 | 완료 | 소개 페이지 화면 확장 | `/about`의 히어로 사진을 화면 전체 폭으로 확장하고, 본문·추천 프로그램은 기존 1180px 콘텐츠 그리드에 정렬해 넓은 데스크톱에서도 좌우가 비어 보이지 않도록 개선 |

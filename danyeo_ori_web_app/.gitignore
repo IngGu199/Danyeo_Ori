@@ -5,3 +5,5 @@ dist
 .env*
 !.env.example
 *.tsbuildinfo
+/supabase/.branches/
+/supabase/.temp/

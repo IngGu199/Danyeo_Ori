@@ -23,6 +23,7 @@ build/
 .cache/
 *.tsbuildinfo
 .eslintcache
+*:Zone.Identifier
 
 # Vercel local project settings
 .vercel/

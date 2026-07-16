@@ -3,7 +3,12 @@ import { AuthForm } from "../../components/auth-form";
 
 export const metadata: Metadata = { title: "로그인" };
 
-export default function LoginPage({ searchParams }: { searchParams: { error?: string } }) {
-  const message = searchParams.error ? "이메일 인증을 완료하지 못했습니다. 인증 링크를 다시 확인해 주세요." : undefined;
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
+  const message = error ? "이메일 인증을 완료하지 못했습니다. 인증 링크를 다시 확인해 주세요." : undefined;
   return <main><AuthForm mode="login" initialMessage={message} /></main>;
 }
