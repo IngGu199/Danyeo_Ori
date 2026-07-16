@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@danyeo-ori/api": "file:../../packages/api",
     "@danyeo-ori/constants": "file:../../packages/constants",
     "@danyeo-ori/types": "file:../../packages/types",
     "@phosphor-icons/react": "^2.1.10",

@@ -14,6 +14,7 @@ import {
   Ticket,
 } from "@phosphor-icons/react/dist/ssr";
 import { AboutHeroArt } from "./about-hero-art";
+import { PreRegistrationForm } from "./pre-registration-form";
 
 const previewGames = [
   { image: "/images/summer-valley-festival.png", festival: "화천 산천어축제", title: "산천어 낚시 타이밍", description: "입질 타이밍을 맞춰 산천어를 낚아보세요.", tone: "blue" },
@@ -89,6 +90,6 @@ export function AboutContent() {
 
     <section className="section"><div className="container"><div className="section-head"><div><span className="eyebrow">Plan the visit</span><h2>미리 체험한 축제를, 진짜 주말로 이어가세요.</h2></div></div><div className="about-destination-grid">{destinations.map(({ Icon, title, description, href, action, image }) => <Link className="about-destination-card" href={href} key={title}><div className="about-destination-image"><Image src={image} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" /></div><span className="about-destination-icon"><Icon weight="fill" /></span><h3>{title}</h3><p>{description}</p><span className="text-action">{action} <ArrowRight weight="bold" /></span></Link>)}</div></div></section>
 
-    <section className="about-cta-section"><div className="container"><div className="about-cta"><div><span className="eyebrow">THIS WEEKEND</span><h2>이번 주말, 어떤 축제를<br />먼저 체험해볼까요?</h2><p>대표 프로그램을 게임으로 먼저 만나고, 현장에서 진짜 경험을 이어가세요.</p><Link className="primary-btn light-btn" href="/games">페스티벌 게임 보기 <ArrowRight weight="bold" /></Link></div><Image src="/images/about-pixel-hero-clean.png" alt="" fill unoptimized sizes="(max-width: 700px) 100vw, 1180px" /></div></div></section>
+    <PreRegistrationForm />
   </>;
 }

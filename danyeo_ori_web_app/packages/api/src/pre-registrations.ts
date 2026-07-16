@@ -15,3 +15,14 @@ export function submitPreRegistration(
 ) {
   return client.functions.invoke("submit-pre-registration", { body: input });
 }
+
+export async function getPreRegistrationCount(
+  client: SupabaseClient<Database>,
+  festivalId: string,
+) {
+  const { data, error } = await client.rpc("get_pre_registration_count", {
+    p_festival_id: festivalId,
+  });
+  if (error) throw error;
+  return Number(data ?? 0);
+}

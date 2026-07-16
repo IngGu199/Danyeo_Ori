@@ -473,6 +473,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_pre_registration_count: {
+        Args: { p_festival_id: string }
+        Returns: number
+      }
       internal_bootstrap_owners: {
         Args: { p_owner_one: string; p_owner_two: string; p_reason: string }
         Returns: undefined
