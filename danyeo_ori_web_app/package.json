@@ -5,7 +5,10 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
@@ -22,8 +25,13 @@
     "admin:suspend": "tsx scripts/admin/suspend-user.ts"
   },
   "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.10",
     "supabase": "^2.109.1",
     "tsx": "^4.20.6",
     "turbo": "^2.3.3"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true
   }
 }

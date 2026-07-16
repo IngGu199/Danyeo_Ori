@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import type { Database } from "@danyeo-ori/types";
 import { supabasePublicEnv } from "./env";
 
-export function createClient() {
-  const cookieStore = cookies();
+export async function createClient() {
+  const cookieStore = await cookies();
   const { url, publishableKey } = supabasePublicEnv();
 
   return createServerClient<Database>(url, publishableKey, {

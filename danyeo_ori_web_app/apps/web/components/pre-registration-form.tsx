@@ -31,7 +31,10 @@ export function PreRegistrationForm() {
   const supabase = useMemo(() => createClient(), []);
   const [festivals, setFestivals] = useState<FestivalOption[]>([]);
   const [festivalId, setFestivalId] = useState("");
-  const [reservationCount, setReservationCount] = useState<number | null>(null);
+  const [reservationCountResult, setReservationCountResult] = useState<{
+    festivalId: string;
+    count: number | null;
+  } | null>(null);
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -52,17 +55,21 @@ export function PreRegistrationForm() {
   }, [supabase]);
 
   useEffect(() => {
-    if (!festivalId) {
-      setReservationCount(null);
-      return;
-    }
+    if (!festivalId) return;
     let active = true;
-    setReservationCount(null);
     void getPreRegistrationCount(supabase, festivalId)
-      .then((count) => { if (active) setReservationCount(count); })
-      .catch(() => { if (active) setReservationCount(null); });
+      .then((count) => {
+        if (active) setReservationCountResult({ festivalId, count });
+      })
+      .catch(() => {
+        if (active) setReservationCountResult({ festivalId, count: null });
+      });
     return () => { active = false; };
   }, [festivalId, supabase]);
+
+  const reservationCount = reservationCountResult?.festivalId === festivalId
+    ? reservationCountResult.count
+    : null;
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -92,7 +99,7 @@ export function PreRegistrationForm() {
       setMessage(await edgeErrorMessage(error));
     } else {
       const count = await getPreRegistrationCount(supabase, festivalId).catch(() => null);
-      setReservationCount(count);
+      setReservationCountResult({ festivalId, count });
       setSuccess(true);
       setMessage("사전예약 신청이 완료됐어요. 곧 소식을 전할게요!");
       formElement.reset();
