@@ -60,3 +60,6 @@ Thumbs.db
 
 # Local documents
 Documents/
+
+# Local prompt and context handoff documents
+AGENTS-MD/
