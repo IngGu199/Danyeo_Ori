@@ -326,7 +326,6 @@ export type Database = {
           created_at: string
           deleted_at: string | null
           expires_at: string
-          festival_id: string
           id: string
           name_ciphertext: string
           phone_ciphertext: string
@@ -339,7 +338,6 @@ export type Database = {
           created_at?: string
           deleted_at?: string | null
           expires_at: string
-          festival_id: string
           id?: string
           name_ciphertext: string
           phone_ciphertext: string
@@ -352,22 +350,13 @@ export type Database = {
           created_at?: string
           deleted_at?: string | null
           expires_at?: string
-          festival_id?: string
           id?: string
           name_ciphertext?: string
           phone_ciphertext?: string
           phone_lookup_hash?: string
           status?: Database["public"]["Enums"]["pre_registration_status"]
         }
-        Relationships: [
-          {
-            foreignKeyName: "pre_registrations_festival_id_fkey"
-            columns: ["festival_id"]
-            isOneToOne: false
-            referencedRelation: "festivals"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -473,10 +462,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_pre_registration_count: {
-        Args: { p_festival_id: string }
-        Returns: number
-      }
+      get_pre_registration_count: { Args: never; Returns: number }
       internal_bootstrap_owners: {
         Args: { p_owner_one: string; p_owner_two: string; p_reason: string }
         Returns: undefined
@@ -583,7 +569,6 @@ export type Database = {
         Args: {
           p_consent_version: string
           p_consented_at: string
-          p_festival_id: string
           p_name_ciphertext: string
           p_phone_ciphertext: string
           p_phone_lookup_hash: string

@@ -2,7 +2,6 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@danyeo-ori/types";
 
 export interface PreRegistrationInput {
-  festivalId: string;
   name: string;
   phone: string;
   consentVersion: string;
@@ -18,11 +17,8 @@ export function submitPreRegistration(
 
 export async function getPreRegistrationCount(
   client: SupabaseClient<Database>,
-  festivalId: string,
 ) {
-  const { data, error } = await client.rpc("get_pre_registration_count", {
-    p_festival_id: festivalId,
-  });
+  const { data, error } = await client.rpc("get_pre_registration_count");
   if (error) throw error;
   return Number(data ?? 0);
 }

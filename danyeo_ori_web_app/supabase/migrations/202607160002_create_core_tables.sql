@@ -58,7 +58,6 @@ create table public.festival_games (
 
 create table public.pre_registrations (
   id uuid primary key default gen_random_uuid(),
-  festival_id uuid not null references public.festivals(id) on delete restrict,
   name_ciphertext bytea not null,
   phone_ciphertext bytea not null,
   phone_lookup_hash text not null,
@@ -215,5 +214,6 @@ create table retention.point_transactions_archive (
 );
 
 comment on table public.point_transactions is '수정하지 않는 포인트 변동 원장';
+comment on table public.pre_registrations is '다녀오리 웹·앱 출시 안내와 초기 이용 혜택을 신청한 비회원 목록';
 comment on table private.admin_users is '사용자 수정 메타데이터와 분리된 관리자 권한 기준';
 comment on table retention.point_transactions_archive is '탈퇴 후 직접 사용자 식별자를 제거한 분리 보관 원장';

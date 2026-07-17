@@ -10,7 +10,7 @@ npm install
 npm run dev
 ```
 
-웹 앱은 `apps/web`에서 실행됩니다. 이메일 회원가입·로그인과 비회원 사전예약은 Supabase에 연결되며, 축제·게임·커뮤니티 화면 일부는 아직 `packages/constants`의 예시 데이터를 사용합니다. 실제 축제 일정과 보상은 운영 반영 전에 검증해야 합니다.
+웹 앱은 `apps/web`에서 실행됩니다. 이메일 회원가입·로그인과 비회원 다녀오리 출시 알림 신청은 Supabase에 연결되며, 축제·게임·커뮤니티 화면 일부는 아직 `packages/constants`의 예시 데이터를 사용합니다. 실제 축제 일정과 보상은 운영 반영 전에 검증해야 합니다.
 
 ## Supabase 로컬 개발
 
@@ -29,14 +29,14 @@ npm run supabase:types
 - Cloud 연결·마이그레이션·함수 배포는 별도 승인 후 수행합니다.
 - 앱에는 publishable key만 제공하고 secret/service 역할 키는 노출하지 않습니다.
 
-## 인증·사전예약
+## 인증·출시 알림 신청
 
 - `/signup`: 이메일·비밀번호 회원가입과 이메일 인증
 - `/login`: 이메일·비밀번호 로그인
 - `/auth/callback`: 인증 코드를 세션으로 교환하는 서버 콜백
-- `/about#pre-register`: 개인정보 동의가 포함된 비회원 축제 사전예약
+- `/about#pre-register`: 개인정보 동의가 포함된 다녀오리 웹·앱 출시 알림 신청. 특정 축제 참가 예약은 받지 않음
 
-Vercel 배포 전 Supabase Cloud의 Auth URL Configuration에 실제 Vercel 도메인을 Site URL로 지정하고 `https://<도메인>/auth/callback`을 Redirect URL에 등록해야 합니다. 사전예약 Edge Function에는 실제 Vercel 도메인을 `ALLOWED_ORIGINS`로 추가하고 암호화·HMAC 비밀값을 Cloud Secret으로 등록합니다.
+Vercel 배포 전 Supabase Cloud의 Auth URL Configuration에 실제 Vercel 도메인을 Site URL로 지정하고 `https://<도메인>/auth/callback`을 Redirect URL에 등록해야 합니다. 출시 알림 신청 Edge Function에는 실제 Vercel 도메인을 `ALLOWED_ORIGINS`로 추가하고 암호화·HMAC 비밀값을 Cloud Secret으로 등록합니다.
 
 ## 구조
 

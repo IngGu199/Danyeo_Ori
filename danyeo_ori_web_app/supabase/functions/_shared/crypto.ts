@@ -69,8 +69,8 @@ export function normalizeName(value: string): string {
   return normalized;
 }
 
-export function phoneLookupHash(festivalId: string, phone: string): Promise<string> {
-  return hmacHex(`${festivalId}:${phone}`, "PHONE_LOOKUP_HMAC_KEY");
+export function phoneLookupHash(phone: string): Promise<string> {
+  return hmacHex(`launch-pre-registration:${phone}`, "PHONE_LOOKUP_HMAC_KEY");
 }
 
 function truncatedIpPrefix(request: Request): string | null {

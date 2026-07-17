@@ -1,5 +1,4 @@
 create or replace function private.submit_pre_registration(
-  p_festival_id uuid,
   p_name_ciphertext bytea,
   p_phone_ciphertext bytea,
   p_phone_lookup_hash text,
@@ -13,15 +12,7 @@ set search_path = ''
 as $$
 declare
   v_registration_id uuid;
-  v_end_date date;
 begin
-  select end_date into v_end_date
-  from public.festivals
-  where id = p_festival_id and status = 'published';
-
-  if v_end_date is null then
-    raise exception 'festival is not available for registration';
-  end if;
   if p_consented_at < now() - interval '15 minutes' or p_consented_at > now() + interval '1 minute' then
     raise exception 'invalid consent timestamp';
   end if;
@@ -33,12 +24,12 @@ begin
   end if;
 
   insert into public.pre_registrations (
-    festival_id, name_ciphertext, phone_ciphertext, phone_lookup_hash,
+    name_ciphertext, phone_ciphertext, phone_lookup_hash,
     consent_version, consented_at, expires_at
   ) values (
-    p_festival_id, p_name_ciphertext, p_phone_ciphertext, p_phone_lookup_hash,
+    p_name_ciphertext, p_phone_ciphertext, p_phone_lookup_hash,
     trim(p_consent_version), p_consented_at,
-    (v_end_date + 91)::timestamp at time zone 'Asia/Seoul'
+    p_consented_at + interval '1 year'
   )
   returning id into v_registration_id;
 
@@ -380,13 +371,13 @@ as $$
 $$;
 
 create or replace function public.internal_submit_pre_registration(
-  p_festival_id uuid, p_name_ciphertext bytea, p_phone_ciphertext bytea,
+  p_name_ciphertext bytea, p_phone_ciphertext bytea,
   p_phone_lookup_hash text, p_consent_version text, p_consented_at timestamptz
 )
 returns uuid language sql security definer set search_path = ''
 as $$
   select private.submit_pre_registration(
-    p_festival_id, p_name_ciphertext, p_phone_ciphertext,
+    p_name_ciphertext, p_phone_ciphertext,
     p_phone_lookup_hash, p_consent_version, p_consented_at
   );
 $$;
@@ -426,20 +417,20 @@ as $$
   );
 $$;
 
-revoke all on function private.submit_pre_registration(uuid, bytea, bytea, text, text, timestamptz) from public, anon, authenticated;
+revoke all on function private.submit_pre_registration(bytea, bytea, text, text, timestamptz) from public, anon, authenticated;
 revoke all on function private.start_game_attempt(uuid, uuid, uuid) from public, anon, authenticated;
 revoke all on function private.complete_game_attempt(uuid, uuid, integer, uuid, integer) from public, anon, authenticated;
 revoke all on function private.draw_reward_points(jsonb) from public, anon, authenticated;
 revoke all on function private.claim_reward(uuid, uuid, uuid) from public, anon, authenticated;
 revoke all on function private.record_security_event(uuid, text, text, text, text, jsonb) from public, anon, authenticated;
 
-revoke all on function public.internal_submit_pre_registration(uuid, bytea, bytea, text, text, timestamptz) from public, anon, authenticated;
+revoke all on function public.internal_submit_pre_registration(bytea, bytea, text, text, timestamptz) from public, anon, authenticated;
 revoke all on function public.internal_start_game_attempt(uuid, uuid, uuid) from public, anon, authenticated;
 revoke all on function public.internal_complete_game_attempt(uuid, uuid, integer, uuid, integer) from public, anon, authenticated;
 revoke all on function public.internal_claim_reward(uuid, uuid, uuid) from public, anon, authenticated;
 revoke all on function public.internal_record_security_event(uuid, text, text, text, text, jsonb) from public, anon, authenticated;
 
-grant execute on function public.internal_submit_pre_registration(uuid, bytea, bytea, text, text, timestamptz) to service_role;
+grant execute on function public.internal_submit_pre_registration(bytea, bytea, text, text, timestamptz) to service_role;
 grant execute on function public.internal_start_game_attempt(uuid, uuid, uuid) to service_role;
 grant execute on function public.internal_complete_game_attempt(uuid, uuid, integer, uuid, integer) to service_role;
 grant execute on function public.internal_claim_reward(uuid, uuid, uuid) to service_role;

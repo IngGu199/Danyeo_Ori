@@ -21,7 +21,7 @@ npm run supabase:test
 ## 보안 원칙
 
 - `private`와 `retention` 스키마를 Data API에 노출하지 않습니다.
-- 비회원 사전예약은 `submit-pre-registration` Edge Function만 사용합니다.
+- 비회원의 다녀오리 웹·앱 출시 알림 신청은 `submit-pre-registration` Edge Function만 사용합니다. 특정 축제 참가 예약으로 사용하지 않습니다.
 - 게임 기록, 룰렛 결과, 포인트 지급은 서버가 검증합니다.
 - `point_transactions`는 수정하지 않는 원장이며 지갑은 원장 처리 함수에서만 변경합니다.
 - secret/service 역할 키와 함수 암호화 키는 Git에 커밋하지 않습니다.

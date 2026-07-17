@@ -5,7 +5,7 @@ import { festivals } from "@danyeo-ori/constants";
 import { FestivalCard } from "../components/festival-card";
 import { WeekendGameCta } from "../components/weekend-game-cta";
 
-const services = [[GameController, "미니게임", "/games"], [Sparkle, "전국 축제", "/festivals"], [CalendarBlank, "축제 달력", "/calendar"], [ChatCircleDots, "현장 후기", "/community"], [Compass, "여행 코스", "/festivals"], [Wallet, "마일리지", "/games"], [MapTrifold, "축제 지도", "/festivals"], [Ticket, "사전예약", "/about#pre-register"]] as const;
+const services = [[GameController, "미니게임", "/games"], [Sparkle, "전국 축제", "/festivals"], [CalendarBlank, "축제 달력", "/calendar"], [ChatCircleDots, "현장 후기", "/community"], [Compass, "여행 코스", "/festivals"], [Wallet, "마일리지", "/games"], [MapTrifold, "축제 지도", "/festivals"], [Ticket, "출시 알림", "/about#pre-register"]] as const;
 const journey = [
   { Icon: MapPin, step: "STEP 01", title: "내 취향 축제 발견", description: "지역, 시기, 테마를 골라 이번 주말에 갈 축제를 찾습니다." },
   { Icon: GameController, step: "STEP 02", title: "대표 프로그램 플레이", description: "축제의 핵심 체험을 10–30초 미니게임으로 먼저 경험합니다." },

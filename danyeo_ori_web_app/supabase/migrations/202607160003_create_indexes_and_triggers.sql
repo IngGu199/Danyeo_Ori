@@ -1,5 +1,5 @@
 create unique index pre_registrations_active_phone_unique
-  on public.pre_registrations (festival_id, phone_lookup_hash)
+  on public.pre_registrations (phone_lookup_hash)
   where deleted_at is null;
 
 create index festivals_calendar_idx on public.festivals (start_date, end_date)
