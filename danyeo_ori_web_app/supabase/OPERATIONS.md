@@ -32,6 +32,14 @@ SUPABASE_URL=... SUPABASE_SECRET_KEY=... npm run admin:grant -- \
 - 활성 owner는 두 명으로 제한합니다.
 - 변경은 `private.admin_role_audit`에 자동 기록됩니다.
 
+## 웹 관리자 페이지 접근
+
+- 활성 owner와 operator는 로그인 후 `/admin`에서 축제와 미니게임을 관리할 수 있습니다.
+- 웹은 publishable key와 로그인 쿠키만 사용합니다. secret/service 역할 키를 웹 환경 변수에 추가하지 않습니다.
+- 페이지 진입과 모든 Server Action은 `private.admin_users`를 기준으로 권한을 다시 확인하며, 최종 CRUD 허용 여부는 PostgreSQL grants와 RLS가 결정합니다.
+- 축제 삭제는 `festival_games.festival_id`의 `ON DELETE CASCADE`로 연결 미니게임까지 같은 DB 작업에서 삭제합니다.
+- 이미 사용자 게임 기록이 연결된 미니게임은 기록 무결성을 위해 삭제가 거부됩니다. 이 경우 축제와 게임을 비공개 또는 보관 상태로 전환합니다.
+
 ## 관리자 해제와 계정 정지
 
 ```bash

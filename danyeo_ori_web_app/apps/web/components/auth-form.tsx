@@ -10,6 +10,7 @@ type AuthMode = "login" | "signup";
 interface AuthFormProps {
   mode: AuthMode;
   initialMessage?: string;
+  redirectTo?: string;
 }
 
 function authErrorMessage(message: string) {
@@ -20,7 +21,7 @@ function authErrorMessage(message: string) {
   return "요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.";
 }
 
-export function AuthForm({ mode, initialMessage }: AuthFormProps) {
+export function AuthForm({ mode, initialMessage, redirectTo = "/" }: AuthFormProps) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState(initialMessage ?? "");
@@ -71,7 +72,7 @@ export function AuthForm({ mode, initialMessage }: AuthFormProps) {
       if (error) {
         setMessage(authErrorMessage(error.message));
       } else {
-        router.replace("/");
+        router.replace(redirectTo);
         router.refresh();
       }
     }

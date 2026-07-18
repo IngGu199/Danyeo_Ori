@@ -459,7 +459,12 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      current_admin_access: {
+        Row: {
+          is_admin: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_pre_registration_count: { Args: never; Returns: number }
@@ -736,4 +741,3 @@ export const Constants = {
     },
   },
 } as const
-

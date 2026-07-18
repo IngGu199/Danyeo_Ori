@@ -4,7 +4,7 @@
 
 ## 2026-07-18 현재 프로젝트 기준선
 
-현재 저장소에는 `danyeo_ori_web_app/` 기반의 Turborepo·Next.js 16·React 19 웹 MVP와 초기 정적 UI 프로토타입이 준비되어 있다. Supabase 백엔드와 이메일 인증·비회원 다녀오리 출시 알림 신청의 로컬 통합 검증을 완료했으며 나머지 웹 기능 연결과 Cloud 반영은 남아 있다. Expo 모바일 앱은 아직 구현하지 않았다.
+현재 저장소에는 `danyeo_ori_web_app/` 기반의 Turborepo·Next.js 16·React 19 웹 MVP와 초기 정적 UI 프로토타입이 준비되어 있다. Supabase 백엔드와 이메일 인증·비회원 다녀오리 출시 알림 신청, 홈·축제 목록·달력·미니게임 목록의 DB 기반 렌더링, 최소 관리자 페이지를 로컬에서 검증했으며 나머지 웹 기능 연결과 Cloud 반영은 남아 있다. Expo 모바일 앱은 아직 구현하지 않았다.
 
 | 상태 | 항목 | 현재 결과 |
 |---|---|---|
@@ -13,6 +13,9 @@
 | 완료 | 축제 탐색 UI | 시기·지역·카테고리 필터와 축제 카드 구성 |
 | 완료 | 게임 UI | 일일 룰렛과 축제별 미니게임 목록 구성 |
 | 완료 | 축제 달력 UI | 월간 달력과 선택 날짜 상세 패널 구성 |
+| 완료 | 축제·게임 DB 기반 렌더링 | 홈 추천 축제, 축제 필터 목록, 월간 달력, 미니게임 목록을 공개 `festivals`·`festival_games` 데이터로 전환. Server Component가 publishable key와 RLS로 조회하고 Client Component는 필터·달력 이동·룰렛 상태만 담당하며, 이미지 fallback·빈 상태·로딩·오류 상태와 UTC 날짜 계산을 적용 |
+| 완료 | 축제 개발 seed·공개 RLS 검증 | 식별 가능한 `[TEST]` 축제 3개와 일부 연결 게임을 `seed.sql`에 추가. draft 축제, inactive·기간 밖 게임, 비공개 상위 축제의 게임이 익명 사용자에게 노출되지 않는 pgTAP 테스트를 추가해 로컬 DB 전체 38개 테스트 통과 |
+| 완료 | 최소 관리자 페이지 | `/admin`에서 축제와 축제별 미니게임 조회·추가·수정·삭제를 지원. 쿠키 기반 Supabase server client, `private.admin_users`·`private.is_admin()` 기반 접근 확인, Server Action 재검증, RLS, 축제 삭제 cascade를 적용하고 구조화된 보상·규칙 입력과 삭제 확인 UI를 구현. 일반 회원 차단과 operator CRUD를 포함해 로컬 DB 전체 46개 테스트, typecheck·lint·프로덕션 빌드 통과 |
 | 완료 | 커뮤니티 UI | 축제 태그 기반 게시판과 작성 폼 구성 |
 | 완료 | 반응형 스타일 초안 | 데스크톱·태블릿·모바일 대응 CSS 구성 |
 | 완료 | Next.js 웹 모노레포 초안 | `danyeo_ori_web_app/`에 Turborepo, `apps/web`, 공유 `packages` 구성 |
@@ -36,8 +39,8 @@
 | 완료 | GitHub·Vercel 배포용 ignore 규칙 정비 | 루트 `.gitignore`에 Vercel 로컬 설정, 빌드·테스트 캐시, Expo 생성 타입, 로그·프로세스 파일 규칙을 보완하고 기존 문서·환경 변수 정책은 유지 |
 | 완료 | 로컬 파트별 컨텍스트 정리 공간 | 과도하게 길어진 작업 컨텍스트를 파트별 Markdown으로 분리할 수 있도록 로컬 `AGENTS-MD/` 폴더를 마련하고, 폴더 전체가 GitHub에 반영되지 않도록 ignore 규칙을 추가 |
 | 완료 | GitHub 프로젝트 README | 서비스 개요, 현재 기능, 기술 스택, 실행 방법, 라우트, 축제별 마일리지 원칙과 로드맵을 루트 `README.md`에 정리 |
-| 진행 | Supabase 기반 구현 | CLI 설정, 핵심 테이블·RLS·관리자 권한·포인트 원장·파기 마이그레이션, Edge Functions, 공유 타입·API를 작성. 이메일 회원가입·로그인과 개인정보 동의·전체 신청자 집계가 포함된 비회원 출시 알림 신청을 연결하고 pgTAP 26개 테스트와 로컬 Edge Function 접수·중복 차단 검증을 통과했으며 Cloud에는 반영하지 않음 |
-| 미착수 | 관리자·모바일 | 관리자 페이지와 Expo 앱 없음 |
+| 진행 | Supabase 기반 구현 | CLI 설정, 핵심 테이블·RLS·관리자 권한·포인트 원장·파기 마이그레이션, Edge Functions, 공유 타입·API를 작성. 이메일 회원가입·로그인, 비회원 출시 알림 신청, 공개 축제 조회, 관리자 CRUD를 연결하고 pgTAP 46개 테스트와 로컬 Edge Function 접수·중복 차단 검증을 통과했으며 Cloud에는 반영하지 않음 |
+| 미착수 | 모바일 | Expo 앱 없음 |
 
 정적 프로토타입은 로드맵을 위반한 최종 구현물이 아니라 **0단계 UI·정보구조 검증 산출물**로 인정한다. 다음 개발 단계에서는 이를 참고 자산으로 보존하면서 React 컴포넌트와 실제 데이터 구조로 전환한다.
 
@@ -46,5 +49,5 @@
 1. 게임 기록·룰렛·포인트 보상 Edge Function을 웹 게임 화면에 연결한다.
 2. 개인정보 처리방침과 포인트 원장 5년 보존 근거를 공개 전 법률·개인정보 보호 검토로 확정한다.
 3. 사용자 승인 후 Integration Cloud에 마이그레이션·함수 비밀값·Edge Functions를 반영하고 Supabase Auth의 Vercel Site URL·Redirect URL을 설정한다.
-4. `/admin` 관리자 페이지를 추가해 축제, 출시 알림 신청자, 게임 로그를 관리한다.
+4. Integration Cloud에서 owner·operator 계정으로 `/admin` 접근과 축제·미니게임 CRUD를 스모크 테스트한다. 출시 알림 신청자와 게임 로그 관리는 후속 관리자 범위로 진행한다.
 5. Expo 앱을 추가하고 공유 타입·API·유틸리티를 연결한다.

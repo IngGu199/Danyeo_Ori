@@ -10,7 +10,7 @@ npm install
 npm run dev
 ```
 
-웹 앱은 `apps/web`에서 실행됩니다. 이메일 회원가입·로그인과 비회원 다녀오리 출시 알림 신청은 Supabase에 연결되며, 축제·게임·커뮤니티 화면 일부는 아직 `packages/constants`의 예시 데이터를 사용합니다. 실제 축제 일정과 보상은 운영 반영 전에 검증해야 합니다.
+웹 앱은 `apps/web`에서 실행됩니다. 이메일 회원가입·로그인, 비회원 다녀오리 출시 알림 신청, 홈 추천 축제, 축제 목록·달력·미니게임 목록은 Supabase에 연결됩니다. 커뮤니티 화면은 아직 `packages/constants`의 예시 데이터를 사용합니다. 실제 축제 일정과 보상은 운영 반영 전에 검증해야 합니다.
 
 ## Supabase 로컬 개발
 
@@ -42,7 +42,7 @@ Vercel 배포 전 Supabase Cloud의 Auth URL Configuration에 실제 Vercel 도�
 
 - `apps/web`: Next.js + TypeScript + Tailwind CSS 웹 MVP
 - `apps/mobile`: 후속 Expo 앱을 위한 최소 진입점
-- `packages/constants`: 웹·앱이 공유할 예시 도메인 데이터
+- `packages/constants`: 웹·앱이 공유할 정적 UI 상수와 커뮤니티 예시 데이터
 - `packages/types`: 공유 TypeScript 타입
 - `packages/api`: 웹·앱 공유 Supabase API 래퍼
 - `packages/utils`: 플랫폼 독립 유틸리티

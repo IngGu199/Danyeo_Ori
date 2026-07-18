@@ -1,18 +1,3 @@
-export type FestivalCategory = "먹거리" | "물놀이" | "야간" | "가족" | "특산물" | "문화";
-
-export interface Festival {
-  id: string;
-  name: string;
-  period: string;
-  location: string;
-  region: string;
-  category: FestivalCategory;
-  poster: string;
-  badge: string;
-  game: string;
-  likes: number;
-}
-
 export interface CommunityPost {
   id: number;
   festival: string;
@@ -27,6 +12,8 @@ export type { Database, Json } from "./database.generated";
 export type {
   FestivalRow,
   FestivalGameRow,
+  FestivalWithGames,
+  FestivalGameWithFestival,
   GameAttemptRow,
   PointWalletRow,
   PointTransactionRow,
