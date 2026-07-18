@@ -30,11 +30,12 @@ export function AuthForm({ mode, initialMessage, redirectTo = "/" }: AuthFormPro
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setPending(true);
     setMessage("");
     setSuccess(false);
 
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(formElement);
     const email = String(form.get("email") ?? "").trim();
     const password = String(form.get("password") ?? "");
     const passwordConfirm = String(form.get("passwordConfirm") ?? "");
@@ -65,7 +66,7 @@ export function AuthForm({ mode, initialMessage, redirectTo = "/" }: AuthFormPro
       } else {
         setSuccess(true);
         setMessage("인증 메일을 보냈습니다. 이메일의 인증 링크를 눌러 가입을 완료해 주세요.");
-        event.currentTarget.reset();
+        formElement.reset();
       }
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });

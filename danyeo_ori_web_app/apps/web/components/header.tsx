@@ -18,19 +18,46 @@ const navigation = [
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const [email, setEmail] = useState<string | null>(null);
+  const [accountName, setAccountName] = useState<string | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
-    void supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? null));
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => setEmail(session?.user.email ?? null));
-    return () => data.subscription.unsubscribe();
+    let active = true;
+
+    async function loadAccountName(userId: string, metadataNickname: unknown) {
+      const fallback = typeof metadataNickname === "string" && metadataNickname.trim()
+        ? metadataNickname.trim()
+        : "내 계정";
+      const { data } = await supabase.from("profiles").select("nickname").eq("id", userId).maybeSingle();
+      if (active) setAccountName(data?.nickname ?? fallback);
+    }
+
+    void supabase.auth.getUser().then(({ data }) => {
+      const user = data.user;
+      if (!user) {
+        if (active) setAccountName(null);
+        return;
+      }
+      void loadAccountName(user.id, user.user_metadata.nickname);
+    });
+
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      const user = session?.user;
+      if (!user) {
+        setAccountName(null);
+        return;
+      }
+      const metadataNickname = user.user_metadata.nickname;
+      setAccountName(typeof metadataNickname === "string" && metadataNickname.trim() ? metadataNickname.trim() : "내 계정");
+      window.setTimeout(() => void loadAccountName(user.id, metadataNickname), 0);
+    });
+    return () => { active = false; data.subscription.unsubscribe(); };
   }, []);
 
   async function signOut() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    setEmail(null);
+    setAccountName(null);
     router.replace("/");
     router.refresh();
   }
@@ -38,6 +65,6 @@ export function Header() {
   return <header className="site-header"><div className="container topbar">
     <Link className="brand" href="/"><span className="brand-mark"><Image src="/images/GooseGooseDuckDuck.png" alt="다녀오리 마스코트" width={37} height={37} priority /></span><span>다녀오리<small>LOCAL FESTIVAL PLAY</small></span></Link>
     <nav className="main-nav" aria-label="주요 메뉴">{navigation.map((item) => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</Link>)}</nav>
-    <div className="header-actions"><Link className="icon-btn" href="/festivals" aria-label="축제 검색"><MagnifyingGlass weight="bold" /></Link><div className="account-menu"><button className="account-menu-trigger" type="button" aria-haspopup="menu" aria-label="계정 메뉴"><UserCircle weight="fill" /><span>{email ? "내 계정" : "계정"}</span><CaretDown weight="bold" /></button><div className="account-menu-panel" role="menu">{email ? <><p className="account-email">{email}</p><Link href="/community" role="menuitem">내가 쓴 글</Link><button type="button" role="menuitem" onClick={signOut}>로그아웃</button></> : <><p>다녀오리를 시작해보세요</p><Link href="/login" role="menuitem">로그인</Link><Link href="/signup" role="menuitem">회원가입</Link></>}</div></div></div>
+    <div className="header-actions"><Link className="icon-btn" href="/festivals" aria-label="축제 검색"><MagnifyingGlass weight="bold" /></Link><div className="account-menu"><button className="account-menu-trigger" type="button" aria-haspopup="menu" aria-label="계정 메뉴"><UserCircle weight="fill" /><span>{accountName ? "내 계정" : "계정"}</span><CaretDown weight="bold" /></button><div className="account-menu-panel" role="menu">{accountName ? <><p className="account-name">{accountName}</p><Link href="/community" role="menuitem">내가 쓴 글</Link><button type="button" role="menuitem" onClick={signOut}>로그아웃</button></> : <><p>다녀오리를 시작해보세요</p><Link href="/login" role="menuitem">로그인</Link><Link href="/signup" role="menuitem">회원가입</Link></>}</div></div></div>
   </div></header>;
 }
