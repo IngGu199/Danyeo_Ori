@@ -16,7 +16,7 @@
 | 완료 | 축제·게임 DB 기반 렌더링 | 홈 추천 축제, 축제 필터 목록, 월간 달력, 미니게임 목록을 공개 `festivals`·`festival_games` 데이터로 전환. Server Component가 publishable key와 RLS로 조회하고 Client Component는 필터·달력 이동·룰렛 상태만 담당하며, 이미지 fallback·빈 상태·로딩·오류 상태와 UTC 날짜 계산을 적용 |
 | 완료 | 축제 개발 seed·공개 RLS 검증 | 식별 가능한 `[TEST]` 축제 3개와 일부 연결 게임을 `seed.sql`에 추가. draft 축제, inactive·기간 밖 게임, 비공개 상위 축제의 게임이 익명 사용자에게 노출되지 않는 pgTAP 테스트를 추가해 로컬 DB 전체 38개 테스트 통과 |
 | 완료 | 최소 관리자 페이지 | `/admin`에서 축제와 축제별 미니게임 조회·추가·수정·삭제를 지원. 쿠키 기반 Supabase server client, `private.admin_users`·`private.is_admin()` 기반 접근 확인, Server Action 재검증, RLS, 축제 삭제 cascade를 적용하고 구조화된 보상·규칙 입력과 삭제 확인 UI를 구현. 일반 회원 차단과 operator CRUD를 포함해 로컬 DB 전체 46개 테스트, typecheck·lint·프로덕션 빌드 통과. 관리자 등록·해제·정지 CLI는 CommonJS 실행 환경에서도 동작하도록 명시적 `async main()` 진입점을 적용하고 빈 secret key를 사전 차단 |
-| 완료 | 커뮤니티 UI | 축제 태그 기반 게시판과 작성 폼 구성 |
+| 완료 | 커뮤니티 UI | 시안 3번 기반의 축제 태그 피드를 구현. 기본 상태는 전체 폭 목록이며 게시글 선택 시 데스크톱에서는 오른쪽 상세가 슬라이드 인되고, 980px 이하에서는 오버레이, 800px 이하에서는 전체 화면 상세로 전환. 하트 좋아요, 댓글 작성, 게시글 작성·수정·삭제 확인 UI와 검색·분류 탭을 React 로컬 상태로 구성하고 390px 모바일 가로 넘침 없이 검증 |
 | 완료 | 반응형 스타일 초안 | 데스크톱·태블릿·모바일 대응 CSS 구성 |
 | 완료 | Next.js 웹 모노레포 초안 | `danyeo_ori_web_app/`에 Turborepo, `apps/web`, 공유 `packages` 구성 |
 | 완료 | Next.js 16·React 19 업그레이드 | 웹 워크스페이스를 Next.js 16.2.10·React 19.2.7로 전환. ESLint Flat Config, 사전 route type 생성, Node.js 22 실행 기준, `proxy.ts` 규칙, 비동기 `searchParams`, LCP 이미지 즉시 로딩을 반영하고 typecheck·Turbopack build·lint 검증 완료 |
