@@ -2,7 +2,7 @@
 
 ## 검증 기준
 
-- Source of truth: `/home/inggu99/Danyeo_Ori/design-previews/community/option-3-fast-feed.png`
+- Source of truth: `/home/inggu99/Danyeo_Ori/Documents/previews/community/option-3-fast-feed.png`
 - Implementation: `http://localhost:3000/community`
 - Desktop viewport: `1440 × 1024`
 - Mobile viewport: `390 × 844`
@@ -15,6 +15,8 @@
 - 데스크톱 상세 상호작용: `/mnt/c/Users/mushr/.codex/visualizations/2026/07/20/019f8060-ff7b-7e83-8ed0-2fd77d426d99/community-qa/desktop-detail-interaction.png`
 - 모바일 기본 목록: `/mnt/c/Users/mushr/.codex/visualizations/2026/07/20/019f8060-ff7b-7e83-8ed0-2fd77d426d99/community-qa/mobile-list-390.png`
 - 모바일 상세: `/mnt/c/Users/mushr/.codex/visualizations/2026/07/20/019f8060-ff7b-7e83-8ed0-2fd77d426d99/community-qa/mobile-detail-390.png`
+- Supabase 축제 카테고리 목록: `/mnt/c/Users/mushr/.codex/visualizations/2026/07/20/019f8060-ff7b-7e83-8ed0-2fd77d426d99/community-qa/supabase-community-list.png`
+- Supabase 축제 slug 상세 딥링크: `/mnt/c/Users/mushr/.codex/visualizations/2026/07/20/019f8060-ff7b-7e83-8ed0-2fd77d426d99/community-qa/supabase-community-detail.png`
 
 별도의 부분 확대 비교는 필요하지 않았다. 목록·상세가 동시에 보이는 데스크톱 전체 화면에서 분할 비율, 이미지 크기, 타이포그래피, 좋아요·작성·작성자 메뉴 위치를 같은 상태로 확인할 수 있기 때문이다.
 
@@ -24,7 +26,8 @@
 - 사용자 요구 반영: 시안과 달리 최초 진입은 목록만 표시하고, 행을 선택할 때 상세가 오른쪽에서 나타나도록 상태 전환을 추가했다.
 - 반응형: 980px 이하에서는 상세가 목록 위 오버레이로, 800px 이하에서는 390px 너비의 전체 화면 상세로 전환한다. 측정 결과 목록·상세 모두 문서 너비가 뷰포트와 같은 `390px`로 가로 넘침이 없었다.
 - 디자인 시스템: 기존 다녀오리 헤더와 크림·올리브 토큰, 실제 축제 이미지 자산, Phosphor 아이콘을 재사용했다. 시안의 별도 로고·헤더 복제는 프로젝트 일관성을 위해 적용하지 않았다.
-- 기능 상태: 좋아요 수와 댓글은 즉시 반영되고, 작성·수정·삭제는 명확한 진입·취소·확인 상태를 제공한다. 현재 데이터는 로컬 예시 상태라 새로고침하면 초기화된다.
+- 기능 상태: 좋아요 수와 댓글은 Supabase 집계 트리거로 즉시 반영되고, 작성·수정·삭제는 회원 세션과 RLS를 통과한 경우에만 저장된다. 새로고침 후에도 유지되며, 로컬 개발 환경에는 축제와 연결된 예시 seed가 제공된다.
+- 축제 연결: 어드민의 `festivals`가 커뮤니티 카테고리의 단일 원본이다. 공개 축제는 선택 목록에 자동 반영되고 `festival_id`·축제 slug 딥링크로 해당 리뷰 피드를 바로 열 수 있다.
 - 접근성: 버튼 레이블, `aria-pressed`, 검색·댓글 입력 레이블, Escape 닫기, 포커스 복귀, 모션 감소 설정을 확인했다.
 
 ## 발견 사항 이력

@@ -89,3 +89,4 @@ document.getElementById("score").innerText = "100";
 - 다른 브랜치는 비교·참고 목적으로 읽을 수 있지만, 사용자 지시 없이 전환·병합·rebase·cherry-pick하지 않는다.
 - 커밋되지 않은 사용자 변경을 덮어쓰거나 삭제하지 않는다.
 - `.env`와 비밀키는 Git에 추가하지 않는다.
+- 프리뷰·예시·도안 이미지는 루트 `Documents/` 아래에 저장하고 GitHub에는 올리지 않는다. 해당 폴더는 `.gitignore`의 `Documents/` 규칙으로 계속 추적에서 제외한다.

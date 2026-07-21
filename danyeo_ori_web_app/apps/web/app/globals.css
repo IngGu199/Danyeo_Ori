@@ -206,6 +206,9 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
 .community-search button { width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--muted); }
 .community-search button:hover { background: var(--cream); color: var(--olive-dark); }
 .community-search button svg { width: 16px; height: 16px; }
+.community-festival-filter { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px; margin-top: 10px; color: var(--brown-deep); font-size: 11px; font-weight: 850; }
+.community-festival-filter select { width: 100%; min-width: 0; height: 38px; padding: 0 34px 0 11px; border: 1px solid var(--line); border-radius: 10px; outline: 0; background: var(--surface); color: var(--ink); font-size: 12px; }
+.community-festival-filter select:focus { border-color: var(--olive); box-shadow: 0 0 0 3px rgba(73, 98, 59, .1); }
 .community-tabs { display: flex; align-items: center; gap: 26px; margin-top: 7px; overflow-x: auto; }
 .community-tabs button { position: relative; min-height: 48px; padding: 0 2px; border: 0; background: transparent; color: var(--muted); font-size: 13px; font-weight: 800; white-space: nowrap; }
 .community-tabs button::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 3px; border-radius: 3px 3px 0 0; background: transparent; content: ""; }
@@ -241,6 +244,7 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
 .community-detail-actions { display: flex; align-items: center; gap: 7px; }
 .community-like-button { min-height: 40px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; border: 1px solid #e8b5a7; border-radius: 11px; background: var(--surface); color: var(--brown-deep); font-size: 12px; font-weight: 850; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
 .community-like-button:hover, .community-like-button.liked { border-color: #e18d7b; background: #fbe7df; color: #b84e3d; transform: translateY(-1px); }
+.community-like-button:disabled { cursor: wait; opacity: .68; transform: none; }
 .community-like-button svg { width: 18px; height: 18px; color: #e17764; }
 .community-icon-button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); color: var(--muted); }
 .community-icon-button:hover { border-color: var(--sage); background: var(--olive-soft); color: var(--olive-dark); }
@@ -284,11 +288,13 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
 .community-comment div > div { color: #4c463f; font-size: 12px; line-height: 1.55; }
 .community-comment-like { display: inline-flex; align-items: center; gap: 4px; padding-top: 4px; color: #d97865; font-size: 10px; }
 .community-comment-like svg { width: 14px; height: 14px; }
+.community-comments-loading { margin: 0; padding: 24px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
 .community-comment-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; margin-top: 17px; }
 .community-comment-form input { min-width: 0; height: 46px; padding: 0 13px; border: 1px solid var(--line); border-radius: 11px; outline: 0; background: var(--surface); color: var(--ink); font-size: 12px; }
 .community-comment-form input:focus { border-color: var(--olive); box-shadow: 0 0 0 3px rgba(73, 98, 59, .1); }
 .community-comment-form button { min-width: 74px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 0; border-radius: 11px; background: var(--olive); color: var(--white); font-size: 12px; font-weight: 850; }
 .community-comment-form button:hover { background: var(--olive-dark); }
+.community-comment-form input:disabled, .community-comment-form button:disabled, .community-editor :disabled, .community-delete-dialog button:disabled { cursor: not-allowed; opacity: .58; }
 .community-comment-form button svg { width: 16px; height: 16px; }
 .community-detail-backdrop { display: none; }
 
@@ -349,6 +355,7 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin-bottom: 16px; font-size: clamp(36px
   .community-write-button { width: 44px; min-height: 44px; padding: 0; border-radius: 12px; }
   .community-write-button span { display: none; }
   .community-list-tools { padding: 14px 16px 0; }
+  .community-festival-filter { grid-template-columns: 1fr; gap: 5px; }
   .community-tabs { gap: 24px; }
   .community-post-row { min-height: 112px; display: grid; gap: 10px; padding: 15px 17px; }
   .community-post-stats { width: 100%; justify-content: flex-start; gap: 16px; }

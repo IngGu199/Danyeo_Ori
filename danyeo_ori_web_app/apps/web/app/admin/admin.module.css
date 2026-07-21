@@ -161,6 +161,7 @@
 
 .rowActions { display: flex; justify-content: flex-end; gap: 6px; white-space: nowrap; }
 .rowActions button,
+.rowActions a,
 .iconButton {
   display: inline-flex;
   align-items: center;

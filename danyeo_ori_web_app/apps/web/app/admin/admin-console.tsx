@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import type { FormEvent, ReactNode } from "react";
 import { useMemo, useState, useTransition } from "react";
 import type { FestivalGameRow, FestivalRow, Json } from "@danyeo-ori/types";
 import {
   CheckCircle,
+  ChatCircle,
   GameController,
   PencilSimple,
   Plus,
@@ -179,6 +181,7 @@ export function AdminConsole({ festivals, games }: { festivals: FestivalRow[]; g
                       <td><span className={`${styles.status} ${styles[`status_${festival.status}`]}`}>{festival.status}</span></td>
                       <td>{gameCounts.get(festival.id) ?? 0}개</td>
                       <td><div className={styles.rowActions}>
+                        {festival.status === "published" ? <Link href={`/community?festival=${festival.slug}`}><ChatCircle weight="bold" /> 커뮤니티</Link> : null}
                         <button type="button" onClick={() => setFestivalEditor(festival)}><PencilSimple weight="bold" /> 수정</button>
                         <button type="button" className={styles.dangerAction} onClick={() => setDeleteTarget({ kind: "festival", id: festival.id, name: festival.name, gameCount: gameCounts.get(festival.id) ?? 0 })}><Trash weight="bold" /> 삭제</button>
                       </div></td>
@@ -231,7 +234,7 @@ export function AdminConsole({ festivals, games }: { festivals: FestivalRow[]; g
           <div className={styles.confirmBody}>
             <WarningCircle weight="duotone" />
             <p><strong>{deleteTarget.name}</strong>을(를) 삭제합니다.</p>
-            {deleteTarget.kind === "festival" ? <p>연결된 미니게임 <strong>{deleteTarget.gameCount}개</strong>도 함께 삭제되며 되돌릴 수 없습니다.</p> : <p>삭제한 미니게임은 되돌릴 수 없습니다.</p>}
+            {deleteTarget.kind === "festival" ? <p>연결된 미니게임 <strong>{deleteTarget.gameCount}개</strong>도 함께 삭제됩니다. 커뮤니티 글이 연결된 축제는 리뷰 보호를 위해 삭제되지 않으므로 보관 상태로 전환해 주세요.</p> : <p>삭제한 미니게임은 되돌릴 수 없습니다.</p>}
           </div>
           <footer className={styles.modalFooter}><button className="outline-btn" type="button" disabled={pending} onClick={() => setDeleteTarget(null)}>취소</button><button className={styles.dangerButton} type="button" disabled={pending} onClick={confirmDelete}>{pending ? "삭제 중..." : "확인 후 삭제"}</button></footer>
         </Modal>
@@ -250,7 +253,7 @@ function FestivalForm({ festival, pending, onClose, onSubmit }: { festival: Fest
           <Field label="슬러그" hint="영문 소문자·숫자·하이픈"><input name="slug" defaultValue={festival?.slug} required maxLength={120} pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="hongcheon-corn-2026" /></Field>
           <Field label="지역"><input name="region" defaultValue={festival?.region} required maxLength={80} placeholder="강원" /></Field>
           <Field label="장소"><input name="venue" defaultValue={festival?.venue} required maxLength={160} /></Field>
-          <Field label="카테고리"><input name="category" defaultValue={festival?.category} required maxLength={80} /></Field>
+          <Field label="카테고리" hint="저장하면 이 축제의 커뮤니티 카테고리도 자동 생성됩니다."><input name="category" defaultValue={festival?.category} required maxLength={80} /></Field>
           <Field label="이미지 경로"><input name="image_path" defaultValue={festival?.image_path ?? ""} maxLength={1000} placeholder="/images/festival.png" /></Field>
           <Field label="시작일"><input name="start_date" type="date" defaultValue={festival?.start_date} required /></Field>
           <Field label="종료일"><input name="end_date" type="date" defaultValue={festival?.end_date} required /></Field>

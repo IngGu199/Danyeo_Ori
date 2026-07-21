@@ -87,3 +87,46 @@ insert into public.festival_games (
     '{"kind":"points","point_amount":100}', 'draft'
   )
 on conflict (id) do nothing;
+
+insert into public.community_posts (
+  id, festival_id, author_nickname, kind, title, content, image_path, view_count, created_at
+) values
+  (
+    '61111111-1111-4111-8111-111111111111',
+    '22222222-2222-4222-8222-222222222222',
+    '여름오리', 'review', '머드광장 오후 3시, 그늘막 자리 팁',
+    E'오후 3시쯤이 햇빛이 가장 뜨거운데요. 머드광장 중앙보다는 무대 기준 오른쪽에 그늘막이 더 많고 바람도 잘 들어와요.\n\n샤워장과도 가까워서 이동 동선이 편합니다. 주말에는 2시 40분쯤 도착하면 앉을 자리를 여유 있게 찾을 수 있었어요.',
+    '/images/coastal-mud-festival.png', 1842, now() - interval '2 hours'
+  ),
+  (
+    '62222222-2222-4222-8222-222222222222',
+    '11111111-1111-4111-8111-111111111111',
+    '강원도민', 'question', '찰옥수수 체험 초보도 참여하기 좋은 시간대',
+    E'처음 방문하는 가족과 함께 가려고 합니다. 오전과 오후 중 어느 시간대가 초보자에게 더 수월한지 궁금해요.\n\n체험 부스와 가까운 구역 추천도 부탁드립니다.',
+    '/images/corn-market-festival.png', 1256, now() - interval '4 hours'
+  ),
+  (
+    '63333333-3333-4333-8333-333333333333',
+    '44444444-4444-4444-8444-444444444444',
+    '등불이', 'game', '강변 등불 맞추기 체험 꿀팁',
+    E'해가 완전히 지기 전에 체험 접수를 먼저 마치면 대기 시간이 짧았습니다.\n\n현장 안내에 따라 순서를 기억하면 게임을 더 수월하게 즐길 수 있어요.',
+    '/images/lantern-river-festival.png', 872, now() - interval '6 hours'
+  )
+on conflict (id) do nothing;
+
+insert into public.community_comments (
+  id, post_id, author_nickname, content, created_at
+) values
+  (
+    '71111111-1111-4111-8111-111111111111',
+    '61111111-1111-4111-8111-111111111111',
+    '머드천사', '오른쪽 라인 정말 꿀팁이에요. 덕분에 편하게 쉬었습니다.',
+    now() - interval '1 hour'
+  ),
+  (
+    '72222222-2222-4222-8222-222222222222',
+    '61111111-1111-4111-8111-111111111111',
+    '축제러버', '토요일에도 비슷한 시간대에 자리를 잡을 수 있을까요?',
+    now() - interval '58 minutes'
+  )
+on conflict (id) do nothing;

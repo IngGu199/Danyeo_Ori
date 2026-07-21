@@ -202,7 +202,13 @@ function actionError(error: unknown): AdminActionResult {
   if (typeof error === "object" && error && "code" in error) {
     const code = String(error.code);
     if (code === "23505") return { ok: false, message: "이미 사용 중인 슬러그 또는 게임 코드입니다." };
-    if (code === "23503") return { ok: false, message: "연결된 게임 기록이 있어 삭제할 수 없습니다. 먼저 비공개 상태로 전환해 주세요." };
+    if (code === "23503") {
+      const detail = JSON.stringify(error);
+      if (detail.includes("community_posts_festival_id_fkey")) {
+        return { ok: false, message: "연결된 커뮤니티 글이 있어 축제를 삭제할 수 없습니다. 리뷰를 보존하려면 보관 상태로 전환해 주세요." };
+      }
+      return { ok: false, message: "연결된 게임 기록이 있어 삭제할 수 없습니다. 먼저 비공개 상태로 전환해 주세요." };
+    }
     if (code === "42501") return { ok: false, message: "관리자 권한이 없거나 만료되었습니다." };
   }
   console.error("Admin action failed", error);
@@ -213,6 +219,7 @@ function refreshAdminData() {
   revalidatePath("/admin");
   revalidatePath("/festivals");
   revalidatePath("/games");
+  revalidatePath("/community");
   revalidatePath("/");
 }
 

@@ -34,6 +34,133 @@ export type Database = {
   }
   public: {
     Tables: {
+      community_comments: {
+        Row: {
+          author_id: string | null
+          author_nickname: string
+          content: string
+          created_at: string
+          id: string
+          post_id: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          author_nickname?: string
+          content: string
+          created_at?: string
+          id?: string
+          post_id: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          author_nickname?: string
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_likes: {
+        Row: {
+          created_at: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_posts: {
+        Row: {
+          author_id: string | null
+          author_nickname: string
+          comment_count: number
+          content: string
+          created_at: string
+          festival_id: string
+          id: string
+          image_path: string | null
+          kind: string
+          like_count: number
+          title: string
+          updated_at: string
+          view_count: number
+        }
+        Insert: {
+          author_id?: string | null
+          author_nickname?: string
+          comment_count?: number
+          content: string
+          created_at?: string
+          festival_id: string
+          id?: string
+          image_path?: string | null
+          kind?: string
+          like_count?: number
+          title: string
+          updated_at?: string
+          view_count?: number
+        }
+        Update: {
+          author_id?: string | null
+          author_nickname?: string
+          comment_count?: number
+          content?: string
+          created_at?: string
+          festival_id?: string
+          id?: string
+          image_path?: string | null
+          kind?: string
+          like_count?: number
+          title?: string
+          updated_at?: string
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_posts_festival_id_fkey"
+            columns: ["festival_id"]
+            isOneToOne: false
+            referencedRelation: "community_festival_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "community_posts_festival_id_fkey"
+            columns: ["festival_id"]
+            isOneToOne: false
+            referencedRelation: "festivals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       festival_games: {
         Row: {
           code: string
@@ -81,6 +208,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "festival_games_festival_id_fkey"
+            columns: ["festival_id"]
+            isOneToOne: false
+            referencedRelation: "community_festival_categories"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "festival_games_festival_id_fkey"
             columns: ["festival_id"]
@@ -272,6 +406,13 @@ export type Database = {
             foreignKeyName: "point_transactions_festival_id_fkey"
             columns: ["festival_id"]
             isOneToOne: false
+            referencedRelation: "community_festival_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "point_transactions_festival_id_fkey"
+            columns: ["festival_id"]
+            isOneToOne: false
             referencedRelation: "festivals"
             referencedColumns: ["id"]
           },
@@ -445,6 +586,13 @@ export type Database = {
             foreignKeyName: "rewards_festival_id_fkey"
             columns: ["festival_id"]
             isOneToOne: false
+            referencedRelation: "community_festival_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rewards_festival_id_fkey"
+            columns: ["festival_id"]
+            isOneToOne: false
             referencedRelation: "festivals"
             referencedColumns: ["id"]
           },
@@ -459,6 +607,42 @@ export type Database = {
       }
     }
     Views: {
+      community_festival_categories: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          id: string | null
+          image_path: string | null
+          name: string | null
+          region: string | null
+          slug: string | null
+          status: Database["public"]["Enums"]["festival_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          id?: string | null
+          image_path?: string | null
+          name?: string | null
+          region?: string | null
+          slug?: string | null
+          status?: Database["public"]["Enums"]["festival_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          id?: string | null
+          image_path?: string | null
+          name?: string | null
+          region?: string | null
+          slug?: string | null
+          status?: Database["public"]["Enums"]["festival_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       current_admin_access: {
         Row: {
           is_admin: boolean | null
@@ -468,6 +652,10 @@ export type Database = {
     }
     Functions: {
       get_pre_registration_count: { Args: never; Returns: number }
+      increment_community_post_view: {
+        Args: { p_post_id: string }
+        Returns: number
+      }
       internal_bootstrap_owners: {
         Args: { p_owner_one: string; p_owner_two: string; p_reason: string }
         Returns: undefined
