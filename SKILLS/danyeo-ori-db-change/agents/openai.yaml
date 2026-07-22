@@ -1,0 +1,4 @@
+interface:
+  display_name: "다녀오리 DB 변경"
+  short_description: "Supabase 스키마와 RLS 변경을 안전하게 진행합니다"
+  default_prompt: "Use $danyeo-ori-db-change to implement and verify a Supabase schema or RLS change safely."

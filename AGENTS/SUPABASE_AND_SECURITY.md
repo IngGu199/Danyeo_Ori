@@ -1,5 +1,7 @@
 # Supabase와 보안 인수인계
 
+DB 변경 절차와 검증 명령은 `SKILLS/danyeo-ori-db-change/SKILL.md`를 따른다. 이 문서에는 현재 구조와 보안 경계만 유지한다.
+
 ## 원칙
 
 - DB의 진실은 `danyeo_ori_web_app/supabase/migrations/`이다.
@@ -8,17 +10,6 @@
 - Cloud link, `db push`, Edge Function 배포, 비밀값 등록은 사용자 별도 승인 후 수행한다.
 - 브라우저에는 publishable key만 둔다.
 - 관리자 기능은 UI 노출 여부와 별개로 서버 권한과 RLS를 모두 통과해야 한다.
-
-## 로컬 명령
-
-```bash
-cd <REPO_ROOT>/danyeo_ori_web_app
-nvm use
-npm run supabase:start
-npm run supabase:reset
-npm run supabase:test
-npm run supabase:types
-```
 
 ## 최신 마이그레이션
 
@@ -36,6 +27,8 @@ npm run supabase:types
 202607210001_create_festival_community.sql
 202607210002_add_community_author_defaults.sql
 202607210003_split_community_read_policies.sql
+202607220001_enable_user_account_delete_cascade.sql
+202607220002_archive_points_before_auth_user_delete.sql
 ```
 
 ## 커뮤니티 데이터 모델
@@ -98,17 +91,6 @@ DB 테스트 경로:
 supabase/tests/database/
 ```
 
-최신 기준은 9개 SQL 파일, 70개 pgTAP 테스트 통과다. 커뮤니티 테스트는 `community_festival_link.test.sql`에 있다.
+최신 로컬 기준은 pgTAP 83개 통과다. 실제 변경 시 이번 실행 결과를 다시 기록한다. 커뮤니티 테스트는 `community_festival_link.test.sql`에 있다.
 
-## Cloud 반영 전 체크
-
-1. 사용자에게 Integration Cloud 반영 승인을 받는다.
-2. 현재 프로젝트 ref와 대상 환경을 확인한다.
-3. `git diff`와 마이그레이션 순서를 검토한다.
-4. Cloud 백업·적용 창구를 확인한다.
-5. 마이그레이션 적용 후 생성 타입을 다시 비교한다.
-6. Auth Site URL·Redirect URL을 실제 Vercel 도메인으로 설정한다.
-7. Edge Function secrets와 `ALLOWED_ORIGINS`를 설정한다.
-8. owner/operator/일반 회원/비회원 스모크 테스트를 수행한다.
-
-Secret/service-role 값은 이 폴더나 Git 저장소에 기록하지 않는다.
+Cloud 적용 절차도 DB Skill을 따른다. Secret/service-role 값은 이 폴더나 Git 저장소에 기록하지 않는다.

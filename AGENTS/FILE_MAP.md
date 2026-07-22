@@ -5,6 +5,10 @@
 | 경로 | 역할 |
 |---|---|
 | `AGENTS.md` | 지속적인 구현·보안·Git 규약 |
+| `AGENTS/` | 인수인계 맥락과 파일 지도 |
+| `SKILLS/danyeo-ori-web-change/` | Next.js 화면·데이터 연결·검증 절차 |
+| `SKILLS/danyeo-ori-minigame/` | 미니게임 설계·구현·검증 절차 |
+| `SKILLS/danyeo-ori-db-change/` | Supabase 마이그레이션·RLS 변경 절차 |
 | `plan.md` | 장기 로드맵과 완료 기준 |
 | `progress.md` | 실제 구현 진행 상태와 다음 작업 |
 | `README.md` | GitHub용 프로젝트 소개 |
@@ -18,11 +22,13 @@
 |---|---|
 | `danyeo_ori_web_app/apps/web/app/` | Next.js App Router 페이지 |
 | `danyeo_ori_web_app/apps/web/components/` | 웹 React 컴포넌트 |
+| `danyeo_ori_web_app/apps/web/components/games/` | 게임 카탈로그·상세 셸·룰렛·랭킹 UI |
+| `danyeo_ori_web_app/apps/web/app/games/[gameCode]/` | 게임별 개념 상세 Route |
 | `danyeo_ori_web_app/apps/web/lib/supabase/` | 브라우저·서버·미들웨어 Supabase 클라이언트 |
 | `danyeo_ori_web_app/apps/web/app/admin/` | 관리자 페이지와 Server Actions |
 | `danyeo_ori_web_app/apps/web/app/community/` | 커뮤니티 페이지와 Server Actions |
 | `danyeo_ori_web_app/apps/web/components/community-board.tsx` | 커뮤니티 master-detail UI |
-| `danyeo_ori_web_app/apps/web/app/globals.css` | 전역·커뮤니티 반응형 스타일 |
+| `danyeo_ori_web_app/apps/web/styles/` | 기능별 전역 스타일 |
 | `danyeo_ori_web_app/apps/web/public/images/` | 실제 앱에서 쓰는 이미지 자산 |
 | `danyeo_ori_web_app/DESIGN.md` | 디자인 시스템 기준 |
 | `danyeo_ori_web_app/design-qa.md` | 커뮤니티 디자인 QA 기록 |

@@ -1,0 +1,4 @@
+interface:
+  display_name: "다녀오리 미니게임 제작"
+  short_description: "축제형 웹 미니게임을 안전하게 설계하고 구현합니다"
+  default_prompt: "Use $danyeo-ori-minigame to implement a reusable, mobile-first festival minigame with server-verified rewards."

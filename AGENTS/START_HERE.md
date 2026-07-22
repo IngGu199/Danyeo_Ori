@@ -21,10 +21,10 @@ git status --short --branch
 git rev-parse HEAD
 ```
 
-기준 커밋은 다음과 같다.
+이 문서 작성 시 기준 커밋은 다음과 같다.
 
 ```txt
-a9bed03ddd6f9e0589f910c92ac8c210a216859a
+5b8992d496fbb5a60f1c21b6ad70ce1086887542
 ```
 
 다른 커밋이 보이면 먼저 원격 브랜치와 최신 작업 여부를 확인하고, 사용자 지시 없이 다른 브랜치를 병합하거나 rebase하지 않는다.
@@ -51,7 +51,7 @@ npm run supabase:types
 ```
 
 - `supabase:reset`은 로컬 DB를 재생성하고 모든 마이그레이션과 `seed.sql`을 적용한다.
-- 기준 테스트 결과는 SQL 파일 9개, pgTAP 70개 통과다.
+- 테스트 개수는 마이그레이션과 함께 바뀌므로 이번 실행 결과를 기준으로 기록한다.
 - `supabase:types`는 `packages/types/src/database.generated.ts`를 로컬 스키마에서 다시 생성한다.
 - 로컬 DB를 운영 DB와 혼동하지 않는다.
 

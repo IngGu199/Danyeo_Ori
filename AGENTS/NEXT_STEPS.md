@@ -2,14 +2,16 @@
 
 ## 우선순위 1 — 게임·보상 실제 연결
 
+- `SKILLS/danyeo-ori-minigame/SKILL.md` 기준으로 첫 플레이 가능한 게임 하나를 완성한다.
+- 현재 7개 카탈로그의 여덟 번째 게임은 사용자 결정 전 임의로 추가하지 않는다.
 - 웹 게임 화면에서 `start-game-attempt`, `complete-game-attempt`, `claim-reward` Edge Function을 호출한다.
 - 클라이언트 점수와 시간을 그대로 신뢰하지 않는다.
 - idempotency key와 중복 보상 차단을 유지한다.
 - 성공 후 `point_transactions` 원장과 지갑 조회를 UI에 연결한다.
 
-## 우선순위 2 — 축제 상세 페이지
+## 우선순위 2 — 축제 상세 페이지 후속 검증
 
-- URL은 `/festivals/{slug}` 형태를 권장한다.
+- URL은 구현된 `/festivals/{slug}` 형태를 유지한다.
 - slug로 축제 UUID를 조회하고 관련 게임·커뮤니티를 `festival_id`로 연결한다.
 - 커뮤니티 CTA는 `/community?festival={slug}`를 사용한다.
 - 404, 비공개, 종료, 이미지·게임 없음, 조회 실패 상태를 설계한다.

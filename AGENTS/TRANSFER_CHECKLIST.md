@@ -3,14 +3,14 @@
 ## Git으로 이동되는 항목
 
 - `feature/festival-page` 코드 전체
-- 기준 커밋 `a9bed03ddd6f9e0589f910c92ac8c210a216859a`
+- 이 문서 작성 시 기준 커밋 `5b8992d496fbb5a60f1c21b6ad70ce1086887542`
 - 루트 `AGENTS.md`, `plan.md`, `progress.md`
+- `AGENTS/` 인수인계 문서와 `SKILLS/` 작업 절차
 - 마이그레이션, 테스트, Edge Functions
 - 커뮤니티 UI와 Server Actions
 
 ## 수동으로 복사할 항목
 
-- `/home/inggu99/agents/` 전체
 - `/home/inggu99/Danyeo_Ori/Documents/` 전체
 
 `Documents/`에는 사업계획서, 회의 문서, 커뮤니티 시안 이미지가 있고 `.gitignore`로 제외되어 있다.

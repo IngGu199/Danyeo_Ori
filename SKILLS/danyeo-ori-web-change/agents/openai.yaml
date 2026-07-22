@@ -1,0 +1,4 @@
+interface:
+  display_name: "다녀오리 웹 변경"
+  short_description: "Next.js 화면과 데이터 연결을 기존 UI에 맞게 구현합니다"
+  default_prompt: "Use $danyeo-ori-web-change to implement and verify a scoped Danyeo Ori Next.js web change."

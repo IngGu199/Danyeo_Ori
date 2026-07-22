@@ -45,6 +45,16 @@ supabase/
 
 웹 앱의 주요 경로는 `/`, `/festivals`, `/games`, `/about#pre-register`, `/admin`을 기준으로 구성한다. `pre-register`는 특정 축제 참가 예약이 아니라 다녀오리 웹·앱 출시 알림 신청을 뜻한다.
 
+## 문서와 Skill 역할
+
+- 이 루트 `AGENTS.md`에는 모든 작업에 항상 적용되는 서비스 목표, 보안 경계, Git 규칙만 둔다.
+- `plan.md`는 장기 로드맵, `progress.md`는 실제 구현 상태의 단일 원본으로 사용한다.
+- `AGENTS/`에는 인수인계용 프로젝트 맥락과 파일 지도만 둔다. 이 파일의 규칙을 복제하지 않는다.
+- `SKILLS/`에는 특정 작업에서만 필요한 반복 절차와 검증 체크리스트를 둔다.
+- 일반 Next.js 화면·컴포넌트·데이터 연결 작업은 `SKILLS/danyeo-ori-web-change/SKILL.md`를 먼저 읽는다.
+- 미니게임을 설계·구현·검토할 때는 `SKILLS/danyeo-ori-minigame/SKILL.md`를 먼저 읽는다.
+- Supabase 스키마·RLS·DB 함수·마이그레이션을 변경할 때는 `SKILLS/danyeo-ori-db-change/SKILL.md`를 먼저 읽는다.
+
 ## 구현 원칙
 
 - 기존 `danyeoori-ui-prototype/`은 0단계 UI·정보구조 검증 자산이다. 보존하면서 React 컴포넌트로 전환한다.
@@ -52,6 +62,7 @@ supabase/
 - 웹과 앱의 UI를 억지로 공통화하지 않는다. 타입, API, 유틸리티만 공유하고 각 플랫폼 UI는 최적화한다.
 - 축제 일정·가격·통계는 예시 데이터와 실제 운영 데이터를 구분한다. 실제 데이터 반영 전 출처와 기준일을 확인한다.
 - 작업 완료, 범위 변경, 우선순위 변경 시 `progress.md`를 함께 갱신한다.
+- 미니게임 코드는 축제마다 복제하지 않고 재사용 가능한 게임 규칙과 축제별 설정·에셋을 분리한다.
 
 ## 데이터와 보상 보안
 

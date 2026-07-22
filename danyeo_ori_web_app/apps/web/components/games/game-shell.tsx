@@ -3,7 +3,6 @@ import {
   ArrowLeft,
   ArrowsOutCardinal,
   CursorClick,
-  GameController,
   Knife,
   PersonSimpleRun,
   Question,
@@ -14,6 +13,7 @@ import {
 import type { FestivalGameWithFestival } from "@danyeo-ori/types";
 import type { GameCatalogEntry, GameIconName } from "./game-catalog";
 import { GameRankingPanel } from "./game-ranking-panel";
+import { PlayableGame } from "./playable-game";
 import { RouletteEntryPanel } from "./roulette-entry-panel";
 
 const icons = {
@@ -53,11 +53,7 @@ export function GameShell({
       <div className="game-detail-layout">
         <div className="game-detail-main">
           <section className="game-stage-placeholder" aria-labelledby="game-stage-title">
-            <div className="game-stage-icon"><GameController weight="duotone" /></div>
-            <span className="preparing-badge">게임 준비 중</span>
-            <h2 id="game-stage-title">플레이 화면은 단계적으로 연결됩니다</h2>
-            <p>현재는 조작 방식과 점수·보상 경계를 검토하는 예시 화면입니다. 이 화면에서는 점수나 보상을 확정하지 않습니다.</p>
-            <button className="primary-btn" type="button" disabled>체험 준비 중</button>
+            <PlayableGame game={game} activeGameId={activeGame?.id} />
           </section>
 
           <section className="game-rule-section">

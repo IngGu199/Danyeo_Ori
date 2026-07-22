@@ -6,20 +6,13 @@
 |---|---|
 | 브랜치 | `feature/festival-page` |
 | upstream | `origin/feature/festival-page` |
-| HEAD | `a9bed03ddd6f9e0589f910c92ac8c210a216859a` |
-| HEAD 제목 | `커뮤니티 데이터 베이스 연결` |
+| HEAD | `5b8992d496fbb5a60f1c21b6ad70ce1086887542` |
+| HEAD 제목 | `스니펫 제거` |
 | 기준 시점 상태 | clean |
-| `main` 대비 | 3 commits ahead, 0 behind |
+| `main` 대비 | 12 commits ahead, 0 behind |
 | 원격 | `git@github.com:IngGu199/Danyeo_Ori.git` |
 
-최근 커밋:
-
-```txt
-a9bed03 커뮤니티 데이터 베이스 연결
-4dc85ce 커뮤니티 페이지 개선, 수정
-206c8b1 커뮤니티 페이지 개선, 수정
-a0cb07f 패키지 변경사항 존재
-```
+커밋 목록은 빠르게 바뀌므로 `git log --oneline -10`으로 확인한다.
 
 ## 실행 기준
 
@@ -39,6 +32,7 @@ a0cb07f 패키지 변경사항 존재
 - 다녀오리 웹·앱 전역 출시 알림 신청
 - Supabase 기반 공개 축제·게임 조회
 - 홈, 소개, 축제 목록, 달력, 게임 목록 UI
+- 7개 기본 게임 콘셉트 카드와 `/games/[gameCode]` 상세 셸
 - `private.admin_users` 기반 관리자 권한
 - `/admin` 축제·미니게임 CRUD
 - 서버 검증 보상을 위한 Edge Function과 DB 함수 기반
@@ -49,7 +43,7 @@ a0cb07f 패키지 변경사항 존재
 
 ## 최근 검증 결과
 
-- `npx supabase test db`: SQL 9개 파일, pgTAP 70개 통과
+- 최신 로컬 기준 pgTAP 83개 통과
 - 실제 로컬 회원 세션: 게시글 생성·수정·삭제, 좋아요, 댓글 집계 스모크 테스트 통과
 - 웹 workspace typecheck 통과
 - ESLint 통과
@@ -62,10 +56,9 @@ a0cb07f 패키지 변경사항 존재
 - Supabase Cloud에는 최신 마이그레이션·함수·비밀값을 반영하지 않았다.
 - Vercel 및 Supabase Cloud 배포는 사용자 별도 승인 전 수행하지 않는다.
 - `Documents/`는 Git에서 제외된다.
-- `~/agents/`도 저장소 밖의 로컬 문서이므로 수동 전송 대상이다.
+- `AGENTS/`와 `SKILLS/`는 저장소 안의 문서다. `Documents/`만 별도 전송한다.
 
 ## 알려진 문서 차이
 
 - `<REPO_ROOT>/danyeo_ori_web_app/README.md`의 “커뮤니티가 예시 데이터를 사용한다”는 설명은 현재 구현보다 오래된 내용이다. 실제 커뮤니티는 Supabase에 연결되어 있다.
-- `AGENTS.md`의 목표 경로 예시에는 `/game`, `/pre-register`가 있지만 실제 구현 경로는 `/games`, `/about#pre-register`다.
 - `progress.md`의 표와 최신 커밋을 현재 구현 상태의 우선 근거로 사용한다.

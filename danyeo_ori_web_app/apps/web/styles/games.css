@@ -12,7 +12,6 @@
   color: var(--cream);
   box-shadow: var(--shadow);
 }
-
 .roulette-copy p { max-width: 590px; color: rgba(255, 253, 248, .78); }
 .roulette-copy .eyebrow { color: var(--sage); }
 .reward-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 19px 0 22px; }
@@ -148,4 +147,355 @@
 
 @media (prefers-reduced-motion: reduce) {
   .reward-wheel.spinning { animation-duration: .01ms; }
+}
+
+/* Documents/prototype/minigames.html game container */
+.game-stage-placeholder {
+  align-items: stretch;
+  overflow: hidden;
+  padding: 0;
+}
+
+.prototype-start-overlay,
+.prototype-game-over {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+  background: rgba(12, 10, 9, .94);
+  color: #fff;
+  text-align: center;
+}
+
+.prototype-start-overlay > div,
+.prototype-game-over > div:first-child {
+  font-size: 58px;
+  line-height: 1;
+}
+
+.game-stage-placeholder .prototype-start-overlay h2,
+.game-stage-placeholder .prototype-game-over h2 {
+  max-width: none;
+  margin: 0;
+  color: #facc15;
+  font: 900 clamp(18px, 3vw, 26px)/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.game-stage-placeholder .prototype-start-overlay p,
+.game-stage-placeholder .prototype-game-over p {
+  max-width: 520px;
+  margin: 0;
+  color: #d6d3d1;
+  font-size: 13px;
+}
+
+.prototype-start-overlay button,
+.prototype-game-over button,
+.prototype-stage-bar button {
+  border: 2px solid #1e293b;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 #1e293b;
+  font: 800 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  transition: transform .05s ease, box-shadow .05s ease;
+}
+
+.prototype-start-overlay button:active,
+.prototype-game-over button:active,
+.prototype-stage-bar button:active {
+  box-shadow: 1px 1px 0 #1e293b;
+  transform: translate(2px, 2px);
+}
+
+.prototype-start-overlay button {
+  min-height: 46px;
+  padding: 0 24px;
+  background: #facc15;
+  color: #0c0a09;
+}
+
+.prototype-stage {
+  width: 100%;
+  padding: 16px;
+  background: #1c1917;
+  color: #fff;
+}
+
+.prototype-stage-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #44403c;
+}
+
+.prototype-stage-bar > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.prototype-stage-bar button {
+  min-height: 32px;
+  padding: 0 12px;
+  background: #44403c;
+  color: #fff;
+}
+
+.game-stage-placeholder .prototype-stage-bar h2 {
+  max-width: none;
+  margin: 0;
+  color: #facc15;
+  font: 800 12px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: left;
+}
+
+.prototype-stage-bar span {
+  color: #a8a29e;
+  font: 800 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.prototype-stage-bar strong {
+  color: #fde047;
+  font-size: 12px;
+}
+
+.prototype-viewport {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 16px;
+  border: 2px solid #292524;
+  border-radius: 16px;
+  background: #0c0a09;
+}
+
+.prototype-game-canvas {
+  display: block;
+  width: 100%;
+  max-width: 672px;
+  height: auto;
+  background: #1c1917;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.prototype-html-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(28, 25, 23, .97);
+}
+
+.prototype-question-card {
+  width: min(100%, 448px);
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border: 2px solid #44403c;
+  border-radius: 16px;
+  background: #292524;
+  text-align: center;
+}
+
+.prototype-label {
+  justify-self: center;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #0c0a09;
+  font: 800 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.prototype-label.amber { background: #facc15; }
+.prototype-label.indigo { background: #818cf8; }
+
+.game-stage-placeholder .prototype-question-card h3 {
+  max-width: none;
+  margin: 0;
+  color: #fff;
+  font-size: 17px;
+}
+
+.prototype-answer-list {
+  display: grid;
+  gap: 8px;
+}
+
+.prototype-answer-list button {
+  min-height: 46px;
+  padding: 9px 14px;
+  border: 1px solid #57534e;
+  border-radius: 12px;
+  background: #44403c;
+  color: #fff;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.prototype-answer-list button:hover,
+.prototype-answer-list button:focus-visible {
+  background: #58734d;
+}
+
+.prototype-sorter {
+  width: min(100%, 448px);
+  display: grid;
+  gap: 24px;
+  color: #fff;
+  text-align: center;
+}
+
+.game-stage-placeholder .prototype-sorter h3 {
+  max-width: none;
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+}
+
+.prototype-sort-item {
+  width: 128px;
+  height: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  border: 4px solid #facc15;
+  border-radius: 16px;
+  background: #292524;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+.prototype-sort-item span { font-size: 48px; }
+.prototype-sort-item small { margin-top: 7px; color: #d6d3d1; font-size: 10px; }
+
+.prototype-sort-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.prototype-sort-buttons button {
+  min-height: 105px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 2px solid;
+  border-radius: 16px;
+  color: #fff;
+}
+
+.prototype-sort-buttons button span { font-size: 30px; }
+.prototype-sort-buttons button b { font-size: 10px; }
+.prototype-sort-buttons .trash { border-color: #f43f5e; background: rgba(136, 19, 55, .82); }
+.prototype-sort-buttons .specialty { border-color: #10b981; background: rgba(6, 95, 70, .82); }
+
+.game-stage-placeholder .prototype-question-card.word p {
+  margin: 0;
+  color: #e7e5e4;
+  font-size: 12px;
+}
+
+.prototype-initials {
+  padding: 12px;
+  border: 1px solid #44403c;
+  border-radius: 12px;
+  background: #1c1917;
+  color: #facc15;
+  font: 900 25px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .18em;
+}
+
+.prototype-word-form {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.prototype-word-form input {
+  min-width: 0;
+  min-height: 42px;
+  flex: 1;
+  padding: 0 12px;
+  border: 1px solid #57534e;
+  border-radius: 12px;
+  background: #1c1917;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.prototype-word-form button {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 12px;
+  background: #facc15;
+  color: #0c0a09;
+  font: 800 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.prototype-control-bar {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #292524;
+  color: #d6d3d1;
+  font-size: 11px;
+  font-weight: 650;
+  text-align: left;
+}
+
+.prototype-control-bar button {
+  display: none;
+  min-height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #facc15;
+  color: #0c0a09;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.prototype-game-over h2 { color: #f43f5e !important; }
+.prototype-game-over strong { color: #d6d3d1; font-size: 13px; }
+.prototype-game-over small { max-width: 520px; color: #a8a29e; font-size: 10px; }
+.prototype-game-over > div:last-child { display: flex; gap: 12px; }
+.prototype-game-over button { min-height: 40px; padding: 0 18px; background: #facc15; color: #0c0a09; }
+.prototype-game-over button:last-child { background: #44403c; color: #fff; }
+
+@media (max-width: 720px) {
+  .game-stage-placeholder { min-height: 340px; }
+  .prototype-start-overlay,
+  .prototype-game-over { min-height: 360px; padding: 24px 16px; }
+  .prototype-stage { padding: 12px; }
+  .prototype-stage-bar { align-items: flex-start; }
+  .prototype-stage-bar > div:first-child { align-items: flex-start; }
+  .prototype-stage-bar > div:last-child { flex-direction: column; align-items: flex-end; gap: 5px; }
+  .game-stage-placeholder .prototype-stage-bar h2 { font-size: 10px; }
+  .prototype-viewport { min-height: 300px; }
+  .prototype-html-overlay { padding: 14px; }
+  .prototype-question-card { padding: 18px 14px; }
+  .prototype-answer-list button { min-height: 42px; }
+  .prototype-sort-buttons { gap: 9px; }
+  .prototype-control-bar button { display: inline-flex; align-items: center; }
+  .prototype-word-form { flex-direction: column; }
 }
