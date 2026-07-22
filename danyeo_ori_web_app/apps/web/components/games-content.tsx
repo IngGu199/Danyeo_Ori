@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight, CheckCircle, Clock, Coins, GameController, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import type { FestivalGameWithFestival, Json } from "@danyeo-ori/types";
 import { getFestivalImage } from "../lib/festival-display";
+import { getThemeSeasonFromDate } from "../lib/theme-season";
 
 const rouletteRewards = ["100 P", "500 P", "축제 쿠폰", "다시 한 번", "내일 다시", "200 P"];
 
@@ -74,7 +75,7 @@ export function GamesContent({ games }: { games: FestivalGameWithFestival[] }) {
           {games.length ? (
             <div className="game-grid">
               {games.map((game) => (
-                <article className="game-card" key={game.id}>
+                <article className="game-card" data-season={getThemeSeasonFromDate(game.festival.start_date)} key={game.id}>
                   <div className="game-cover">
                     <Image src={getFestivalImage(game.festival)} alt={`${game.festival.name} 미니게임 이미지`} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" />
                     <span className="game-icon"><GameController weight="fill" /></span>

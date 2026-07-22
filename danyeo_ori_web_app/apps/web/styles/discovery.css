@@ -9,6 +9,7 @@
 
 /* Festival cards use the portrait proportions of the poster assets in public/images. */
 .festival-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; }
+.festival-grid.festival-results-grid { grid-template-columns: repeat(4, minmax(0, 250px)); justify-content: space-between; }
 .festival-card { display: flex; flex-direction: column; }
 .festival-card .poster { aspect-ratio: 3 / 4; }
 .festival-card .poster img { object-position: center; }
@@ -18,4 +19,3 @@
 .festival-card .festival-meta span { align-items: flex-start; gap: 7px; }
 .festival-card .festival-meta svg { width: 17px; height: 17px; margin-top: 2px; }
 .festival-card .card-footer { margin-top: auto; padding-top: 17px; }
-

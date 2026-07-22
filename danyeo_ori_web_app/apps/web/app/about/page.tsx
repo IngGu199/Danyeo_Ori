@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AboutContent } from "../../components/about-content";
+import { getCurrentThemeSeason } from "../../lib/theme-season";
 
 export const metadata: Metadata = {
   title: "소개",
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <main><AboutContent /></main>;
+  return <main data-season={getCurrentThemeSeason()}><AboutContent /></main>;
 }

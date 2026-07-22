@@ -12,8 +12,10 @@ import "../styles/about.css";
 import "../styles/data.css";
 import "../styles/community.css";
 import "../styles/home-slider.css";
+import "../styles/themes.css";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
+import { getCurrentThemeSeason } from "../lib/theme-season";
 
 export const metadata: Metadata = {
   title: { default: "다녀오리 | 지역축제 플레이 플랫폼", template: "%s | 다녀오리" },
@@ -21,5 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="ko" data-scroll-behavior="smooth"><body><Header />{children}<Footer /></body></html>;
+  return <html lang="ko" data-season={getCurrentThemeSeason()} data-scroll-behavior="smooth"><body><Header />{children}<Footer /></body></html>;
 }

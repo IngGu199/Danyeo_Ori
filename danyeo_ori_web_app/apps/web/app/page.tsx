@@ -5,6 +5,7 @@ import { FestivalCard } from "../components/festival-card";
 import { HomeHeroSlider } from "../components/home-hero-slider";
 import { WeekendGameCta } from "../components/weekend-game-cta";
 import { createClient } from "../lib/supabase/server";
+import { getCurrentThemeSeason } from "../lib/theme-season";
 
 const services = [[GameController, "미니게임", "/games"], [Sparkle, "전국 축제", "/festivals"], [CalendarBlank, "축제 달력", "/calendar"], [ChatCircleDots, "현장 후기", "/community"], [Compass, "여행 코스", "/festivals"], [Wallet, "마일리지", "/games"], [MapTrifold, "축제 지도", "/festivals"], [Ticket, "출시 알림", "/about#pre-register"]] as const;
 const journey = [
@@ -16,7 +17,7 @@ const journey = [
 export default async function HomePage() {
   const client = await createClient();
   const festivals = await listPublishedFestivalsWithGames(client);
-  return <main><HomeHeroSlider />
+  return <main data-season={getCurrentThemeSeason()}><HomeHeroSlider />
   <section className="section service-section"><div className="container"><h2 className="service-title">축제로 떠나는 하루를 차분하게 준비해요</h2><div className="service-row">{services.map(([Icon, label, href]) => <Link className="service-item" href={href} key={label}><span className="service-icon"><Icon weight="fill" /></span>{label}</Link>)}</div></div></section>
   <section className="section section-soft"><div className="container"><div className="section-head"><div><span className="eyebrow">Explore festival</span><h2>다녀오리에서 만나는 축제</h2><p>축제 정보와 미니게임을 한 카드에서 확인하세요.</p></div><Link className="outline-btn" href="/festivals">전국 축제 전체보기 →</Link></div>{festivals.length ? <div className="festival-grid">{festivals.slice(0, 4).map((festival) => <FestivalCard festival={festival} gameCount={festival.festival_games.length} key={festival.id} />)}</div> : <p className="empty-state">아직 등록된 축제가 없어요. 곧 새로운 축제를 준비할게요.</p>}</div></section>
   <section className="section"><div className="container"><div className="section-head"><div><span className="eyebrow">How it works</span><h2>축제를 만나는 새로운 순서</h2></div></div><div className="journey-grid">{journey.map(({ Icon, step, title, description }) => <article className="journey-card" key={step}><span className="journey-icon"><Icon weight="fill" /></span><span className="kicker">{step}</span><h3>{title}</h3><p>{description}</p></article>)}</div></div></section><WeekendGameCta /></main>;

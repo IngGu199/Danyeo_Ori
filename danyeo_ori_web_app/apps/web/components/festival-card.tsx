@@ -5,6 +5,7 @@ import Image from "next/image";
 import { CalendarBlank, Heart, MapPin, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import type { FestivalRow } from "@danyeo-ori/types";
 import { formatFestivalPeriod, getFestivalBadge, getFestivalImage } from "../lib/festival-display";
+import { getThemeSeasonFromDate } from "../lib/theme-season";
 
 export function FestivalCard({
   festival,
@@ -17,7 +18,7 @@ export function FestivalCard({
   const gameLabel = gameCount > 0 ? `미니게임 ${gameCount}개` : "게임 준비 중";
 
   return (
-    <article className="festival-card">
+    <article className="festival-card" data-season={getThemeSeasonFromDate(festival.start_date)}>
       <div className="poster">
         <Image
           src={getFestivalImage(festival)}

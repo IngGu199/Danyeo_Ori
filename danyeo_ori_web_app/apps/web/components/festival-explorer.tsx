@@ -87,7 +87,7 @@ export function FestivalExplorer({ festivals }: { festivals: FestivalWithGames[]
           {!festivals.length ? (
             <p className="empty-state">아직 등록된 축제가 없어요. 곧 새로운 축제를 준비할게요.</p>
           ) : result.length ? (
-            <div className="festival-grid">
+            <div className="festival-grid festival-results-grid">
               {result.map((festival) => <FestivalCard festival={festival} gameCount={festival.festival_games.length} key={festival.id} />)}
             </div>
           ) : (

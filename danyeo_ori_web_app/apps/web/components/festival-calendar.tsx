@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { FestivalRow } from "@danyeo-ori/types";
+import { getThemeSeasonByMonth, getThemeSeasonFromDate } from "../lib/theme-season";
 
 const dayMilliseconds = 24 * 60 * 60 * 1000;
 
@@ -92,7 +93,7 @@ export function FestivalCalendar({ festivals }: { festivals: FestivalRow[] }) {
   };
 
   return (
-    <section className="section">
+    <section className="section" data-season={getThemeSeasonByMonth(Number(visibleMonth.slice(5, 7)))}>
       <div className="container">
         <div className="calendar-shell">
           <div className="calendar-panel">
@@ -139,7 +140,7 @@ export function FestivalCalendar({ festivals }: { festivals: FestivalRow[] }) {
             </div>
             <div className="day-list">
               {selectedEvents.length ? selectedEvents.map((festival) => (
-                <article className="day-event" key={festival.id}>
+                <article className="day-event" data-season={getThemeSeasonFromDate(festival.start_date)} key={festival.id}>
                   <span className="card-tag">{festival.category}</span>
                   <h3>{festival.name}</h3>
                   <p>{festival.region} · {festival.venue}</p>
