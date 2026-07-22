@@ -7,4 +7,15 @@
 
 .journey-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }.journey-card { padding: 26px; border-radius: var(--radius-md); }.journey-card h3 { margin: 10px 0 8px; font-size: 20px; }.journey-card p { margin-bottom: 0; color: var(--muted); font-size: 14px; }.journey-icon { width: 48px; height: 48px; display: grid; place-items: center; margin-bottom: 21px; border-radius: 16px; background: var(--olive-soft); color: var(--olive); }.journey-icon svg { width: 25px; height: 25px; }
 
+/* Festival cards use the portrait proportions of the poster assets in public/images. */
+.festival-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; }
+.festival-card { display: flex; flex-direction: column; }
+.festival-card .poster { aspect-ratio: 3 / 4; }
+.festival-card .poster img { object-position: center; }
+.festival-card-body { display: flex; flex: 1; flex-direction: column; padding: 20px 19px 18px; }
+.festival-card h3 { min-height: 56px; margin: 0 0 13px; font-size: 21px; line-height: 1.32; word-break: keep-all; }
+.festival-card .festival-meta { gap: 7px; color: var(--ink); font-size: 14px; font-weight: 700; line-height: 1.45; }
+.festival-card .festival-meta span { align-items: flex-start; gap: 7px; }
+.festival-card .festival-meta svg { width: 17px; height: 17px; margin-top: 2px; }
+.festival-card .card-footer { margin-top: auto; padding-top: 17px; }
 

@@ -12,6 +12,9 @@ const categoryImages: Record<string, string> = {
 export const defaultFestivalImage = "/images/lantern-river-festival.png";
 
 export function getFestivalImage(festival: FestivalRow) {
+  if (!festival.image_path && festival.name.includes("산천어")) {
+    return "/images/화천산천어축제.jpg";
+  }
   return festival.image_path || categoryImages[festival.category] || defaultFestivalImage;
 }
 

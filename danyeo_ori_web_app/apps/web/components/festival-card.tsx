@@ -23,7 +23,7 @@ export function FestivalCard({
           src={getFestivalImage(festival)}
           alt={`${festival.name} 대표 이미지`}
           fill
-          sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw"
+          sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 25vw"
         />
         <span className="badge">{getFestivalBadge(festival)}</span>
         <button
@@ -38,7 +38,6 @@ export function FestivalCard({
       </div>
       <div className="festival-card-body">
         <h3>{festival.name}</h3>
-        {festival.summary ? <p className="festival-summary">{festival.summary}</p> : null}
         <div className="festival-meta">
           <span><CalendarBlank weight="fill" />{formatFestivalPeriod(festival.start_date, festival.end_date)}</span>
           <span><MapPin weight="fill" />{festival.region} · {festival.venue}</span>

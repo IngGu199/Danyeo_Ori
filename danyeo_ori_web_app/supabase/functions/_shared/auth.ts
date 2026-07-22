@@ -37,6 +37,5 @@ export async function requireUser(request: Request): Promise<User> {
   });
   const { data, error } = await client.auth.getUser();
   if (error || !data.user) throw new HttpError(401, "유효하지 않은 인증 정보입니다.");
-  if (!data.user.email_confirmed_at) throw new HttpError(403, "이메일 인증이 필요합니다.");
   return data.user;
 }
