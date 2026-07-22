@@ -1,0 +1,44 @@
+/* Home hero slider — Community is the default, followed by festival, mini-game, and calendar. */
+.home-slider { padding: 34px 0 51px; }
+.home-slider-frame { position: relative; overflow: hidden; background: transparent; box-shadow: none; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%); }
+.home-slider-viewport { position: relative; min-height: 520px; }
+.home-slide { position: absolute; inset: 0; z-index: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity .55s ease, visibility .55s ease; }
+.home-slide.is-active { z-index: 1; opacity: 1; visibility: visible; }
+.home-slide-image { object-fit: cover; object-position: center; image-rendering: crisp-edges; }
+.home-slide-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(22, 33, 23, .84) 0%, rgba(22, 33, 23, .58) 37%, rgba(22, 33, 23, .14) 66%, rgba(22, 33, 23, .02) 100%); }
+.home-slide-copy { position: relative; z-index: 1; width: min(620px, 64%); padding: 78px 0 122px 70px; color: var(--cream); }
+.home-slide-eyebrow { display: inline-block; margin-bottom: 11px; color: var(--sage); font-size: 11px; font-weight: 900; letter-spacing: .15em; }
+.home-slide-copy h1 { margin-bottom: 17px; font-size: clamp(38px, 5vw, 61px); }
+.home-slide-copy h1 span { display: block; }
+.home-slide-copy p { max-width: 475px; margin-bottom: 28px; color: rgba(255, 253, 248, .86); font-size: 16px; }
+.home-slider-arrow { position: absolute; z-index: 5; top: 50%; width: 43px; height: 43px; display: grid; place-items: center; border: 1px solid rgba(255, 253, 248, .42); border-radius: 50%; background: rgba(24, 37, 24, .28); color: var(--cream); opacity: 0; backdrop-filter: blur(8px); transform: translateY(-50%); transition: opacity .2s ease, background .2s ease, transform .2s ease; }
+.home-slider-frame:hover .home-slider-arrow, .home-slider-arrow:focus-visible { opacity: 1; }
+.home-slider-arrow:hover { background: rgba(24, 37, 24, .62); }
+.home-slider-arrow.previous { left: 18px; }
+.home-slider-arrow.next { right: 18px; }
+.home-slider-arrow svg { width: 19px; height: 19px; }
+.home-slider-tabs { position: absolute; z-index: 4; right: 24px; bottom: 22px; left: 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; padding: 7px; border: 1px solid rgba(255, 253, 248, .26); border-radius: 16px; background: rgba(24, 37, 24, .38); backdrop-filter: blur(12px); }
+.home-slider-tabs button { min-height: 43px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 0; border-radius: 11px; background: transparent; color: rgba(255, 253, 248, .7); font-size: 12px; font-weight: 850; transition: background .2s ease, color .2s ease; }
+.home-slider-tabs button:hover { background: rgba(255, 253, 248, .1); color: var(--cream); }
+.home-slider-tabs button.is-active { background: var(--cream); color: var(--olive-dark); }
+.home-slider-tabs button span { font-size: 9px; letter-spacing: .08em; opacity: .72; }
+
+@media (max-width: 720px) {
+  .home-slider { padding-top: 20px; }
+  .home-slider-frame { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%); }
+  .home-slider-viewport { min-height: 560px; }
+  .home-slide-image { object-position: 63% center; }
+  .home-slide-shade { background: linear-gradient(90deg, rgba(24, 37, 24, .82), rgba(24, 37, 24, .34)); }
+  .home-slide-copy { width: 100%; padding: 63px 25px 164px; }
+  .home-slide-copy h1 { font-size: 37px; }
+  .home-slide-copy p { max-width: 92%; font-size: 14px; }
+  .home-slider-arrow { display: none; }
+  .home-slider-tabs { right: 13px; bottom: 13px; left: 13px; gap: 4px; padding: 5px; border-radius: 13px; }
+  .home-slider-tabs button { min-height: 44px; gap: 0; padding: 0 5px; font-size: 11px; }
+  .home-slider-tabs button span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-slide { transition: none; }
+}
+

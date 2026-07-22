@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "../styles/discovery.css";
+import "../styles/games.css";
+import "../styles/calendar.css";
+import "../styles/community-board.css";
+import "../styles/pre-register.css";
+import "../styles/auth.css";
+import "../styles/responsive.css";
+import "../styles/reward-wheel.css";
+import "../styles/about.css";
+import "../styles/data.css";
+import "../styles/community.css";
+import "../styles/home-slider.css";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 

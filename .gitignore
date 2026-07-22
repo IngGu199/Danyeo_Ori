@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 .codex/
+.figma/
 
 # Dependencies
 node_modules/
