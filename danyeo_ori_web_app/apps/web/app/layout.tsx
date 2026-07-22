@@ -13,6 +13,7 @@ import "../styles/data.css";
 import "../styles/community.css";
 import "../styles/home-slider.css";
 import "../styles/themes.css";
+import "../styles/festival-detail-links.css";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { getCurrentThemeSeason } from "../lib/theme-season";

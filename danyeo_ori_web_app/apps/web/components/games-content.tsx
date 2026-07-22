@@ -75,7 +75,7 @@ export function GamesContent({ games }: { games: FestivalGameWithFestival[] }) {
           {games.length ? (
             <div className="game-grid">
               {games.map((game) => (
-                <article className="game-card" data-season={getThemeSeasonFromDate(game.festival.start_date)} key={game.id}>
+                <article className="game-card" data-season={getThemeSeasonFromDate(game.festival.start_date)} id={`game-${game.code}`} key={game.id}>
                   <div className="game-cover">
                     <Image src={getFestivalImage(game.festival)} alt={`${game.festival.name} 미니게임 이미지`} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" />
                     <span className="game-icon"><GameController weight="fill" /></span>

@@ -48,4 +48,4 @@ npm run supabase:types
 - `packages/utils`: 플랫폼 독립 유틸리티
 - `supabase`: DB 마이그레이션·RLS·Edge Functions·파기 테스트
 
-디자인 작업은 루트의 [`DESIGN.md`](./DESIGN.md)를 단일 기준으로 사용합니다. Starbucks를 기본 토큰으로 삼고, 여행 탐색·정보 읽기·커뮤니티·게임 패턴은 문서에 정리된 외부 참고 원칙으로만 확장합니다.
+디자인 작업은 루트의 [`DESIGN.md`](./DESIGN.md)를 단일 기준으로 사용합니다. Starbucks를 기본 토큰으로 삼고, 여행 탐색·정보 읽기·커뮤니티·게임 패턴은 문서에 정리된 외부 참고 원칙으로만 확장합니다. 운영 이미지의 저장 위치, 파일명, 최적화, Git·Vercel 포함 기준은 [`IMAGE_ASSETS.md`](./IMAGE_ASSETS.md)를 따릅니다.

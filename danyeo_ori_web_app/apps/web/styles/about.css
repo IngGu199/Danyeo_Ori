@@ -71,6 +71,9 @@
 .about-hero-copy::before { position: absolute; z-index: -1; inset: -42px -74px -46px -54px; border-radius: 44% 56% 52% 48%; background: rgba(255, 253, 248, .48); content: ""; filter: blur(24px); pointer-events: none; }
 .about-kicker { padding: 0; background: transparent; box-shadow: none; color: var(--olive); font-weight: 900; letter-spacing: .08em; text-shadow: 0 1px 5px rgba(255, 253, 248, .98); }
 .about-hero-copy h1 { max-width: 720px; color: var(--olive-dark); font-size: clamp(40px, 3.8vw, 56px); font-weight: 850; line-height: 1.14; letter-spacing: -.065em; text-shadow: 0 2px 0 rgba(255, 253, 248, .86), 0 7px 18px rgba(255, 253, 248, .72); }
+.about-hero-highlight { color: inherit; }
+.about-hero-highlight-discover { color: var(--about-hero-discover); }
+.about-hero-highlight-connect { color: var(--about-hero-connect); }
 .about-hero-copy p { max-width: 510px; color: var(--ink); font-weight: 600; line-height: 1.7; text-shadow: 0 2px 10px rgba(255, 253, 248, .9); }
 .about-hero-copy .primary-btn { box-shadow: 0 10px 22px rgba(46, 66, 39, .24); }
 .about-cta > img { object-position: center 70%; image-rendering: pixelated; }
@@ -100,6 +103,5 @@
 .about-destination-card { display: block; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 .about-destination-card:hover { border-color: var(--sage); box-shadow: var(--shadow); transform: translateY(-3px); }
 .about-destination-card:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
-
 
 

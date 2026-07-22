@@ -1,0 +1,3 @@
+.day-event-link { display: block; transition: color .2s ease, transform .2s ease; }
+.day-event-link:hover { color: var(--olive); transform: translateX(2px); }
+.game-card[id] { scroll-margin-top: 100px; }

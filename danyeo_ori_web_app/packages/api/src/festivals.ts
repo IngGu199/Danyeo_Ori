@@ -49,3 +49,21 @@ export async function listPublishedFestivalsWithGames(
     festival_games: gamesByFestival.get(festival.id) ?? [],
   }));
 }
+
+export async function getPublishedFestivalBySlug(
+  client: SupabaseClient<Database>,
+  slug: string,
+): Promise<FestivalWithGames | null> {
+  const { data: festival, error } = await client
+    .from("festivals")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!festival) return null;
+
+  const games = await listActiveGames(client, festival.id);
+  return { ...festival, festival_games: games };
+}

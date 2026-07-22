@@ -46,7 +46,7 @@ export function AboutContent() {
           <div className="about-hero-veil" />
           <div className="about-hero-copy">
             <span className="about-kicker">FESTIVAL PREVIEW PLAY</span>
-            <h1>&nbsp;&nbsp;&nbsp;미니게임으로 축제를<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ color: "#d7ad5c" }}>발견하고,</span><br />&nbsp;&nbsp;&nbsp;주말의 진짜 경험으로<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ color: "#f3c6b8" }}>이어가세요.</span></h1>
+            <h1>&nbsp;&nbsp;&nbsp;미니게임으로 축제를<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="about-hero-highlight about-hero-highlight-discover">발견하고,</span><br />&nbsp;&nbsp;&nbsp;주말의 진짜 경험으로<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="about-hero-highlight about-hero-highlight-connect">이어가세요.</span></h1>
             <p>축제를 10~30초 미니게임으로 먼저 체험하고, 실제 현장에서 더 설레는 주말을 만나보세요.</p>
             <Link className="primary-btn" href="/games">페스티벌 게임 보기<ArrowRight weight="bold" /></Link>
           </div>

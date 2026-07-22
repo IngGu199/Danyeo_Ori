@@ -7,6 +7,8 @@
   --theme-accent: #f2c2ce;
   --theme-sub-accent: #f2c2ce;
   --theme-text: #2a3626;
+  --about-hero-discover: #9a6217;
+  --about-hero-connect: #b24f69;
 }
 
 [data-season="summer"] {
@@ -17,6 +19,8 @@
   --theme-accent: #059669;
   --theme-sub-accent: #0077b6;
   --theme-text: #0f172a;
+  --about-hero-discover: #047857;
+  --about-hero-connect: #b45309;
 }
 
 [data-season="autumn"] {
@@ -27,6 +31,8 @@
   --theme-accent: #e9a48d;
   --theme-sub-accent: #e9a48d;
   --theme-text: #2a1e17;
+  --about-hero-discover: #bd4f2f;
+  --about-hero-connect: #946200;
 }
 
 [data-season="winter"] {
@@ -37,6 +43,8 @@
   --theme-accent: #c6e3f1;
   --theme-sub-accent: #dcd6ee;
   --theme-text: #1e293b;
+  --about-hero-discover: #6654a3;
+  --about-hero-connect: #287184;
 }
 
 html[data-theme-override="spring"],
@@ -48,6 +56,8 @@ html[data-theme-override="spring"] [data-season] {
   --theme-accent: #f2c2ce;
   --theme-sub-accent: #f2c2ce;
   --theme-text: #2a3626;
+  --about-hero-discover: #9a6217;
+  --about-hero-connect: #b24f69;
 }
 
 html[data-theme-override="summer"],
@@ -59,6 +69,8 @@ html[data-theme-override="summer"] [data-season] {
   --theme-accent: #059669;
   --theme-sub-accent: #0077b6;
   --theme-text: #0f172a;
+  --about-hero-discover: #047857;
+  --about-hero-connect: #b45309;
 }
 
 html[data-theme-override="autumn"],
@@ -70,6 +82,8 @@ html[data-theme-override="autumn"] [data-season] {
   --theme-accent: #e9a48d;
   --theme-sub-accent: #e9a48d;
   --theme-text: #2a1e17;
+  --about-hero-discover: #bd4f2f;
+  --about-hero-connect: #946200;
 }
 
 html[data-theme-override="winter"],
@@ -81,6 +95,8 @@ html[data-theme-override="winter"] [data-season] {
   --theme-accent: #c6e3f1;
   --theme-sub-accent: #dcd6ee;
   --theme-text: #1e293b;
+  --about-hero-discover: #6654a3;
+  --about-hero-connect: #287184;
 }
 
 :root,

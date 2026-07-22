@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import type { FestivalRow } from "@danyeo-ori/types";
 import { getThemeSeasonByMonth, getThemeSeasonFromDate } from "../lib/theme-season";
 
@@ -140,12 +141,12 @@ export function FestivalCalendar({ festivals }: { festivals: FestivalRow[] }) {
             </div>
             <div className="day-list">
               {selectedEvents.length ? selectedEvents.map((festival) => (
-                <article className="day-event" data-season={getThemeSeasonFromDate(festival.start_date)} key={festival.id}>
+                <Link className="day-event day-event-link" data-season={getThemeSeasonFromDate(festival.start_date)} href={`/festivals/${festival.slug}`} key={festival.id}>
                   <span className="card-tag">{festival.category}</span>
                   <h3>{festival.name}</h3>
                   <p>{festival.region} · {festival.venue}</p>
                   {festival.summary ? <p>{festival.summary}</p> : null}
-                </article>
+                </Link>
               )) : <p className="empty-state">선택한 날짜에 등록된 축제가 없어요. 다른 날짜를 확인해 보세요.</p>}
             </div>
           </aside>

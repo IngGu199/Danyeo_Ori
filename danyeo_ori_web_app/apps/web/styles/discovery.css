@@ -10,7 +10,8 @@
 /* Festival cards use the portrait proportions of the poster assets in public/images. */
 .festival-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; }
 .festival-grid.festival-results-grid { grid-template-columns: repeat(4, minmax(0, 250px)); justify-content: space-between; }
-.festival-card { display: flex; flex-direction: column; }
+.festival-card { position: relative; display: flex; flex-direction: column; }
+.festival-card-main { display: flex; min-height: 100%; flex: 1; flex-direction: column; border-radius: inherit; }
 .festival-card .poster { aspect-ratio: 3 / 4; }
 .festival-card .poster img { object-position: center; }
 .festival-card-body { display: flex; flex: 1; flex-direction: column; padding: 20px 19px 18px; }
