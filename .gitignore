@@ -44,6 +44,7 @@ build/
 **/supabase/backups/
 **/supabase/*.dump
 **/supabase/*.backup
+**/supabase/snippets/*
 
 # Logs and process files
 *.log
