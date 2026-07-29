@@ -18,8 +18,8 @@ import { PreRegistrationForm } from "./pre-registration-form";
 
 const previewGames = [
   { image: "/images/games/whack-target/game-whack-target-hongcheon-corn-key-art.png", imageClass: "about-game-pixel-art", festival: "홍천 찰옥수수 축제", title: "찰옥수수 톡톡 잡기", description: "튀어나오는 찰옥수수를 빠르게 터치해 점수를 올려보세요.", tone: "gold" },
-  { image: "/images/coastal-mud-festival.png", imageClass: "", festival: "보령머드축제", title: "머드 슬라이드 런", description: "장애물을 피해 머드를 시원하게 질주하세요.", tone: "peach" },
-  { image: "/images/lantern-river-festival.png", imageClass: "", festival: "진주남강유등축제", title: "유등 띄우기", description: "흔들리는 강 위에 유등을 띄워보세요.", tone: "gold" },
+  { image: "/images/games/driving-dodge/game-driving-dodge-boryeong-mud-key-art.png", imageClass: "about-game-pixel-art", festival: "보령머드축제", title: "머드 슬라이드 런", description: "좌우로 움직여 장애물을 피하고 보너스를 모아보세요.", tone: "peach" },
+  { image: "/images/games/drag-sort/game-drag-sort-jinju-lantern-key-art.png", imageClass: "about-game-pixel-art", festival: "진주남강유등축제", title: "유등 띄우기", description: "유등은 강으로, 쓰레기는 정리함으로 빠르게 옮겨보세요.", tone: "gold" },
 ] as const;
 
 const flow = [
